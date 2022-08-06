@@ -1,0 +1,17 @@
+D:\Programming\Capstone\loginForm\loginForm\bin\Debug\net6.0-windows\loginForm.exe
+D:\Programming\Capstone\loginForm\loginForm\bin\Debug\net6.0-windows\loginForm.deps.json
+D:\Programming\Capstone\loginForm\loginForm\bin\Debug\net6.0-windows\loginForm.runtimeconfig.json
+D:\Programming\Capstone\loginForm\loginForm\bin\Debug\net6.0-windows\loginForm.dll
+D:\Programming\Capstone\loginForm\loginForm\bin\Debug\net6.0-windows\loginForm.pdb
+D:\Programming\Capstone\loginForm\loginForm\obj\Debug\net6.0-windows\loginForm.vbproj.AssemblyReference.cache
+D:\Programming\Capstone\loginForm\loginForm\obj\Debug\net6.0-windows\loginForm.Form1.resources
+D:\Programming\Capstone\loginForm\loginForm\obj\Debug\net6.0-windows\loginForm.vbproj.GenerateResource.cache
+D:\Programming\Capstone\loginForm\loginForm\obj\Debug\net6.0-windows\loginForm.GeneratedMSBuildEditorConfig.editorconfig
+D:\Programming\Capstone\loginForm\loginForm\obj\Debug\net6.0-windows\loginForm.AssemblyInfoInputs.cache
+D:\Programming\Capstone\loginForm\loginForm\obj\Debug\net6.0-windows\loginForm.AssemblyInfo.vb
+D:\Programming\Capstone\loginForm\loginForm\obj\Debug\net6.0-windows\loginForm.vbproj.CoreCompileInputs.cache
+D:\Programming\Capstone\loginForm\loginForm\obj\Debug\net6.0-windows\loginForm.dll
+D:\Programming\Capstone\loginForm\loginForm\obj\Debug\net6.0-windows\refint\loginForm.dll
+D:\Programming\Capstone\loginForm\loginForm\obj\Debug\net6.0-windows\loginForm.pdb
+D:\Programming\Capstone\loginForm\loginForm\obj\Debug\net6.0-windows\loginForm.genruntimeconfig.cache
+D:\Programming\Capstone\loginForm\loginForm\obj\Debug\net6.0-windows\ref\loginForm.dll
