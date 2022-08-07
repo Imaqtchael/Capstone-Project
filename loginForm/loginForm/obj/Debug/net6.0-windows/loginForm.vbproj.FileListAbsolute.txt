@@ -4,7 +4,6 @@ D:\Programming\Capstone\loginForm\loginForm\bin\Debug\net6.0-windows\loginForm.r
 D:\Programming\Capstone\loginForm\loginForm\bin\Debug\net6.0-windows\loginForm.dll
 D:\Programming\Capstone\loginForm\loginForm\bin\Debug\net6.0-windows\loginForm.pdb
 D:\Programming\Capstone\loginForm\loginForm\obj\Debug\net6.0-windows\loginForm.vbproj.AssemblyReference.cache
-D:\Programming\Capstone\loginForm\loginForm\obj\Debug\net6.0-windows\loginForm.Form1.resources
 D:\Programming\Capstone\loginForm\loginForm\obj\Debug\net6.0-windows\loginForm.vbproj.GenerateResource.cache
 D:\Programming\Capstone\loginForm\loginForm\obj\Debug\net6.0-windows\loginForm.GeneratedMSBuildEditorConfig.editorconfig
 D:\Programming\Capstone\loginForm\loginForm\obj\Debug\net6.0-windows\loginForm.AssemblyInfoInputs.cache
@@ -15,3 +14,14 @@ D:\Programming\Capstone\loginForm\loginForm\obj\Debug\net6.0-windows\refint\logi
 D:\Programming\Capstone\loginForm\loginForm\obj\Debug\net6.0-windows\loginForm.pdb
 D:\Programming\Capstone\loginForm\loginForm\obj\Debug\net6.0-windows\loginForm.genruntimeconfig.cache
 D:\Programming\Capstone\loginForm\loginForm\obj\Debug\net6.0-windows\ref\loginForm.dll
+D:\Programming\Capstone\loginForm\loginForm\obj\Debug\net6.0-windows\loginForm.loginForm.resources
+D:\Programming\Capstone\loginForm\loginForm\obj\Debug\net6.0-windows\loginForm.registerForm.resources
+D:\Programming\Capstone\loginForm\loginForm\bin\Debug\net6.0-windows\BouncyCastle.Crypto.dll
+D:\Programming\Capstone\loginForm\loginForm\bin\Debug\net6.0-windows\Google.Protobuf.dll
+D:\Programming\Capstone\loginForm\loginForm\bin\Debug\net6.0-windows\K4os.Compression.LZ4.dll
+D:\Programming\Capstone\loginForm\loginForm\bin\Debug\net6.0-windows\K4os.Compression.LZ4.Streams.dll
+D:\Programming\Capstone\loginForm\loginForm\bin\Debug\net6.0-windows\K4os.Hash.xxHash.dll
+D:\Programming\Capstone\loginForm\loginForm\bin\Debug\net6.0-windows\MySql.Data.dll
+D:\Programming\Capstone\loginForm\loginForm\bin\Debug\net6.0-windows\Ubiety.Dns.Core.dll
+D:\Programming\Capstone\loginForm\loginForm\bin\Debug\net6.0-windows\ZstdNet.dll
+D:\Programming\Capstone\loginForm\loginForm\obj\Debug\net6.0-windows\loginForm.vbproj.CopyComplete
