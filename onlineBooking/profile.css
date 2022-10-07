@@ -1,0 +1,252 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+* {
+    margin: 0;
+    padding: 0;
+    font-family: "Poppins";
+}
+
+body {
+    height: 100vh;
+}
+
+.header {
+    position: fixed;
+    z-index: 1;
+    height: 60px;
+    width: 100%;
+    font-weight: 500;
+    font-size: 20px;
+    background: linear-gradient(0deg, #333399, #3399FF);
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    flex-wrap: nowrap;
+}
+
+.header img {
+    padding: 2px;
+    height: 35px;
+    float: left;
+    background-color: white;
+    border-radius: 50%;
+    margin-left: 10px;
+    margin-top: 10px;
+}
+
+.header span {
+    margin-top: 10px;
+    margin-left: 10px;
+    float: left;
+    font-size: 25px;
+    font-weight: 500;
+    color: white
+}
+
+.header .logo {
+    float: left;
+    position: relative;
+}
+
+.header .navigation {
+    float: right;
+}
+
+.header ul li {
+    width: 80px;
+    float: right;
+    text-align: center;
+    opacity: 0.8;
+    padding: 7px;
+    margin-right: 10px;
+    margin-top: 10px;
+    font-weight: 500;
+    font-size: 14px;
+    border-radius: 5px;
+}
+
+.header ul li a {
+    text-decoration: none;
+    color: white;
+}
+
+.header ul li:hover>a {
+    color: black;
+}
+
+.header ul li:hover {
+    background-color: white;
+}
+
+.link {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+
+.body {
+    height: 100%;
+    width: 100%;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 10%;
+    padding-bottom: 5%;
+}
+
+.booking {
+    height: fit-content;
+    width: 80%;
+    background-color: dodgerblue;
+    border-radius: 5px;
+    padding: 20px 10px;
+}
+
+.sub {
+    background-color: white;
+    border-radius: 5px;
+    margin-top: 20px;
+    padding-bottom: 5px;
+}
+
+.profile {
+    height: 400px;
+}
+
+.profile .info {
+    float: left;
+    width: 40%;
+}
+
+.profile .info>p {
+    color: black;
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+.profile .info div label,
+.profile .info div input {
+    color: black;
+    padding-left: 10px;
+    margin-top: 10px;
+}
+
+.profile .info #number,
+.profile .info #address,
+.profile .infor #name {
+    font-size: 16px;
+}
+
+.info .picture {
+    float: right;
+    height: 100%;
+    width: 25%;
+}
+
+.picture .logout,
+.picture .update {
+    color: white;
+    padding: 3px 5px;
+    border-radius: 5px;
+    text-align: center;
+    margin-top: 5px;
+}
+
+.picture .logout {
+    background-color: red;
+}
+
+.picture .update {
+    background-color: green;
+}
+
+.picture .logout:hover {
+    color: black;
+    background-color: rgb(230, 0, 0);
+}
+
+.picture .update:hover {
+    color: black;
+    background-color: rgb(0, 230, 0);
+}
+
+#bookings {
+    float: right;
+    height: 100%;
+    width: 50%;
+    overflow: auto;
+}
+
+#bookings table {
+    margin: 0 auto;
+    margin-top: 2%;
+    width: 90%;
+}
+
+#bookings table,
+#bookings th,
+#bookings td {
+    border: 1px solid white;
+    border-collapse: collapse;
+}
+
+#bookings th,
+#bookings td {
+    background-color: rgba(30, 144, 255, .5);
+}
+
+#delete {
+    margin: 0 auto;
+    text-align: center;
+    padding: 2px 7px;
+    color: white;
+    background-color: red;
+    border-radius: 5px;
+}
+
+#delete:hover {
+    color: black;
+}
+
+footer {
+    background-color: rgb(0, 114, 255);
+    padding: 30px;
+    color: white;
+    font-size: 12px;
+}
+
+.footer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-evenly;
+    padding-left: 50px;
+    padding-right: 50px;
+}
+
+.footer .contact img {
+    height: 35px;
+    background-color: white;
+    padding: 2px;
+    border-radius: 50%;
+    margin-bottom: -10px;
+    margin-right: 5px;
+}
+
+.footer .follow i:hover {
+    color: rgb(200, 200, 200);
+}
+
+.footer .follow a {
+    font-size: 40px;
+    margin-right: 20px;
+    color: white;
+}
+
+footer p {
+    margin-bottom: -20px;
+    margin-top: 20px;
+}

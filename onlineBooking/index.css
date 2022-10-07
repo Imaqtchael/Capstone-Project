@@ -1,0 +1,280 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+* {
+    margin: 0;
+    padding: 0;
+    font-family: "Poppins";
+}
+
+body {
+    height: 120vh;
+    overflow-x: hidden;
+    margin: auto
+}
+
+.header {
+    position: fixed;
+    z-index: 1;
+    height: 60px;
+    width: 100%;
+    font-weight: 500;
+    font-size: 20px;
+    background: linear-gradient(0deg, #333399, #3399FF);
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    flex-wrap: nowrap;
+}
+
+.header img {
+    padding: 2px;
+    height: 35px;
+    float: left;
+    background-color: white;
+    border-radius: 50%;
+    margin-left: 10px;
+    margin-top: 10px;
+}
+
+.header span {
+    margin-top: 10px;
+    margin-left: 10px;
+    float: left;
+    font-size: 25px;
+    font-weight: 500;
+    color: white
+}
+
+.header .logo {
+    float: left;
+    position: relative;
+}
+
+.link {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+
+.search {
+    width: 100%;
+}
+
+.course {
+    width: 18%;
+    margin: 10px 0 10px 0;
+    float: right;
+    margin-right: 5px;
+}
+
+.course select {
+    margin-left: 5px;
+    outline: none;
+    padding: 5px 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    border-bottom-width: 2px;
+    font-size: 16px;
+}
+
+.course select:valid {
+    background-color: dodgerblue;
+    border: none;
+    color: white;
+}
+
+.header .navigation {
+    float: right;
+}
+
+.search form {
+    border-radius: 5px;
+    margin-top: 10px;
+    background-color: white;
+    border: solid 1px black;
+    width: 80%;
+    margin-left: 5px;
+    float: left;
+}
+
+.search input {
+    border: none;
+    outline: none;
+    height: 35px;
+    width: 90%;
+    border-radius: 5px 0 0 5px;
+    padding-left: 10px;
+    letter-spacing: 1px;
+}
+
+.search button {
+    height: 35px;
+    width: 7%;
+    float: right;
+    padding: 6px 10px;
+    font-size: 16px;
+    border: none;
+    border-radius: 0 5px 5px 0;
+    background: linear-gradient(0deg, #333399, #3399FF);
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.12), 0 1px 4px rgba(0, 0, 0, 0.24);
+}
+
+.search button:hover {
+    background-color: #ddd;
+}
+
+.header ul li {
+    width: 80px;
+    float: right;
+    text-align: center;
+    opacity: 0.8;
+    padding: 7px;
+    margin-right: 10px;
+    margin-top: 10px;
+    font-weight: 500;
+    font-size: 14px;
+    border-radius: 5px;
+}
+
+.header ul li a {
+    text-decoration: none;
+    color: white;
+}
+
+.header ul li:hover>a {
+    color: black;
+}
+
+.header ul li:hover {
+    background-color: white;
+}
+
+#profile {
+    display: none;
+}
+
+.background {
+    height: 50%;
+    width: 100%;
+    background-image: linear-gradient(0deg, rgba(36, 44, 51, 0.5), rgba(36, 44, 51, 0.5), url(pictures/index/basketball.jpg));
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.background h1 {
+    font-weight: 500;
+    font-size: 100px;
+    color: white;
+}
+
+
+/*
+.sidenav {
+    position: fixed;
+    padding-right: 10px;
+    bottom: 40%;
+    left: 0;
+    border-radius: 0 5px 5px 0;
+    background-color: dodgerblue;
+}
+
+.sidenav a {
+    font-size: 40px;
+    display: block;
+    color: white;
+    margin-left: 10px;
+}
+
+.sidenav a:hover {
+    color: #ddd;
+} */
+
+.search-text {
+    width: 100%;
+    text-align: center;
+    font-size: 36px;
+    font-weight: 500;
+    margin: 20px;
+}
+
+.center-search {
+    height: auto;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.events {
+    height: 500px;
+    width: 98%;
+    border-radius: 5px;
+    display: flex;
+    /* establish flex container */
+    flex-direction: row;
+    /* default value; can be omitted */
+    flex-wrap: nowrap;
+    /* default value; can be omitted */
+    justify-content: space-evenly;
+    background: linear-gradient(0deg, #333399, #3399FF);
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.12), 0 1px 4px rgba(0, 0, 0, 0.24);
+}
+
+.search-event {
+    background-color: white;
+    height: 90%;
+    align-self: center;
+    overflow: auto;
+    border-radius: 5px;
+}
+
+.search-event {
+    width: 99%;
+}
+
+.check-text {
+    width: 100%;
+    margin: 10px;
+}
+
+footer {
+    background-color: rgb(0, 114, 255);
+    padding: 30px;
+    color: white;
+    font-size: 12px;
+}
+
+.footer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-evenly;
+    padding-left: 50px;
+    padding-right: 50px;
+}
+
+.footer .contact img {
+    height: 35px;
+    background-color: white;
+    padding: 2px;
+    border-radius: 50%;
+    margin-bottom: -10px;
+    margin-right: 5px;
+}
+
+.footer .follow a {
+    font-size: 40px;
+    margin-right: 20px;
+    color: white;
+}
+
+.footer .follow a:hover {
+    color: rgb(200, 200, 200);
+}
+
+footer p {
+    margin-bottom: -20px;
+    margin-top: 20px;
+}
