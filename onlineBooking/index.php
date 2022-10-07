@@ -75,6 +75,49 @@
                         </select>
                     </span>
                 </div>
+                <div class="events-list">
+                    <table class="events-table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Place</th>
+                                <th>Date</th>
+                                <th>Price</th>
+                                <th>Remaining</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>sample1</td>
+                                <td>Rodriguez</td>
+                                <td>June 26, 2022</td>
+                                <td>150.00</td>
+                                <td>999</td>
+                            </tr>
+                            <tr>
+                                <td>sample1</td>
+                                <td>Rodriguez</td>
+                                <td>June 26, 2022</td>
+                                <td>150.00</td>
+                                <td>999</td>
+                            </tr>
+                            <tr>
+                                <td>sample1</td>
+                                <td>Rodriguez</td>
+                                <td>June 26, 2022</td>
+                                <td>150.00</td>
+                                <td>999</td>
+                            </tr>
+                            <tr>
+                                <td>sample1</td>
+                                <td>Rodriguez</td>
+                                <td>June 26, 2022</td>
+                                <td>150.00</td>
+                                <td>999</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>

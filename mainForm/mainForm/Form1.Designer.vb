@@ -30,20 +30,20 @@ Partial Class Form1
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Font = New System.Drawing.Font("Poppins", 72.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
+        Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 72.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
         Me.Label1.Location = New System.Drawing.Point(510, 166)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(419, 211)
+        Me.Label1.Size = New System.Drawing.Size(365, 135)
         Me.Label1.TabIndex = 0
         Me.Label1.Text = "Hello!"
         '
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Font = New System.Drawing.Font("Poppins", 72.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
+        Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 72.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
         Me.Label2.Location = New System.Drawing.Point(16, 166)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(1442, 211)
+        Me.Label2.Size = New System.Drawing.Size(1248, 135)
         Me.Label2.TabIndex = 0
         Me.Label2.Text = "Welcome to the event!"
         Me.Label2.Visible = False
@@ -51,10 +51,10 @@ Partial Class Form1
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Font = New System.Drawing.Font("Poppins", 19.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
+        Me.Label3.Font = New System.Drawing.Font("Microsoft Sans Serif", 19.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
         Me.Label3.Location = New System.Drawing.Point(80, 265)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(1288, 60)
+        Me.Label3.Size = New System.Drawing.Size(1125, 38)
         Me.Label3.TabIndex = 0
         Me.Label3.Text = "Sorry your RFID is not registered! Please contact the Manager of the event..."
         Me.Label3.Visible = False
@@ -68,7 +68,7 @@ Partial Class Form1
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.Label1)
         Me.Name = "Form1"
-        Me.Text = "Form1"
+        Me.Text = "68"
         Me.ResumeLayout(False)
         Me.PerformLayout()
 

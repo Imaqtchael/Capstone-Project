@@ -1,4 +1,9 @@
-window.onload = changeBackground();
+window.onload = startUp();
+
+function startUp() {
+    updateList();
+    changeBackground();
+}
 
 function changeBackground() {
     var number = 0;
@@ -12,4 +17,19 @@ function changeBackground() {
         }
         $('#vary').css('transition', '0.9s');
     }, 3000);
+}
+
+function updateList() {
+    jQuery.ajax({
+        type: "POST",
+        url: 'includes/functions.php',
+        dataType: 'json',
+        data: { functionname: 'getAllList' },
+
+        success: function(obj, textstatus) {
+            var t = obj.result;
+            alert(t[0]);
+        }
+    });
+
 }

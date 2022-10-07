@@ -4,20 +4,55 @@ Public Class Form1
     Dim adapter As New MySqlDataAdapter(query, connection)
     Dim dataset As New DataSet()
     Dim arr As String()
+    Dim attendees As String()
     Dim rfid As String = ""
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         adapter.Fill(dataset)
         arr = (From myRow In dataset.Tables(0).AsEnumerable
                Select myRow.Field(Of String)("rfid")).ToArray
-        For i As Integer = 0 To arr.Length - 1
-            MsgBox(arr(i))
-        Next
+        attendees = (From myRow In dataset.Tables(0).AsEnumerable
+                     Select myRow.Field(Of String)("name")).ToArray
     End Sub
 
     Private Sub Form1_KeyPress(sender As Object, e As KeyPressEventArgs) Handles MyBase.KeyPress
         If rfid.Length = 10 Then
             If arr.Contains(rfid) Then
                 showThis(Label2, Label1, Label3)
+
+                Dim time As String = Date.Now
+                MessageBox.Show(time)
+
+                Dim attendeeIndex As Integer = Array.IndexOf(arr, rfid)
+                Dim attendee As String = attendees(attendeeIndex)
+
+                Dim Aadapter As MySqlDataAdapter
+                Dim Ads As New DataSet
+
+                Aadapter = New MySqlDataAdapter($"SELECT logs FROM sample_logs WHERE attendee='{attendee}'", connection)
+                Aadapter.Fill(Ads)
+
+                Dim log As String = Ads.Tables(0).Rows(0)(0).ToString()
+                Dim updateLog As String
+                If log.Length = 0 Then
+                    updateLog = time
+                Else
+                    updateLog = $"{log}, {time}"
+                End If
+
+                MessageBox.Show(updateLog)
+
+                Dim cmd As MySqlCommand
+                connection.Open()
+                Try
+                    cmd = connection.CreateCommand()
+                    cmd.CommandText = $"UPDATE sample_logs SET logs='{updateLog}' WHERE attendee='{attendee}'"
+                    cmd.ExecuteNonQuery()
+                    connection.Close()
+                Catch ex As Exception
+
+                End Try
+                connection.Close()
+
             Else
                 showThis(Label3, Label1, Label2)
             End If
