@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Events Online Booking | Homepage</title>
+    <title>Nicolas Resort Event Online Booking | Homepage</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="shortcut icon" href="pictures/Software-PNG-Photos.png" type="image/x-icon">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
@@ -16,9 +16,9 @@
 <body>
     <div class="header">
         <div class="logo">
-            <a href="index.html"><span class="link"></span></a>
+            <a href="index.php"><span class="link"></span></a>
             <img src="" alt="">
-            <span>Online Events Booking</span>
+            <span>Nicolas Resort Event Online Booking</span>
         </div>
 
         <!--<div class="search">
@@ -58,70 +58,102 @@
 
 
     <div class="center-search">
-        <div class="events">
+        <div class="search-events">
             <div class="search-event">
                 <div class="search">
-                    <form action="#">
-                        <input type="text" placeholder="Search for an event...">
-                        <button type="submit"><i class="fa fa-search"></i></button>
-                    </form>
-                    <span class="course">
-                        <select name="Fcourse" id="course" required>
+                    <form action="" onsubmit="return false">
+                        <input type="text" name="search" id="searchEventSearch" placeholder="Search for an event...">
+                        <button type="submit" name="buyEvent" onclick="searchEvent()"><i class="fa fa-search"></i></button>
+                        <span class="course">
+                        <select name="type" id="course" required>
                             <option hidden disabled selected value>-- SEARCH BY --</option>
-                            <option value="BSIT">NAME</option>
-                            <option value="BSCPE">PRICE</option>
-                            <option value="BSED">LOCATION</option>
-                            <option value="BSED">DATE</option>
+                            <option value="name">NAME</option>
+                            <option value="price">PRICE</option>
+                            <option value="place">LOCATION</option>
+                            <option value="due">DATE</option>
                         </select>
                     </span>
+                    </form>
+                    
                 </div>
                 <div class="events-list">
-                    <table class="events-table">
+                    <table class="events-table" id="events">
                         <thead>
                             <tr>
                                 <th>Name</th>
-                                <th>Place</th>
+                                <th>Time</th>
                                 <th>Date</th>
                                 <th>Price</th>
-                                <th>Remaining</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr>
-                                <td>sample1</td>
-                                <td>Rodriguez</td>
-                                <td>June 26, 2022</td>
-                                <td>150.00</td>
-                                <td>999</td>
-                            </tr>
-                            <tr>
-                                <td>sample1</td>
-                                <td>Rodriguez</td>
-                                <td>June 26, 2022</td>
-                                <td>150.00</td>
-                                <td>999</td>
-                            </tr>
-                            <tr>
-                                <td>sample1</td>
-                                <td>Rodriguez</td>
-                                <td>June 26, 2022</td>
-                                <td>150.00</td>
-                                <td>999</td>
-                            </tr>
-                            <tr>
-                                <td>sample1</td>
-                                <td>Rodriguez</td>
-                                <td>June 26, 2022</td>
-                                <td>150.00</td>
-                                <td>999</td>
-                            </tr>
-                        </tbody>
                     </table>
                 </div>
             </div>
         </div>
     </div>
 
+    <div class="search-text">You can also book your event</div>
+
+    <div class="center-search">
+        <div class="book-events">
+            <div class="book-event">
+                <div class="event-text">
+                    <center><p>Experience the fullest of the moment with us.<p></center>
+                </div>
+                <div class="event-form">
+                <div id="freshmen" class="container">
+            <div class="title">Book an Event</div>
+            <form method="post" enctype="multipart/form-data">
+                <div class="user-details">
+
+                    <div class="input-box">
+                        <span class="details">First Name</span>
+                        <input type="text" name="Ffname" placeholder="Enter your first name" required>
+                    </div>
+
+                    <div class="input-box">
+                        <span class="details">Last Name</span>
+                        <input type="text" name="Flname" placeholder="Enter your last name" required>
+                    </div>
+
+                    <div class="input-box">
+                        <span class="details">Middle Name</span>
+                        <input type="text" name="Fmname" placeholder="Enter your middle name" required>
+                    </div>
+
+                    <div class="input-box">
+                        <span class="details">E-Mail</span>
+                        <input type="text" name="Femail" placeholder="Enter your email" required>
+                    </div>
+
+                    <div class="input-box">
+                        <span class="details">Number</span>
+                        <input type="text" name="Fno" placeholder="Enter your number" required>
+                    </div>
+
+                    <div class="course">
+                        <center>
+                            <label for="course">Choose</label>
+                            <select name="Fcourse" id="course" required>
+                                <option hidden disabled selected value>-- Type of Event --</option>
+                                <option value="BSIT">Wedding</option>
+                                <option value="BSCPE">Debut</option>
+                                <option value="BSED">Birthday</option>
+                            </select>
+                        </center>
+                    </div>
+
+                </div>
+                <div class="button">
+                    <input type="submit" value="Book now" name="Fresh">
+                </div>
+
+            </form>
+        </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="check-text">
         <center>
@@ -144,8 +176,8 @@
                 <img src="pictures/Software-PNG-Photos.png" alt="">
                 <span style="font-size: 18px;">CONTACT US</span>
                 <p><i class="fa fa-comments"></i> (+63) 9366296799</p>
-                <p><a href="https://www.imaqtchael@gmail.com" style="text-decoration: none; color: white;"><i class="fa fa-envelope"></i> quicktechph@gmail.com</a></p>
-                <p><i class="fa fa-home"></i> QuickTech Building, Phase 1a Sub-Urban Village Brgy. San Jose, Rodriguez, Rizal, Philippines</p>
+                <p><a href="https://www.imaqtchael@gmail.com" style="text-decoration: none; color: white;"><i class="fa fa-envelope"></i> nicolasresort@gmail.com</a></p>
+                <p><i class="fa fa-home"></i> Nicolas Resort Building, Phase 1a Sub-Urban Village Brgy. San Jose, Rodriguez, Rizal, Philippines</p>
             </div>
             <div class="follow">
                 <p style="font-size: 18px;">FOLLOW US</p>

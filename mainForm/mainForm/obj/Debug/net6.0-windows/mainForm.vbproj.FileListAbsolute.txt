@@ -24,3 +24,4 @@ D:\Programming\Capstone\mainForm\mainForm\bin\Debug\net6.0-windows\Ubiety.Dns.Co
 D:\Programming\Capstone\mainForm\mainForm\bin\Debug\net6.0-windows\ZstdNet.dll
 D:\Programming\Capstone\mainForm\mainForm\bin\Debug\net6.0-windows\BouncyCastle.Crypto.dll
 D:\Programming\Capstone\mainForm\mainForm\obj\Debug\net6.0-windows\mainForm.vbproj.CopyComplete
+D:\Programming\Capstone\mainForm\mainForm\obj\Debug\net6.0-windows\mainForm.Resources.resources
