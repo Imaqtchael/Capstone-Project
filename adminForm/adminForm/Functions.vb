@@ -5,6 +5,11 @@ Module Functions
     Public str As String = "server=localhost; uid=root; pwd=; database=real_capstone"
     Public con As New MySqlConnection(str)
 
+    'Assorted Variables
+    'Get what is the current event
+    Public practiceDate As New Date(2022, 11, 20)
+    Public practiceDateString As String = practiceDate.ToString("d")
+
     'Assorted Functions
     Public Sub addColumns(ByVal numberOfColumns As Integer, ByVal dataTable As DataTable)
         Dim column As DataColumn
@@ -15,6 +20,31 @@ Module Functions
             dataTable.Columns.Add(column)
         Next
     End Sub
+
+    'Execute a query
+    Public Function executeNonQuery(ByVal query As String) As Boolean
+        Dim complete As Boolean = True
+        Dim cmd As MySqlCommand
+        Try
+            con.Open()
+            cmd = con.CreateCommand()
+            cmd.CommandText = query
+            cmd.ExecuteNonQuery()
+        Catch ex As MySql.Data.MySqlClient.MySqlException
+            MessageBox.Show(ex.Message())
+            complete = False
+        End Try
+        con.Close()
+        Return complete
+    End Function
+
+    Public Function getData(ByVal query As String) As DataSet
+        Dim adpt As New MySqlDataAdapter(query, con)
+        Dim ds As New DataSet()
+        adpt.Fill(ds)
+
+        Return ds
+    End Function
 
     'Home Functions
     Public Sub changeColor(ByVal tochange As Button, ByVal stay1 As Button, ByVal stay2 As Button, ByVal stay3 As Button)
@@ -39,4 +69,17 @@ Module Functions
 
         Return count Mod 2
     End Function
+
+    'Event Management Functions
+    Public Sub clearAll()
+        eventManagementEditORAddEvent.TextBox1.Clear()
+        eventManagementEditORAddEvent.TextBox2.Clear()
+        eventManagementEditORAddEvent.TextBox3.Clear()
+        eventManagementEditORAddEvent.TextBox4.Clear()
+        eventManagementEditORAddEvent.TextBox5.Clear()
+        eventManagementEditORAddEvent.TextBox6.Clear()
+        eventManagementEditORAddEvent.TextBox7.Clear()
+        eventManagementEditORAddEvent.ComboBox1.Text = ""
+    End Sub
+
 End Module

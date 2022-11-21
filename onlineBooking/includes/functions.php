@@ -9,7 +9,7 @@
     }
 
     function getAllList() {
-        $connection = new mysqli("localhost", "root", "", "capstone");
+        $connection = new mysqli("localhost", "root", "", "real_capstone");
         $connectionResult = array();
 
         if ($connection -> connect_errno) {
@@ -17,7 +17,7 @@
             exit();
         }
 
-        $sql = "SELECT name, time, due, price FROM sample_events";
+        $sql = "SELECT name, time, due, price FROM events";
         $result = $connection->query($sql);
     
         $data = $result->fetch_all(MYSQLI_ASSOC);
@@ -29,7 +29,7 @@
     }
 
     function getThis($type, $search) {
-        $connection = new mysqli("localhost", "root", "", "capstone");
+        $connection = new mysqli("localhost", "root", "", "real_capstone");
         $connectionResult = array();
 
         if ($connection -> connect_errno) {
@@ -37,7 +37,7 @@
             exit();
         }
 
-        $sql = "SELECT * FROM sample_events WHERE {$type} like '%{$search}%'";
+        $sql = "SELECT * FROM events WHERE {$type} LIKE '%{$search}%'";
         $result = $connection->query($sql);
     
         $data = $result->fetch_all(MYSQLI_ASSOC);

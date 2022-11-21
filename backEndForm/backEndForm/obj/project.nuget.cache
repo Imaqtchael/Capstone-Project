@@ -1,8 +1,15 @@
 {
   "version": 2,
-  "dgSpecHash": "djuZhb2i0SFbkFvsqwoV9nZ3xJEswJI8ECPCyTko5Rviru0XjzbmXBEy/hnGhNpYoju5Y4OKUkukA6HrDOtnsg==",
-  "success": true,
+  "dgSpecHash": "/TBdsoBZ8lDcli+kQjAYak5A+Cfp1BQZAecN7Eh2aRt6c87Ni9N2UuVxEY64q4QkIMMRDZ3y3O4p7aL9oouicg==",
+  "success": false,
   "projectFilePath": "D:\\Programming\\Capstone\\backEndForm\\backEndForm\\backEndForm.vbproj",
   "expectedPackageFiles": [],
-  "logs": []
+  "logs": [
+    {
+      "code": "NU1301",
+      "level": "Error",
+      "message": "Unable to load the service index for source https://api.nuget.org/v3/index.json.",
+      "libraryId": "System.IO.Ports"
+    }
+  ]
 }

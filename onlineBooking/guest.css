@@ -1,0 +1,354 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+* {
+    margin: 0;
+    padding: 0;
+    font-family: "Poppins";
+}
+
+body {
+    height: 120vh;
+    overflow-x: hidden;
+    margin: auto
+}
+
+.header {
+    position: fixed;
+    z-index: 1;
+    height: 60px;
+    width: 100%;
+    font-weight: 500;
+    font-size: 20px;
+    background: linear-gradient(0deg, #333399, #3399FF);
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    flex-wrap: nowrap;
+}
+
+.header img {
+    padding: 2px;
+    height: 35px;
+    float: left;
+    background-color: white;
+    border-radius: 50%;
+    margin-left: 10px;
+    margin-top: 10px;
+}
+
+.header span {
+    margin-top: 10px;
+    margin-left: 10px;
+    float: left;
+    font-size: 25px;
+    font-weight: 500;
+    color: white
+}
+
+.header .logo {
+    float: left;
+    position: relative;
+}
+
+.header .navigation {
+    float: right;
+}
+
+.header .link {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+
+.events-list {
+    height: 95%;
+    width: 95%;
+    margin: 10px auto;
+    display: flex;
+    /* establish flex container */
+    flex-direction: row;
+    /* default value; can be omitted */
+    flex-wrap: nowrap;
+    /* default value; can be omitted */
+    justify-content: space-evenly;
+}
+
+.events-table {
+    margin: auto;
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: .9em;
+    width: 98%;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0, 0.15);
+    border-radius: 5px 5px 0 0;
+    overflow: hidden;
+}
+
+.events-table thead tr {
+    background-color: dodgerblue;
+    color: #FFFFFF;
+    text-align: left;
+}
+
+.events-table th,
+.events-table td {
+    padding: 12px 15px;
+}
+
+.events-table tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+.events-table tbody tr:last-of-type {
+    border-bottom: 2px solid dodgerblue;
+}
+
+.search-text {
+    width: 100%;
+    text-align: center;
+    font-size: 36px;
+    font-weight: 500;
+    margin: 20px;
+}
+
+.center-search {
+    height: auto;
+    width: 100%;
+    margin-bottom: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.search-events,
+.book-events {
+    width: 98%;
+    border-radius: 5px;
+    display: flex;
+    /* establish flex container */
+    flex-direction: row;
+    /* default value; can be omitted */
+    flex-wrap: nowrap;
+    /* default value; can be omitted */
+    justify-content: space-evenly;
+    background: linear-gradient(0deg, #333399, #3399FF);
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.12), 0 1px 4px rgba(0, 0, 0, 0.24);
+}
+
+.search-event,
+.book-event {
+    background-color: white;
+    min-height: 200px;
+    align-self: center;
+    border-radius: 5px;
+    width: 99%;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.book-events {
+    background: dodgerblue;
+    height: auto;
+}
+
+.book-event {
+    height: 90%;
+    width: 99%;
+    margin: 10px auto;
+    display: flex;
+    background-color: dodgerblue;
+    /* establish flex container */
+    flex-direction: row;
+    /* default value; can be omitted */
+    flex-wrap: nowrap;
+    /* default value; can be omitted */
+    justify-content: space-evenly;
+}
+
+.search {
+    width: 100%;
+}
+
+.search form {
+    border-radius: 5px;
+    margin-top: 10px;
+    background-color: white;
+    width: 98%;
+    margin-left: 5px;
+    float: left;
+    padding: 0;
+}
+
+.search input {
+    background-color: rgb(250, 250, 250);
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.12), 0 1px 4px rgba(0, 0, 0, 0.24);
+    border: none;
+    outline: none;
+    height: 35px;
+    width: 70%;
+    float: left;
+    border-radius: 5px 0 0 5px;
+    padding-left: 10px;
+    letter-spacing: 1px;
+    margin-left: 40px;
+}
+
+.search button {
+    height: 35px;
+    width: 7%;
+    float: left;
+    padding: 6px 10px;
+    font-size: 16px;
+    border: none;
+    border-radius: 0 5px 5px 0;
+    background: linear-gradient(0deg, #333399, #3399FF);
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.12), 0 1px 4px rgba(0, 0, 0, 0.24);
+}
+
+.search button:hover {
+    background-color: #ddd;
+}
+
+.search span {
+    float: right;
+}
+
+.event-text {
+    background-color: dodgerblue;
+    min-height: 90%;
+    width: 40%;
+    float: left;
+}
+
+.event-text p {
+    margin-top: 20%;
+    font-size: 42px;
+    color: white;
+}
+
+.event-form {
+    border-radius: 5px;
+    background-color: white;
+    width: 60%;
+    float: right;
+}
+
+.container {
+    width: auto;
+    background: #fff;
+    padding: 25px 30px;
+    border-radius: 0 5px 5px 5px;
+    margin-top: -1px;
+}
+
+.container .title {
+    font-size: 25px;
+    font-weight: 500;
+    position: relative;
+}
+
+.container .title::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 3px;
+    width: 150px;
+    background: dodgerblue;
+}
+
+.container form .user-details {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+form .user-details .input-box {
+    margin: 20px 0 12px 0;
+    width: calc(100% / 2 - 20px);
+}
+
+.user-details .input-box .details {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 5px;
+}
+
+.user-details .input-box input {
+    height: 45px;
+    width: 100%;
+    outline: none;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    padding-left: 10px;
+    font-size: 16px;
+    border-bottom-width: 2px;
+}
+
+.user-details .input-box input:focus {
+    border-color: dodgerblue;
+}
+
+form .button {
+    height: 45px;
+    margin: 45px 0;
+}
+
+form .button input {
+    height: 100%;
+    width: 100%;
+    outline: none;
+    color: white;
+    background-color: dodgerblue;
+    border: none;
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    border-radius: 5px;
+}
+
+form .button input:hover {
+    background-color: orange;
+}
+
+footer {
+    background-color: rgb(0, 114, 255);
+    padding: 30px;
+    color: white;
+    font-size: 12px;
+}
+
+.footer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-evenly;
+    padding-left: 50px;
+    padding-right: 50px;
+}
+
+.footer .contact img {
+    height: 35px;
+    background-color: white;
+    padding: 2px;
+    border-radius: 50%;
+    margin-bottom: -10px;
+    margin-right: 5px;
+}
+
+.footer .follow a {
+    font-size: 40px;
+    margin-right: 20px;
+    color: white;
+}
+
+.footer .follow a:hover {
+    color: rgb(200, 200, 200);
+}
+
+footer p {
+    margin-bottom: -20px;
+    margin-top: 20px;
+}

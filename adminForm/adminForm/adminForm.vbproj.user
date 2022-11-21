@@ -4,7 +4,16 @@
     <Compile Update="eventManagement.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="guestLog.vb">
+    <Compile Update="eventManagementEditORAddEvent.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="guestManagementAddGuest.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="guestManagementEditGuest.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="trackingReportGuestLog.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="guestManagement.vb">
@@ -20,6 +29,9 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="userManagement.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="userManagementAddOREditUser.vb">
       <SubType>Form</SubType>
     </Compile>
   </ItemGroup>

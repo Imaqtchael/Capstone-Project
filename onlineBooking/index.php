@@ -85,6 +85,17 @@
                                 <th>Date</th>
                                 <th>Price</th>
                             </tr>
+                            <tr>
+                                <td>Alfreds Futterkiste</td>
+                                <td>Maria Anders</td>
+                                <td>Germany</td>
+                                <td>Germany</td>
+                            </tr>
+                            <tr>
+                                <td>Alfreds Futterkiste</td>
+                                <td>Maria Anders</td>
+                                <td>Germany</td>
+                                <td>Germany</td>
                         </thead>
                     </table>
                 </div>

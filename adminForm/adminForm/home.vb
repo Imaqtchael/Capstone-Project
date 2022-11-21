@@ -29,7 +29,7 @@ Public Class home
     'Loggin out the admin user and removing him in the REMEBERED.txt
     Private Sub Button6_Click(sender As Object, e As EventArgs) Handles Button6.Click
         My.Computer.FileSystem.WriteAllText(
-            "D:\Programming\Capstone\adminForm\adminForm\REMEMBERED.txt", "False", False)
+            "D:\Programming\Capstone\adminForm\adminForm\REMEMBERED.txt", "", False)
         Me.Hide()
 
         'If the login form is previously used we will just show it

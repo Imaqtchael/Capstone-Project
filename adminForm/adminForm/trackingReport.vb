@@ -1,36 +1,43 @@
-﻿Imports MySql.Data.MySqlClient
-Public Class trackingReport
+﻿Public Class trackingReport
     'Creating a string that will be used in guestLog form
     Public selectedGuest As String
 
-    Dim eventName As String
-    Dim guestsID As String
+    'Create strings for labels
+    Public eventName As String
+    Public guestsID As String
+    Dim eventDate As String
+
+    Dim selectedRow As Integer = 0
+
+    Dim loadDone As Boolean = False
 
     'Loading the data and putting them into DataGridView1
     Private Sub trackingReport_Load(sender As Object, e As EventArgs) Handles MyBase.Load, Timer1.Tick
-        'Get what is the current event
-        Dim practiceDate As New Date(2022, 10, 28)
-        Dim practiceDateString As String = practiceDate.ToString("d")
+        Dim Events As String = $"SELECT name, guests_id, date FROM events WHERE date>=date_format(curdate(), '%m/%d/%Y') ORDER BY date DESC"
+        Dim EventsDS As DataSet = getData(Events)
 
-        Dim query2 As String = $"SELECT name, guests_id FROM events WHERE date='{practiceDateString}'"
-        Dim adpt2 As New MySqlDataAdapter(query2, con)
-        Dim ds2 As New DataSet()
-
-        adpt2.Fill(ds2)
-
-        If ds2.Tables(0).Rows.Count = 0 Then
+        If EventsDS.Tables(0).Rows.Count = 0 Then
             Return
         End If
 
-        eventName = ds2.Tables(0).Rows(0)(0).ToString()
-        guestsID = ds2.Tables(0).Rows(0)(1).ToString()
+        If Not loadDone Then
+            For i As Integer = 0 To EventsDS.Tables(0).Rows.Count - 1
+                ComboBox1.Items.Add(EventsDS.Tables(0).Rows(i)(0))
+            Next
+            loadDone = True
+        End If
 
-        Label1.Text = eventName
-        Label2.Text = practiceDateString
+        If EventsDS.Tables(0).Rows.Count > 0 Then
+            eventName = EventsDS.Tables(0).Rows(EventsDS.Tables(0).Rows.Count - 1)(0).ToString
+            guestsID = EventsDS.Tables(0).Rows(EventsDS.Tables(0).Rows.Count - 1)(1).ToString()
+            eventDate = EventsDS.Tables(0).Rows(EventsDS.Tables(0).Rows.Count - 1)(2).ToString()
+        End If
+
+        ComboBox1.Text = eventName
+        Label2.Text = eventDate
 
         Dim query As String = $"SELECT name, logs FROM guest WHERE logs<>'' AND guest_id={guestsID}"
-        Dim adpt As New MySqlDataAdapter(query, con)
-        Dim ds As New DataSet()
+        Dim ds As DataSet = getData(query)
 
         'Creating another table that we will manipulate to contain
         'the right number of column that we want
@@ -38,17 +45,13 @@ Public Class trackingReport
         Dim realDataTable As New DataTable()
         realDataSet.Tables.Add(realDataTable)
 
-        adpt.Fill(ds)
 
         'Displaying the number of 'IN' attendees
         Label5.Text = ds.Tables(0).Rows.Count
 
         'Getting the total number of attendes
         Dim query1 As String = $"SELECT name FROM guest WHERE guest_id={guestsID}"
-        Dim adpt1 As New MySqlDataAdapter(query1, con)
-        Dim ds1 As New DataSet()
-
-        adpt1.Fill(ds1)
+        Dim ds1 As DataSet = getData(query1)
 
         Label7.Text = ds1.Tables(0).Rows.Count
 
@@ -86,6 +89,10 @@ Public Class trackingReport
 
         DataGridView1.DataSource = realDataSet.Tables(0)
 
+        DataGridView1.ClearSelection()
+        If DataGridView1.Rows.Count > 0 Then
+            DataGridView1.Rows(selectedRow).Selected = True
+        End If
     End Sub
 
     'A sub for CellDoubleClick where we will show all of the logs of the selected guest
@@ -95,15 +102,12 @@ Public Class trackingReport
 
         Dim guest = row.Cells(0).Value.ToString()
         selectedGuest = guest
-        guestLog.Show()
+        trackingReportGuestLog.Show()
     End Sub
 
     Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles TextBox1.TextChanged
-        Dim adapter As MySqlDataAdapter
-        Dim ds As New DataSet()
-
-        adapter = New MySqlDataAdapter($"SELECT name, logs FROM guest WHERE logs<>'' AND name LIKE '%{TextBox1.Text}%'", con)
-        adapter.Fill(ds)
+        Dim query As String = $"SELECT name, logs FROM guest WHERE logs<>'' AND name LIKE '%{TextBox1.Text}%' AND guest_id='{guestsID}'"
+        Dim ds As DataSet = getData(query)
 
         Dim realDataSet As New DataSet()
         Dim realDataTable As New DataTable()
@@ -139,5 +143,13 @@ Public Class trackingReport
         Next
 
         DataGridView1.DataSource = realDataSet.Tables(0)
+    End Sub
+
+    Private Sub DataGridView1_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView1.CellContentClick
+        selectedRow = e.RowIndex
+    End Sub
+
+    Private Sub ComboBox1_MouseDown(sender As Object, e As MouseEventArgs) Handles ComboBox1.MouseDown
+        ComboBox1.DroppedDown = True
     End Sub
 End Class

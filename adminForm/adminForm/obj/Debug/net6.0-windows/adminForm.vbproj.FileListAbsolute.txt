@@ -29,4 +29,8 @@ D:\Programming\Capstone\adminForm\adminForm\bin\Debug\net6.0-windows\MySql.Data.
 D:\Programming\Capstone\adminForm\adminForm\bin\Debug\net6.0-windows\ZstdNet.dll
 D:\Programming\Capstone\adminForm\adminForm\bin\Debug\net6.0-windows\BouncyCastle.Crypto.dll
 D:\Programming\Capstone\adminForm\adminForm\obj\Debug\net6.0-windows\adminForm.vbproj.CopyComplete
-D:\Programming\Capstone\adminForm\adminForm\obj\Debug\net6.0-windows\adminForm.guestLog.resources
+D:\Programming\Capstone\adminForm\adminForm\obj\Debug\net6.0-windows\adminForm.trackingReportGuestLog.resources
+D:\Programming\Capstone\adminForm\adminForm\obj\Debug\net6.0-windows\adminForm.guestManagementAddGuest.resources
+D:\Programming\Capstone\adminForm\adminForm\obj\Debug\net6.0-windows\adminForm.guestManagementEditGuest.resources
+D:\Programming\Capstone\adminForm\adminForm\obj\Debug\net6.0-windows\adminForm.eventManagementEditORAddEvent.resources
+D:\Programming\Capstone\adminForm\adminForm\obj\Debug\net6.0-windows\adminForm.userManagementAddOREditUser.resources
