@@ -98,6 +98,16 @@ $(document).ready(function() {
         $("#events tbody").append("<tr><td>" + fullname + "</td><td>" + address + "</td><td>" + email + "</td><td>" + number + "</td></tr>");
     });
 
+    var counter = 1;
+
+    setInterval(function() {
+        document.getElementById('radio' + counter).checked = true;
+        counter += 1;
+        if (counter > 4) {
+            counter = 1
+        }
+    }, 5000);
+
     //$("#fullname").val("");
     //$("#fulladdress").val("");
     //$("#email").val("");
