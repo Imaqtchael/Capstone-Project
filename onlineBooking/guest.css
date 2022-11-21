@@ -105,6 +105,18 @@ body {
     border-bottom: 2px solid dodgerblue;
 }
 
+.delete-btn {
+    padding: 5px 10px;
+    background-color: red;
+    border-radius: 3px;
+    border: none;
+    color: white;
+}
+
+.delete-btn:hover {
+    background-color: black;
+}
+
 .search-text {
     width: 100%;
     text-align: center;

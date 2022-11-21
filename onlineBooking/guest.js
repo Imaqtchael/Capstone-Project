@@ -86,30 +86,100 @@ function loadCSS() {
     head.appendChild(link);
 }
 
+function ReEditTable() {
+    //adding the editable table function
+    var table = document.getElementById("events");
+    var cells = table.getElementsByTagName('td');
+
+    for (var i = 0; i < cells.length; i++) {
+        cells[i].onclick = function() {
+            if (this.hasAttribute('data-clicked') || this.hasAttribute('isButton')) {
+                return;
+            }
+
+            this.setAttribute('data-clicked', 'yes');
+            this.setAttribute('data-text', this.innerHTML);
+
+            var input = document.createElement('input');
+            input.setAttribute('type', 'text');
+            input.value = this.innerHTML;
+            input.style.width = "auto";
+            input.style.height = this.offsetHeight - (this.clientTop * 2) + "px";
+            input.style.fontFamily = "inherit";
+            input.style.fontSize = "inherit";
+            input.style.textAlign = "center";
+            input.style.backgroundColor = "LightGoldenRodYellow";
+
+            input.onblur = function() {
+                var td = input.parentElement;
+                var orig_text = input.parentElement.getAttribute('data-text');
+                var current_text = this.value;
+
+                if (orig_text != current_text) {
+                    //here you can add the data to the database
+
+                    td.removeAttribute('data-clicked');
+                    td.removeAttribute('data-text');
+                    td.innerHTML = current_text;
+                    td.style.cssText = 'padding: 12px 15px';
+                } else {
+                    td.removeAttribute('data-clicked');
+                    td.removeAttribute('data-text');
+                    td.innerHTML = orig_text;
+                    td.style.cssText = 'padding: 12px 15px';
+                }
+            }
+
+            input.onkeydown = function() {
+                if (event.keyCode == 13) {
+                    this.blur();
+                }
+            }
+
+            this.innerHTML = '';
+            this.style.cssText = 'padding: 0px';
+            this.append(input);
+            this.firstElementChild.select();
+        }
+    }
+}
+
 $(document).ready(function() {
+    $(document).on('click', '.delete-btn', function() {
+        $(this).closest('.row').remove();
+    });
+
     $(document).on('click', '.add-user', function() {
         var fullname = $("#fullname").val();
         var address = $("#fulladdress").val();
         var email = $("#email").val();
         var number = $("#number").val();
 
-        //alert("<tr><td>" + fullname + "</td><td>" + address + "</td><td>" + email + "</td><td>" + number + "</td></tr>");
+        var table = document.getElementById("events");
+        var cells = table.getElementsByTagName('td');
 
-        $("#events tbody").append("<tr><td>" + fullname + "</td><td>" + address + "</td><td>" + email + "</td><td>" + number + "</td></tr>");
+        for (var i = 0; i < cells.length; i++) {
+            if (cells[i].innerHTML == fullname) {
+                alert("You have already added " + fullname + "!");
+                return;
+            }
+        }
+
+        $("#events tbody").append("<tr class='row'><td>" + fullname + "</td><td>" + address + "</td><td>" + email + "</td><td>" + number + "</td><td isButton='delete'><input class='delete-btn' type='submit' value='DELETE'></input></td></tr>");
+        ReEditTable();
+        //$("#fullname").val("");
+        //$("#fulladdress").val("");
+        //$("#email").val("");
+        //$("#number").val("");
     });
 
+    //changes the picture besides the guest data entry
     var counter = 1;
-
     setInterval(function() {
         document.getElementById('radio' + counter).checked = true;
         counter += 1;
         if (counter > 4) {
-            counter = 1
+            counter = 1;
         }
     }, 5000);
-
-    //$("#fullname").val("");
-    //$("#fulladdress").val("");
-    //$("#email").val("");
-    //$("#number").val("");
 });
