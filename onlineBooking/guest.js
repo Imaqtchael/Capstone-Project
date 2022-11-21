@@ -86,6 +86,8 @@ function loadCSS() {
     head.appendChild(link);
 }
 
+var hasAdded = false;
+
 function ReEditTable() {
     //adding the editable table function
     var table = document.getElementById("events");
@@ -147,6 +149,15 @@ function ReEditTable() {
 $(document).ready(function() {
     $(document).on('click', '.delete-btn', function() {
         $(this).closest('.row').remove();
+
+        //check if there is a table remaining
+        var table = document.getElementById("events");
+        var cells = table.getElementsByTagName('td');
+        if (cells.length == 0) {
+            //remove the submit button
+            document.getElementById('submit-btn').style.cssText = 'display: none;'
+            hasAdded = false;
+        }
     });
 
     $(document).on('click', '.add-user', function() {
@@ -154,6 +165,16 @@ $(document).ready(function() {
         var address = $("#fulladdress").val();
         var email = $("#email").val();
         var number = $("#number").val();
+
+        if (fullname == "") {
+            return;
+        } else if (address == "") {
+            return;
+        } else if (email == "") {
+            return;
+        } else if (number == "") {
+            return;
+        }
 
         var table = document.getElementById("events");
         var cells = table.getElementsByTagName('td');
@@ -167,6 +188,12 @@ $(document).ready(function() {
 
         $("#events tbody").append("<tr class='row'><td>" + fullname + "</td><td>" + address + "</td><td>" + email + "</td><td>" + number + "</td><td isButton='delete'><input class='delete-btn' type='submit' value='DELETE'></input></td></tr>");
         ReEditTable();
+
+        if (!hasAdded) {
+            //add the submit button
+            document.getElementById('submit-btn').style.cssText = 'display: inline;'
+            hasAdded = true;
+        }
         //$("#fullname").val("");
         //$("#fulladdress").val("");
         //$("#email").val("");
