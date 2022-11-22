@@ -1,3 +1,5 @@
+window.onload = CheckForPreviousEntry();
+
 function startUp() {
     updateList();
     changeBackground();
@@ -146,6 +148,55 @@ function ReEditTable() {
     }
 }
 
+function TableToJSON(table) {
+    var data = [];
+
+    var headers = ['name', 'address', 'email', 'number'];
+
+    //get the headers
+    //for (var i = 0; i < table.rows[0].cells.length; i++) {
+    //    headers[i] = table.rows[0].cells[i].innerHTML.toLowerCase().replace(/ /gi, '');
+    //}
+
+    //get all the table data
+    for (var i = 1; i < table.rows.length; i++) {
+        var tableRow = table.rows[i];
+        var rowData = {};
+
+        for (var j = 0; j < tableRow.cells.length; j++) {
+            if (j == 4) {
+                continue;
+            }
+            rowData[headers[j]] = tableRow.cells[j].innerHTML;
+        }
+
+        data.push(rowData);
+    }
+
+    return data;
+}
+
+function DownloadJSON(exportObj) {
+    //var data_str = "data:text/json;charset=utf-8," + encodeURIComponent(exportObj);
+
+    localStorage.setItem('backup.json', exportObj);
+    //var downloadAnchorNode = document.createElement('a');
+
+    //downloadAnchorNode.setAttribute("href", data_str);
+    //downloadAnchorNode.setAttribute('download', "backup.json");
+    //downloadAnchorNode.innerHTML = "hadhfashdf"
+    //document.body.appendChild(downloadAnchorNode);
+
+    //downloadAnchorNode.click();
+    //downloadAnchorNode.remove();
+}
+
+function CheckForPreviousEntry() {
+    var backup = localStorage.getItem('backup.json');
+
+    console.log(backup);
+}
+
 $(document).ready(function() {
     $(document).on('click', '.delete-btn', function() {
         $(this).closest('.row').remove();
@@ -188,6 +239,11 @@ $(document).ready(function() {
 
         $("#events tbody").append("<tr class='row'><td>" + fullname + "</td><td>" + address + "</td><td>" + email + "</td><td>" + number + "</td><td isButton='delete'><input class='delete-btn' type='submit' value='DELETE'></input></td></tr>");
         ReEditTable();
+
+        var json = JSON.stringify(TableToJSON(document.getElementById("events")));
+        console.log(json)
+
+        DownloadJSON(json);
 
         if (!hasAdded) {
             //add the submit button
