@@ -192,10 +192,29 @@ function DownloadJSON(exportObj) {
 }
 
 function CheckForPreviousEntry() {
+    //localStorage.clear();
     var backup = localStorage.getItem('backup.json');
 
-    console.log(backup);
+    console.log(JSON.parse(backup));
+
+    if (backup != null) {
+        alert("may laman");
+        JSONToTable(JSON.parse(backup));
+        //ReEditTable();
+    } else {
+        alert("walang laman");
+        return false;
+    }
 }
+
+function JSONToTable(json) {
+    json.forEach(function(obj) {
+        alert(obj.name);
+        $("#events tbody").append("<tr class='row'><td>" + 3 + "</td><td>" + obj.address + "</td><td>" + obj.email + "</td><td>" + obj.number + "</td><td isButton='delete'><input class='delete-btn' type='submit' value='DELETE'></input></td></tr>");
+    });
+}
+
+
 
 $(document).ready(function() {
     $(document).on('click', '.delete-btn', function() {
@@ -238,10 +257,10 @@ $(document).ready(function() {
         }
 
         $("#events tbody").append("<tr class='row'><td>" + fullname + "</td><td>" + address + "</td><td>" + email + "</td><td>" + number + "</td><td isButton='delete'><input class='delete-btn' type='submit' value='DELETE'></input></td></tr>");
+
         ReEditTable();
 
         var json = JSON.stringify(TableToJSON(document.getElementById("events")));
-        console.log(json)
 
         DownloadJSON(json);
 
