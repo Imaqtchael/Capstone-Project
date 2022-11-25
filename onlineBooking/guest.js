@@ -182,10 +182,30 @@ $(document).ready(function() {
             document.getElementById('submit-btn').style.cssText = 'display: inline;'
             hasAdded = true;
         }
-        //$("#fullname").val("");
-        //$("#fulladdress").val("");
-        //$("#email").val("");
-        //$("#number").val("");
+        $("#fullname").val("");
+        $("#fulladdress").val("");
+        $("#email").val("");
+        $("#number").val("");
+    });
+
+    $(document).on('click', '.submit-table-btn', function() {
+
+        jQuery.ajax({
+            type: "POST",
+            url: 'http://localhost/Capstone/onlineBooking/includes/functions.php',
+            dataType: 'json',
+            data: { functionname: 'uploadData', arguments: localStorage.getItem('backup.json') },
+
+            success: function(obj, textstatus) {
+                eventsList = obj.result;
+                alert(eventsList);
+            }
+        });
+
+
+        //$.post('includes/functions.php', { 'json': localStorage.getItem('backup.json') }, function(data) {
+        //    alert(data);
+        //});
     });
 
     CheckForPreviousEntry();

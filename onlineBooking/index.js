@@ -1,7 +1,6 @@
 window.onload = startUp();
 
 function startUp() {
-    alert("startup");
     updateList();
     changeBackground();
 }
