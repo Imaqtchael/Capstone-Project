@@ -1,3 +1,20 @@
+<?php
+    session_start();
+
+    #$_SESSION['name'] = 'Michael Justin Barcenas';
+
+    if (isset($_POST['book'])) {
+        #$_SESSION['name'] = "{$_POST['fname']} {$_POST['mname']} {$_POST['lname']}";
+
+        echo "<script>alert('ahdfhhah')</script>";
+        $_SESSION['name'] = 'Michael Justin Barcenas';
+        $_SESSION['address'] = $_POST['address'];
+        $_SESSION['email'] = $_POST['email'];
+        $_SESSION['number'] = $_POST['no'];
+        $_SESSION['type'] = $_POST['type'];
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -42,22 +59,23 @@
 
     </div>
     <div class="background" id="vary">
+        <center>
+            <h1>
+                PUT SOME TEXT HERE SHEEEEEEEEEEEEESH
+            </h1>
+        </center>
         <div class="slides">
             <input type="radio" name="radio-btn" id="radio1">
             <input type="radio" name="radio-btn" id="radio2">
             <input type="radio" name="radio-btn" id="radio3">
             <input type="radio" name="radio-btn" id="radio4">
-            <div class="slide first">
-                <img src="pictures/index/basketball.jpg" alt="">
+            <div class="slide first first-image">
             </div>
-            <div class="slide">
-                <img src="pictures/index/birthday.jpg" alt="">
+            <div class="slide second-image">
             </div>
-            <div class="slide">
-                <img src="pictures/index/debut.jpg" alt="">
+            <div class="slide third-image">
             </div>
-            <div class="slide">
-                <img src="pictures/index/wedding.jpg" alt="">
+            <div class="slide fourth-image">
             </div>
             <div class="navigation-auto">
                 <div class="auto-btn1"></div>
@@ -139,49 +157,54 @@
                 <div class="event-form">
                     <div id="freshmen" class="container">
                         <div class="title">Book an Event</div>
-                        <form method="post" enctype="multipart/form-data">
+                        <form method="post" enctype="multipart/form-data" action="redirect.php">
                             <div class="user-details">
 
                                 <div class="input-box">
                                     <span class="details">First Name</span>
-                                    <input type="text" name="Ffname" placeholder="Enter your first name" required>
+                                    <input type="text" name="fname" placeholder="Enter your first name" required>
                                 </div>
 
                                 <div class="input-box">
                                     <span class="details">Last Name</span>
-                                    <input type="text" name="Flname" placeholder="Enter your last name" required>
+                                    <input type="text" name="lname" placeholder="Enter your last name" required>
                                 </div>
 
                                 <div class="input-box">
                                     <span class="details">Middle Name</span>
-                                    <input type="text" name="Fmname" placeholder="Enter your middle name" required>
+                                    <input type="text" name="mname" placeholder="Enter your middle name" required>
                                 </div>
 
                                 <div class="input-box">
                                     <span class="details">E-Mail</span>
-                                    <input type="text" name="Femail" placeholder="Enter your email" required>
+                                    <input type="text" name="email" placeholder="Enter your email" required>
                                 </div>
 
                                 <div class="input-box">
                                     <span class="details">Number</span>
-                                    <input type="text" name="Fno" placeholder="Enter your number" required>
+                                    <input type="text" name="no" placeholder="Enter your number" required>
+                                </div>
+
+                                <div class="input-box">
+                                    <span class="details">Address</span>
+                                    <input type="input" name="address" placeholder="Enter your address" required>
                                 </div>
 
                                 <div class="course">
                                     <center>
-                                        <label for="course">Choose</label>
-                                        <select name="Fcourse" id="course" required>
+                                        <label for="course">Choose type of Event</label>
+                                        <select name="type" id="course" required>
                                 <option hidden disabled selected value>-- Type of Event --</option>
-                                <option value="BSIT">Wedding</option>
-                                <option value="BSCPE">Debut</option>
-                                <option value="BSED">Birthday</option>
+                                <option value="wedding">Wedding</option>
+                                <option value="debut">Debut</option>
+                                <option value="birthday">Birthday</option>
                             </select>
                                     </center>
                                 </div>
 
                             </div>
                             <div class="button">
-                                <input type="submit" value="Book now" name="Fresh">
+                                <input class='book-now' type="submit" value="Book now" name="book">
                             </div>
 
                         </form>

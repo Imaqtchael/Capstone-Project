@@ -97,4 +97,8 @@ $(document).ready(function() {
             counter = 1;
         }
     }, 5000);
+
+    $(document).on('click', '.book-n', function() {
+        alert("push");
+    });
 });

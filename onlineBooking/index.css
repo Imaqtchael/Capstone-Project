@@ -51,7 +51,7 @@ body {
 
 .slides {
     width: 500%;
-    height: 500px;
+    height: 550px;
     display: flex;
 }
 
@@ -63,16 +63,36 @@ body {
     width: 20%;
     transition: 2s;
     overflow: hidden;
+    background-size: cover;
 }
 
-.slide img {
-    width: 100%;
-    height: 1000px;
+.background h1 {
+    position: absolute;
+    padding-top: 10%;
+    font-weight: 500;
+    font-size: 100px;
+    color: white;
+}
+
+.first-image {
+    background-image: linear-gradient(0deg, rgba(36, 44, 51, 0.5), rgba(36, 44, 51, 0.5)), url(pictures/index/basketball.jpg);
+}
+
+.second-image {
+    background-image: linear-gradient(0deg, rgba(36, 44, 51, 0.5), rgba(36, 44, 51, 0.5)), url(pictures/index/birthday.jpg);
+}
+
+.third-image {
+    background-image: linear-gradient(0deg, rgba(36, 44, 51, 0.5), rgba(36, 44, 51, 0.5)), url(pictures/index/debut.jpg);
+}
+
+.fourth-image {
+    background-image: linear-gradient(0deg, rgba(36, 44, 51, 0.5), rgba(36, 44, 51, 0.5)), url(pictures/index/wedding.jpg);
 }
 
 .navigation-manual {
     position: absolute;
-    width: 1500px;
+    width: 100vw;
     margin-top: -40px;
     display: flex;
     justify-content: center;
@@ -113,9 +133,9 @@ body {
 .navigation-auto {
     position: absolute;
     display: flex;
-    width: 1500px;
+    width: 100vw;
     justify-content: center;
-    margin-top: 460px;
+    margin-top: 510px;
 }
 
 .navigation-auto div {
@@ -303,12 +323,6 @@ body {
 .background {
     height: 60%;
     width: 100%;
-}
-
-.background h1 {
-    font-weight: 500;
-    font-size: 100px;
-    color: white;
 }
 
 

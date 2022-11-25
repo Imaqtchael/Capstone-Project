@@ -1,5 +1,7 @@
 <?php
 
+    session_start();
+
     if ($_POST['functionname'] == 'getAllList') {
         getAllList();
     } elseif ($_POST['functionname'] == 'getThis') {
@@ -11,9 +13,35 @@
         $connectionResult['result'] = json_decode($_POST['arguments'], true);
 
         echo json_encode($connectionResult);
+    } elseif ($_POST['functionname'] == 'checkIfPaid') {
+        $booker = 'Michael Justin Barcenas Tungol';
+        checkIfPaid($booker);
+    } 
+
+    function checkIfPaid($booker) {
+        $connection = new mysqli("localhost", "root", "", "real_capstone");
+        $connresult = array();
+
+        if ($connection -> connect_errno) {
+            echo "<script>alert('Network error')</script>";
+            exit();
+        }
+
+        $sql = "SELECT ispaid FROM events WHERE booker='{$booker}'";
+
+        $result = $connection->query($sql);
+        $result = $result->fetch_array(MYSQLI_NUM);
+
+        if ($result[0] == 1) {
+            $connresult['result'] = "true";
+            echo json_encode($connresult);
+        } else {
+            $connresult['result'] = "false";
+            echo json_encode($connresult);
+        }
     }
 
-    function insertData(data) {
+    function insertData($data) {
         $connection = new mysqli("localhost", "root", "", "real_capstone");
 
         if ($connection -> connect_errno) {
@@ -21,7 +49,7 @@
             exit();
         }
 
-        $sql = "INSERT INTO events SET(registered, date, time, type, booker)"
+        $sql = "INSERT INTO events SET(registered, date, time, type, booker)";
 
     }
 

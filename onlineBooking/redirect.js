@@ -208,7 +208,7 @@ $(document).ready(function() {
         //});
     });
 
-    var checkIfPaid = setInterval(function() {
+    setInterval(function() {
         jQuery.ajax({
             type: "POST",
             url: 'http://localhost/Capstone/onlineBooking/includes/functions.php',
@@ -217,22 +217,9 @@ $(document).ready(function() {
 
             success: function(obj, textstatus) {
                 if (obj.result = "true") {
-                    clearInterval(checkIfPaid);
-
+                    window.location.href = "http://localhost/Capstone/onlineBooking/guests.php";
                 }
             }
         });
     }, 1000);
-
-    CheckForPreviousEntry();
-
-    //changes the picture besides the guest data entry
-    var counter = 1;
-    setInterval(function() {
-        document.getElementById('radio' + counter).checked = true;
-        counter += 1;
-        if (counter > 4) {
-            counter = 1;
-        }
-    }, 5000);
 });
