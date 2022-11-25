@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="shortcut icon" href="pictures/Nicolas_Logo.jpg" type="image/x-icon">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.1.js"></script>
     <script src="index.js"></script>
     <link rel="stylesheet" href="index.css">
 </head>
@@ -28,7 +29,7 @@
             </form>
         </div>-->
 
-        <div class="navigation">
+        <!--<div class="navigation">
             <ul type="none">
                 <li id="signup"><a href="loginORsignUp.html">Sign up</a></li>
                 <li id="login"><a href="loginORsignUp.html">Log in</a></li>
@@ -37,33 +38,100 @@
                     <a id="profile" href="profile.html"></a>
                 </li>
             </ul>
-        </div>
+        </div>-->
 
     </div>
     <div class="background" id="vary">
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <center>
-            <h1>
-                ALL TICKETS IN ONE PLACE
-            </h1>
-        </center>
-
+        <div class="slides">
+            <input type="radio" name="radio-btn" id="radio1">
+            <input type="radio" name="radio-btn" id="radio2">
+            <input type="radio" name="radio-btn" id="radio3">
+            <input type="radio" name="radio-btn" id="radio4">
+            <div class="slide first">
+                <img src="pictures/index/basketball.jpg" alt="">
+            </div>
+            <div class="slide">
+                <img src="pictures/index/birthday.jpg" alt="">
+            </div>
+            <div class="slide">
+                <img src="pictures/index/debut.jpg" alt="">
+            </div>
+            <div class="slide">
+                <img src="pictures/index/wedding.jpg" alt="">
+            </div>
+            <div class="navigation-auto">
+                <div class="auto-btn1"></div>
+                <div class="auto-btn2"></div>
+                <div class="auto-btn3"></div>
+                <div class="auto-btn4"></div>
+            </div>
+        </div>
+        <div class="navigation-manual">
+            <label for="radio1" class="manual-btn"></label>
+            <label for="radio2" class="manual-btn"></label>
+            <label for="radio3" class="manual-btn"></label>
+            <label for="radio4" class="manual-btn"></label>
+        </div>
     </div>
-    <div class="search-text">Book an event</div>
+    <!--<div class="search-text">Search for your target event</div>
+
+
+    <div class="center-search">
+        <div class="search-events">
+            <div class="search-event">
+                <div class="search">
+                    <form action="" onsubmit="return false">
+                        <input type="text" name="search" id="searchEventSearch" placeholder="Search for an event...">
+                        <button type="submit" name="buyEvent" onclick="searchEvent()"><i class="fa fa-search"></i></button>
+                        <span class="course">
+                        <select name="type" id="course" required>
+                            <option hidden disabled selected value>-- SEARCH BY --</option>
+                            <option value="name">NAME</option>
+                            <option value="price">PRICE</option>
+                            <option value="place">LOCATION</option>
+                            <option value="due">DATE</option>
+                        </select>
+                    </span>
+                    </form>
+
+                </div>
+                <div class="events-list">
+                    <table class="events-table" id="events">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Time</th>
+                                <th>Date</th>
+                                <th>Price</th>
+                            </tr>
+                            <tr>
+                                <td>Alfreds Futterkiste</td>
+                                <td>Maria Anders</td>
+                                <td>Germany</td>
+                                <td>Germany</td>
+                            </tr>
+                            <tr>
+                                <td>Alfreds Futterkiste</td>
+                                <td>Maria Anders</td>
+                                <td>Germany</td>
+                                <td>Germany</td>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>-->
+
+    <div class="search-text">Book your event</div>
 
     <div class="center-search">
         <div class="book-events">
             <div class="book-event">
                 <div class="event-text">
-                    <br>
-                    <br>
-                    <br>
                     <center>
+                        <br>
+                        <br>
+                        <br>
                         <p>Experience the fullest of the moment with us.
                             <p>
                     </center>

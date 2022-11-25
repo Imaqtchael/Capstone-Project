@@ -1,4 +1,4 @@
-window.onload = startUp();
+//window.onload = startUp();
 
 function startUp() {
     updateList();
@@ -87,3 +87,14 @@ function loadCSS() {
     link.href = 'index.css';
     head.appendChild(link);
 }
+
+$(document).ready(function() {
+    var counter = 2;
+    setInterval(function() {
+        document.getElementById('radio' + counter).checked = true;
+        counter += 1;
+        if (counter > 4) {
+            counter = 1;
+        }
+    }, 5000);
+});
