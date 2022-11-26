@@ -208,6 +208,7 @@ $(document).ready(function() {
         //});
     });
 
+
     setInterval(function() {
         jQuery.ajax({
             type: "POST",
@@ -216,10 +217,10 @@ $(document).ready(function() {
             data: { functionname: "checkIfPaid" },
 
             success: function(obj, textstatus) {
-                if (obj.result = "true") {
+                if (obj.result == "true") {
                     window.location.href = "http://localhost/Capstone/onlineBooking/guests.php";
                 }
             }
         });
-    }, 1000);
+    }, 2000);
 });

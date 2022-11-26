@@ -14,7 +14,7 @@
 
         echo json_encode($connectionResult);
     } elseif ($_POST['functionname'] == 'checkIfPaid') {
-        $booker = 'Michael Justin Barcenas Tungol';
+        $booker = $_SESSION['name'];
         checkIfPaid($booker);
     } 
 

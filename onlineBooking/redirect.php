@@ -7,6 +7,25 @@
         $_SESSION['email'] = $_POST['email'];
         $_SESSION['number'] = $_POST['no'];
         $_SESSION['type'] = $_POST['type'];
+
+        $connection = new mysqli("localhost", "root", "", "real_capstone");
+
+        if ($connection -> connect_errno) {
+            echo "<script>alert('Network error')</script>";
+            exit();
+        }
+
+        $sql = "INSERT INTO events (type, booker) VALUES ('{$_POST['type']}', '{$_SESSION['name']}')";
+        $result = $connection->query($sql);
+
+        $sql = "SELECT guests_id FROM events WHERE booker='{$_SESSION['name']}'";
+        $result = $connection->query($sql);
+        $result = $result->fetch_array(MYSQLI_NUM);
+
+        $guests_id = $result[0];
+
+        $sql = "INSERT INTO guest (guest_id, name, address, email, number, type) VALUES ($guests_id, '{$_SESSION['name']}', '{$_SESSION['address']}', '{$_SESSION['email']}', '{$_SESSION['number']}', 'booker')";
+        $result = $connection->query($sql);
     }
 ?>
 

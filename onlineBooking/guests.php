@@ -1,13 +1,7 @@
 <?php
     session_start();
 
-    if (isset($_POST['book'])) {
-        $_SESSION['name'] = "{$_POST['fname']} {$_POST['lname']} {$_POST['mname']}";
-        $_SESSION['address'] = $_POST['address'];
-        $_SESSION['email'] = $_POST['email'];
-        $_SESSION['number'] = $_POST['no'];
-        $_SESSION['type'] = $_POST['type'];
-    }
+    echo $_SESSION['name'];
 ?>
 
 <!DOCTYPE html>

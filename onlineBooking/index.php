@@ -1,18 +1,5 @@
 <?php
-    session_start();
-
-    #$_SESSION['name'] = 'Michael Justin Barcenas';
-
-    if (isset($_POST['book'])) {
-        #$_SESSION['name'] = "{$_POST['fname']} {$_POST['mname']} {$_POST['lname']}";
-
-        echo "<script>alert('ahdfhhah')</script>";
-        $_SESSION['name'] = 'Michael Justin Barcenas';
-        $_SESSION['address'] = $_POST['address'];
-        $_SESSION['email'] = $_POST['email'];
-        $_SESSION['number'] = $_POST['no'];
-        $_SESSION['type'] = $_POST['type'];
-    }
+    
 ?>
 
 <!DOCTYPE html>
@@ -29,6 +16,7 @@
     <script src="https://code.jquery.com/jquery-3.6.1.js"></script>
     <script src="index.js"></script>
     <link rel="stylesheet" href="index.css">
+    <script src="js/jquery.min.js"></script>
 </head>
 
 <body>
@@ -171,8 +159,8 @@
                                 </div>
 
                                 <div class="input-box">
-                                    <span class="details">Middle Name</span>
-                                    <input type="text" name="mname" placeholder="Enter your middle name" required>
+                                    <span class="details">Middle Name [Leave blank if n/a]</span>
+                                    <input type="text" name="mname" placeholder="Enter your middle name">
                                 </div>
 
                                 <div class="input-box">
@@ -190,14 +178,24 @@
                                     <input type="input" name="address" placeholder="Enter your address" required>
                                 </div>
 
+                                <div class="input-box">
+                                    <span class="details">Event Name</span>
+                                    <input type="text" name="event_name" placeholder="Enter the event name" required>
+                                </div>
+
+                                <div class="input-box">
+                                    <span class="details">Date and Time</span>
+                                    <input type="text" id="datetimepicker" name="date_time" placeholder="Choose date and time" required>
+                                </div>
+
                                 <div class="course">
                                     <center>
                                         <label for="course">Choose type of Event</label>
                                         <select name="type" id="course" required>
                                 <option hidden disabled selected value>-- Type of Event --</option>
-                                <option value="wedding">Wedding</option>
-                                <option value="debut">Debut</option>
-                                <option value="birthday">Birthday</option>
+                                <option value="WEDDING">Wedding</option>
+                                <option value="DEBUT">Debut</option>
+                                <option value="BIRTHDAY">Birthday</option>
                             </select>
                                     </center>
                                 </div>
@@ -254,5 +252,8 @@
     </footer>
 
 </body>
+
+<link rel="stylesheet" type="text/css" href="css/jquery.datetimepicker.min.css"/>
+<script src="js/jquery.datetimepicker.js"></script>
 
 </html>

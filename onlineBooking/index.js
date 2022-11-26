@@ -98,6 +98,8 @@ $(document).ready(function() {
         }
     }, 5000);
 
+    $('#datetimepicker').datetimepicker();
+
     $(document).on('click', '.book-n', function() {
         alert("push");
     });
