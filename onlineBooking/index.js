@@ -98,7 +98,9 @@ $(document).ready(function() {
         }
     }, 5000);
 
-    $('#datetimepicker').datetimepicker();
+    $('#datetimepicker').datetimepicker({
+        minDate: 0
+    });
 
     $(document).on('click', '.book-n', function() {
         alert("push");
