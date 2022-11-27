@@ -1,7 +1,16 @@
 <?php
-    session_start();
+    include_once "includes/functions.php";
+    if (isset($_COOKIE['eventName'])) {
+        echo $_COOKIE['eventName'];
+    }
+    $isPaid = checkIfPaid($_COOKIE['eventName'], "php");
 
-    echo $_SESSION['name'];
+    
+
+    if (!$isPaid == true) {
+        echo "<script>window.stop()</script>";
+    }
+
 ?>
 
 <!DOCTYPE html>
@@ -11,7 +20,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nicolas Resort Online Booking | Homepage</title>
+    <title>Add Guests | Nicolas Resort Online Booking</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="shortcut icon" href="pictures/Nicolas_Logo.jpg" type="image/x-icon">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
@@ -163,7 +172,7 @@
                 <p style="font-weight: 500">(if you're quick)</p>
             </div>
             <div class="contact">
-                <img src="pictures/Software-PNG-Photos.png" alt="">
+                <img src="pictures/Nicolas_Logo.jpg" alt="">
                 <span style="font-size: 18px;">CONTACT US</span>
                 <p><i class="fa fa-comments"></i> (+63) 9366296799</p>
                 <p><a href="https://www.imaqtchael@gmail.com" style="text-decoration: none; color: white;"><i
