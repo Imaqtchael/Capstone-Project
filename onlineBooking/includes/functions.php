@@ -1,24 +1,26 @@
 <?php
+    if (isset($_POST['functionname'])) {
+        if ($_POST['functionname'] == 'getAllList') {
+            getAllList();
+        } elseif ($_POST['functionname'] == 'getThis') {
+            $type = $_POST['arguments'][0];
+            $search = $_POST['arguments'][1];
+            getThis($type, $search);
+        } elseif ($_POST['functionname'] == 'insertData') {
+            #$connectionResult = array();
+            #$connectionResult['result'] = 
+    
+            #echo json_encode($connectionResult);
 
-    session_start();
+            $json = $_POST['arguments'];
+            insertData($json);
+        } elseif ($_POST['functionname'] == 'checkIfPaid') {
+            $eventName = $_COOKIE['eventName'];
+            checkIfPaid($eventName, $_POST['arguments']);
+        } 
+    }
 
-    if ($_POST['functionname'] == 'getAllList') {
-        getAllList();
-    } elseif ($_POST['functionname'] == 'getThis') {
-        $type = $_POST['arguments'][0];
-        $search = $_POST['arguments'][1];
-        getThis($type, $search);
-    } elseif ($_POST['functionname'] == 'uploadData') {
-        $connectionResult = array();
-        $connectionResult['result'] = json_decode($_POST['arguments'], true);
-
-        echo json_encode($connectionResult);
-    } elseif ($_POST['functionname'] == 'checkIfPaid') {
-        $booker = $_SESSION['name'];
-        checkIfPaid($booker);
-    } 
-
-    function checkIfPaid($booker) {
+    function checkIfPaid($eventName, $from) {
         $connection = new mysqli("localhost", "root", "", "real_capstone");
         $connresult = array();
 
@@ -27,29 +29,74 @@
             exit();
         }
 
-        $sql = "SELECT ispaid FROM events WHERE booker='{$booker}'";
+        $sql = "SELECT ispaid FROM events WHERE name='{$eventName}'";
 
         $result = $connection->query($sql);
         $result = $result->fetch_array(MYSQLI_NUM);
 
         if ($result[0] == 1) {
             $connresult['result'] = "true";
-            echo json_encode($connresult);
+            if ($from == 'php') {
+                return true;
+            } else {
+                echo json_encode($connresult);
+            }
         } else {
             $connresult['result'] = "false";
-            echo json_encode($connresult);
+            if ($from == 'php') {
+                return false;
+            } else {
+                echo json_encode($connresult);
+            }
         }
+
     }
 
     function insertData($data) {
         $connection = new mysqli("localhost", "root", "", "real_capstone");
+
+        $sql = "SELECT guests_id FROM events WHERE name='{$_COOKIE['eventName']}'";
+        $result = $connection->query($sql);
+        $result = $result->fetch_array(MYSQLI_NUM);
+
+        $guests_id = $result[0];
 
         if ($connection -> connect_errno) {
             echo "<script>alert('Failed to connect to database')</script>";
             exit();
         }
 
-        $sql = "INSERT INTO events SET(registered, date, time, type, booker)";
+        $personData = json_decode($data, true);
+
+        $sql = "INSERT INTO guest (guest_id, name, address, email, number, type) VALUES";
+
+        foreach($personData as $person) {
+            # Get informations from person
+            $name = $person['name'];
+            $address = $person['address'];
+            $email = $person['email'];
+            $number = $person['number'];
+
+            $new_sql = " ({$guests_id}, '{$name}', '{$address}', '{$email}', '{$number}', 'guest'),";
+
+            $sql = "{$sql}{$new_sql}";
+        }
+
+        $sql = substr($sql, 0, -1);
+
+        $result = $connection->query($sql);
+
+        if ($result == TRUE) {
+            setcookie('eventName', null, time() - (86400 * 3), '/');
+            unset($_COOKIE['eventName']);
+
+            echo $_COOKIE['eventName'];
+            
+            echo "Guest submission success!";
+
+        } else {
+            echo "Guest submission failed!";
+        }
 
     }
 

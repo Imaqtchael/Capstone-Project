@@ -193,12 +193,11 @@ $(document).ready(function() {
         jQuery.ajax({
             type: "POST",
             url: 'http://localhost/Capstone/onlineBooking/includes/functions.php',
-            dataType: 'json',
-            data: { functionname: 'uploadData', arguments: localStorage.getItem('backup.json') },
+            dataType: 'text',
+            data: { functionname: 'insertData', arguments: localStorage.getItem('backup.json') },
 
             success: function(obj, textstatus) {
-                eventsList = obj.result;
-                alert(eventsList);
+                alert(obj);
             }
         });
 
@@ -207,22 +206,6 @@ $(document).ready(function() {
         //    alert(data);
         //});
     });
-
-    var checkIfPaid = setInterval(function() {
-        jQuery.ajax({
-            type: "POST",
-            url: 'http://localhost/Capstone/onlineBooking/includes/functions.php',
-            dataType: 'json',
-            data: { functionname: "checkIfPaid" },
-
-            success: function(obj, textstatus) {
-                if (obj.result = "true") {
-                    clearInterval(checkIfPaid);
-
-                }
-            }
-        });
-    }, 1000);
 
     CheckForPreviousEntry();
 
