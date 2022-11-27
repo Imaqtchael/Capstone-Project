@@ -214,7 +214,7 @@ $(document).ready(function() {
             type: "POST",
             url: 'http://localhost/Capstone/onlineBooking/includes/functions.php',
             dataType: 'json',
-            data: { functionname: "checkIfPaid" },
+            data: { functionname: "checkIfPaid", arguments: 'js' },
 
             success: function(obj, textstatus) {
                 if (obj.result == "true") {

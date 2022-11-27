@@ -1,12 +1,26 @@
 <?php
-    session_start();
-
     if (isset($_POST['book'])) {
-        $_SESSION['name'] = "{$_POST['fname']} {$_POST['lname']} {$_POST['mname']}";
-        $_SESSION['address'] = $_POST['address'];
-        $_SESSION['email'] = $_POST['email'];
-        $_SESSION['number'] = $_POST['no'];
-        $_SESSION['type'] = $_POST['type'];
+        #might wanna destroy these as the one you just want to be saved is the name
+        #of the event. that in itself is enough to enter the data to the database.
+
+        #check for empty middle name 
+        $name = "";
+        if ($_POST['mname'] == "") {
+            $name = "{$_POST['fname']} {$_POST['lname']}";
+        } else {
+            $name = "{$_POST['fname']} {$_POST['lname']} {$_POST['mname']}";
+        }
+        
+        $address = $_POST['address'];
+        $email = $_POST['email'];
+        $number = $_POST['no'];
+        $eventType = $_POST['type'];
+
+        setcookie('eventName', $_POST['event_name'], time() + (86400 * 3), '/');
+        
+        $dateTime = explode(" ", $_POST['date_time']);
+        $date = $dateTime[0];
+        $time = date("g:i A", strtotime($_POST['date_time']));
 
         $connection = new mysqli("localhost", "root", "", "real_capstone");
 
@@ -15,16 +29,16 @@
             exit();
         }
 
-        $sql = "INSERT INTO events (type, booker) VALUES ('{$_POST['type']}', '{$_SESSION['name']}')";
+        $sql = "INSERT INTO events (name, date, time, type, booker) VALUES ('{$_COOKIE['eventName']}', '$date', '$time', '$eventType', '$name')";
         $result = $connection->query($sql);
 
-        $sql = "SELECT guests_id FROM events WHERE booker='{$_SESSION['name']}'";
+        $sql = "SELECT guests_id FROM events WHERE name='{$_COOKIE['eventName']}'";
         $result = $connection->query($sql);
         $result = $result->fetch_array(MYSQLI_NUM);
 
         $guests_id = $result[0];
 
-        $sql = "INSERT INTO guest (guest_id, name, address, email, number, type) VALUES ($guests_id, '{$_SESSION['name']}', '{$_SESSION['address']}', '{$_SESSION['email']}', '{$_SESSION['number']}', 'booker')";
+        $sql = "INSERT INTO guest (guest_id, name, address, email, number, type) VALUES ($guests_id, '$name', '$address', '$email', '$number', 'booker')";
         $result = $connection->query($sql);
     }
 ?>
@@ -36,7 +50,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nicolas Resort Online Booking | Homepage</title>
+    <title>Redirecting...</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="shortcut icon" href="pictures/Nicolas_Logo.jpg" type="image/x-icon">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
@@ -71,7 +85,7 @@
                 <p style="font-weight: 500">(if you're quick)</p>
             </div>
             <div class="contact">
-                <img src="pictures/Software-PNG-Photos.png" alt="">
+                <img src="pictures/Nicolas_Logo.jpg" alt="">
                 <span style="font-size: 18px;">CONTACT US</span>
                 <p><i class="fa fa-comments"></i> (+63) 9366296799</p>
                 <p><a href="https://www.imaqtchael@gmail.com" style="text-decoration: none; color: white;"><i
