@@ -53,10 +53,10 @@
     <title>Redirecting...</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="shortcut icon" href="pictures/Nicolas_Logo.jpg" type="image/x-icon">
+    <link rel="stylesheet" href="css/redirect.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
-    <script src="redirect.js"></script>
+    <script src="js/redirect.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.1.js"></script>
-    <link rel="stylesheet" href="redirect.css">
 </head>
 
 <body>

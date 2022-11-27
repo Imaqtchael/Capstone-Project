@@ -75,19 +75,19 @@ body {
 }
 
 .first-image {
-    background-image: linear-gradient(0deg, rgba(36, 44, 51, 0.5), rgba(36, 44, 51, 0.5)), url(pictures/index/basketball.jpg);
+    background-image: linear-gradient(0deg, rgba(36, 44, 51, 0.5), rgba(36, 44, 51, 0.5)), url(../pictures/index/basketball.jpg);
 }
 
 .second-image {
-    background-image: linear-gradient(0deg, rgba(36, 44, 51, 0.5), rgba(36, 44, 51, 0.5)), url(pictures/index/birthday.jpg);
+    background-image: linear-gradient(0deg, rgba(36, 44, 51, 0.5), rgba(36, 44, 51, 0.5)), url(../pictures/index/birthday.jpg);
 }
 
 .third-image {
-    background-image: linear-gradient(0deg, rgba(36, 44, 51, 0.5), rgba(36, 44, 51, 0.5)), url(pictures/index/debut.jpg);
+    background-image: linear-gradient(0deg, rgba(36, 44, 51, 0.5), rgba(36, 44, 51, 0.5)), url(../pictures/index/debut.jpg);
 }
 
 .fourth-image {
-    background-image: linear-gradient(0deg, rgba(36, 44, 51, 0.5), rgba(36, 44, 51, 0.5)), url(pictures/index/wedding.jpg);
+    background-image: linear-gradient(0deg, rgba(36, 44, 51, 0.5), rgba(36, 44, 51, 0.5)), url(../pictures/index/wedding.jpg);
 }
 
 .navigation-manual {

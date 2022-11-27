@@ -218,7 +218,7 @@ $(document).ready(function() {
 
             success: function(obj, textstatus) {
                 if (obj.result == "true") {
-                    window.location.href = "http://localhost/Capstone/onlineBooking/guests.php";
+                    window.location.href = "http://localhost/Capstone/onlineBooking/guest.php";
                 }
             }
         });

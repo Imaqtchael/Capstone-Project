@@ -1,11 +1,6 @@
 <?php
     include_once "includes/functions.php";
-    if (isset($_COOKIE['eventName'])) {
-        echo $_COOKIE['eventName'];
-    }
     $isPaid = checkIfPaid($_COOKIE['eventName'], "php");
-
-    
 
     if (!$isPaid == true) {
         echo "<script>window.stop()</script>";
@@ -23,10 +18,10 @@
     <title>Add Guests | Nicolas Resort Online Booking</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="shortcut icon" href="pictures/Nicolas_Logo.jpg" type="image/x-icon">
+    <link rel="stylesheet" href="css/guest.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
-    <script src="guest.js"></script>
+    <script src="js/guest.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.1.js"></script>
-    <link rel="stylesheet" href="guest.css">
 </head>
 
 <body>
