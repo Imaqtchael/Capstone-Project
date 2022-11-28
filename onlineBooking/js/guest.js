@@ -197,6 +197,10 @@ $(document).ready(function() {
             data: { functionname: 'insertData', arguments: localStorage.getItem('backup.json') },
 
             success: function(obj, textstatus) {
+                if (obj == "Guest submission success!") {
+                    localStorage.removeItem('backup.json');
+                    window.location.href = "http://localhost/Capstone/onlineBooking/index.php";
+                }
                 alert(obj);
             }
         });

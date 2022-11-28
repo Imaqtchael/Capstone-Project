@@ -1,11 +1,2 @@
-create a session that has the user information (event name)
-
-after submiting the form (which contains the booker information):
-    while waiting for the response:
-        submit the form to .php server
-
-        if response = paid:
-            redirect to guests.html
-        else:
-            continue
+post the information
         

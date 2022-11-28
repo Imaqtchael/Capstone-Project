@@ -1,10 +1,16 @@
 <?php
     include_once "includes/functions.php";
-    $isPaid = checkIfPaid($_COOKIE['eventName'], "php");
 
-    if (!$isPaid == true) {
+    if (isset($_COOKIE['eventName'])) {
+        $isPaid = checkIfPaid($_COOKIE['eventName'], "php");
+
+        if (!$isPaid == true) {
+            echo "<script>window.stop()</script>";
+        }
+    } else {
         echo "<script>window.stop()</script>";
     }
+    
 
 ?>
 
@@ -61,23 +67,24 @@
                     </form>
 
                 </div>-->
-                <div class="events-list">
-                    <table class="events-table" id="events">
-                        <thead>
-                            <tr>
-                                <th>NAME</th>
-                                <th>ADDRESS</th>
-                                <th>EMAIL</th>
-                                <th>NUMBER</th>
-                                <th>ACTION</th>
-                            </tr>
-                            <tbody>
-                            </tbody>
+                    <div class="events-list">
+                        <table class="events-table" id="events">
+                            <thead>
+                                <tr>
+                                    <th>NAME</th>
+                                    <th>ADDRESS</th>
+                                    <th>EMAIL</th>
+                                    <th>NUMBER</th>
+                                    <th>ACTION</th>
+                                </tr>
+                                <tbody>
+                                </tbody>
 
-                        </thead>
-                    </table>
-                    <input id="submit-btn" name="uploadData" type="submit" value="SUBMIT FORM" class="submit-table-btn">
-                </div>
+                            </thead>
+                        </table>
+                        <input id="submit-btn" name="uploadData" type="submit" value="SUBMIT FORM" class="submit-table-btn">
+                    </div>
+                
 
             </div>
 

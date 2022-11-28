@@ -1,5 +1,25 @@
 <?php
     if (isset($_POST['book'])) {
+        # Check if the user is reloading the page
+        $connection = new mysqli("localhost", "root", "", "real_capstone");
+
+        if ($connection -> connect_errno) {
+            echo "<script>alert('Network error')</script>";
+            exit();
+        }
+
+        setcookie('eventName', $_POST['event_name'], time() + (86400 * 3), "/");
+
+        $sql = "SELECT ispaid FROM events WHERE name='{$_POST['event_name']}'";
+        $result = $connection->query($sql);
+        $result = $result->fetch_array(MYSQLI_NUM);
+
+        $isPaid = $result;
+
+        if ($isPaid == 1) {
+            return;
+        }
+
         #might wanna destroy these as the one you just want to be saved is the name
         #of the event. that in itself is enough to enter the data to the database.
 
@@ -15,24 +35,15 @@
         $email = $_POST['email'];
         $number = $_POST['no'];
         $eventType = $_POST['type'];
-
-        setcookie('eventName', $_POST['event_name'], time() + (86400 * 3), '/');
         
         $dateTime = explode(" ", $_POST['date_time']);
         $date = $dateTime[0];
         $time = date("g:i A", strtotime($_POST['date_time']));
 
-        $connection = new mysqli("localhost", "root", "", "real_capstone");
-
-        if ($connection -> connect_errno) {
-            echo "<script>alert('Network error')</script>";
-            exit();
-        }
-
-        $sql = "INSERT INTO events (name, date, time, type, booker) VALUES ('{$_COOKIE['eventName']}', '$date', '$time', '$eventType', '$name')";
+        $sql = "INSERT INTO events (name, date, time, type, booker) VALUES ('{$_POST['event_name']}', '$date', '$time', '$eventType', '$name')";
         $result = $connection->query($sql);
 
-        $sql = "SELECT guests_id FROM events WHERE name='{$_COOKIE['eventName']}'";
+        $sql = "SELECT guests_id FROM events WHERE name='{$_POST['event_name']}'";
         $result = $connection->query($sql);
         $result = $result->fetch_array(MYSQLI_NUM);
 

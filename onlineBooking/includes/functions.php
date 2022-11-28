@@ -87,13 +87,10 @@
         $result = $connection->query($sql);
 
         if ($result == TRUE) {
-            setcookie('eventName', null, time() - (86400 * 3), '/');
+            setcookie('eventName', null, time() - 86400, '/');
             unset($_COOKIE['eventName']);
 
-            echo $_COOKIE['eventName'];
-            
             echo "Guest submission success!";
-
         } else {
             echo "Guest submission failed!";
         }
