@@ -98,11 +98,28 @@ $(document).ready(function() {
         }
     }, 5000);
 
-    $('#datetimepicker').datetimepicker({
-        minDate: 0
-    });
+    jQuery.ajax({
+        type: "POST",
+        url: 'http://localhost/Capstone/onlineBooking/includes/functions.php',
+        dataType: 'json',
+        data: { functionname: 'getAllDates' },
 
-    $(document).on('click', '.book-n', function() {
-        alert("push");
+        success: function(obj, textstatus) {
+            var jsonCount = Object.keys(obj).length;
+            var disabledDate = [];
+
+            if (jsonCount > 0) {
+                for (var i = 0; i < jsonCount; i++) {
+                    disabledDate.push(obj[i]);
+                }
+            }
+
+            $('#datetimepicker').datetimepicker({
+                minDate: 0,
+                format: 'Y/m/d g:i A',
+                disabledDates: disabledDate
+            });
+
+        }
     });
 });

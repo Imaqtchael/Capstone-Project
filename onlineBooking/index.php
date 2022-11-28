@@ -16,6 +16,7 @@
     <script src="https://code.jquery.com/jquery-3.6.1.js"></script>
     <script src="js/index.js"></script>
     <script src="js/jquery.min.js"></script>
+    <script src="js/moment.js"></script>
 </head>
 
 <body>

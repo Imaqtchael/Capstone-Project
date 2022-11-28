@@ -7,17 +7,14 @@
             $search = $_POST['arguments'][1];
             getThis($type, $search);
         } elseif ($_POST['functionname'] == 'insertData') {
-            #$connectionResult = array();
-            #$connectionResult['result'] = 
-    
-            #echo json_encode($connectionResult);
-
             $json = $_POST['arguments'];
             insertData($json);
         } elseif ($_POST['functionname'] == 'checkIfPaid') {
             $eventName = $_COOKIE['eventName'];
             checkIfPaid($eventName, $_POST['arguments']);
-        } 
+        } elseif ($_POST['functionname'] == 'getAllDates') {
+            getAllDates();
+        }
     }
 
     function checkIfPaid($eventName, $from) {
@@ -95,6 +92,25 @@
             echo "Guest submission failed!";
         }
 
+    }
+
+    function getAllDates() {
+        $connection = new mysqli("localhost", "root", "", "real_capstone");
+        $connectionResult = array();
+
+        $sql = "SELECT date FROM events";
+        $result = $connection->query($sql);
+        while ($row = $result->fetch_array(MYSQLI_NUM)) {
+            $connectionResult[] = date("Y/m/d", strtotime($row[0]));
+        }
+        #$result = $result->fetch_array(MYSQLI_NUM);
+
+        #$counter = 0;
+        #foreach ($result as $date) {
+        #    $connectionResult[$counter] = $date;
+        #}
+
+        echo json_encode($connectionResult);
     }
 
     function getAllList() {
