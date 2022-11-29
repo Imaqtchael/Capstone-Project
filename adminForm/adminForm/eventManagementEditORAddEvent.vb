@@ -10,7 +10,7 @@ Public Class eventManagementEditORAddEvent
         'Check for empty textboxes
         Dim emptyTextBoxes =
             From txt In Me.Panel1.Controls.OfType(Of TextBox)()
-            Where txt.Text.Length = 0
+            Where txt.Text.Length = 0 And txt.Name <> TextBox6.Name
             Select txt.Name
         If emptyTextBoxes.Any Then
             MessageBox.Show("Please fill up all the fields")
@@ -19,7 +19,7 @@ Public Class eventManagementEditORAddEvent
 
         'UPDATE Database if the user is only editing
         If eventManagement.editOrAddEvent = "edit" Then
-            Dim query As String = $"UPDATE events SET name='{TextBox1.Text}', date='{DateTimePicker1.Value.ToString("M/dd/yyyy")}', time='{TextBox7.Text}', type='{ComboBox1.Text}', booker='{TextBox3.Text}' WHERE guests_id={editEventGuestsID}"
+            Dim query As String = $"UPDATE events SET name='{TextBox1.Text}', date='{DateTimePicker1.Value.ToString("M/dd/yyyy")}', time='{TextBox7.Text}', type='{ComboBox1.Text}', booker='{TextBox3.Text}', ispaid={CheckBox1.Checked} WHERE guests_id={editEventGuestsID}"
             Dim eventSuccess As Boolean = executeNonQuery(query)
 
             query = $"UPDATE guest SET rfid='{TextBox6.Text}', name='{TextBox3.Text}', address='{TextBox2.Text}', email='{TextBox5.Text}', number='{TextBox4.Text}' WHERE id={selectedBookerID}"
@@ -34,7 +34,7 @@ Public Class eventManagementEditORAddEvent
         End If
 
         'INSERT values into Database if the user is adding
-        Dim query1 = $"INSERT INTO events(name, date, time, type, booker) VALUES('{TextBox1.Text}', '{DateTimePicker1.Value.ToString("M/dd/yyyy")}', '{TextBox7.Text}', '{ComboBox1.Text}', '{TextBox3.Text}')"
+        Dim query1 = $"INSERT INTO events(name, date, time, type, booker, ispaid) VALUES('{TextBox1.Text}', '{DateTimePicker1.Value.ToString("M/dd/yyyy")}', '{TextBox7.Text}', '{ComboBox1.Text}', '{TextBox3.Text}', {CheckBox1.Checked})"
         Dim eventSuccess1 As Boolean = executeNonQuery(query1)
 
         Dim query2 As String = $"SELECT guests_id FROM events WHERE name='{TextBox1.Text}'"
@@ -52,10 +52,13 @@ Public Class eventManagementEditORAddEvent
 
     Private Sub eventManagementEditORAddGuest_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         'Adding values on form_load to the textboxes if the user is editing
+
+        CheckBox2.Checked = True
+
         If eventManagement.editOrAddEvent = "edit" Then
             Label1.Text = "EDIT EVENT"
 
-            Dim query As String = $"SELECT name, date, type, booker, guests_id, time FROM events WHERE name='{eventManagement.editEvent}'"
+            Dim query As String = $"SELECT name, date, type, booker, guests_id, time, ispaid FROM events WHERE name='{eventManagement.editEvent}'"
             Dim ds As DataSet = getData(query)
 
             Dim query1 As String = $"SELECT rfid, name, address, email, number, id FROM guest WHERE name='{ds.Tables(0).Rows(0)(3)}'"
@@ -64,6 +67,11 @@ Public Class eventManagementEditORAddEvent
             TextBox1.Text = ds.Tables(0).Rows(0)(0)
             DateTimePicker1.Value = ds.Tables(0).Rows(0)(1)
             ComboBox1.Text = ds.Tables(0).Rows(0)(2)
+            If ds.Tables(0).Rows(0)(6) = True Then
+                CheckBox1.Checked = True
+            Else
+                CheckBox2.Checked = True
+            End If
 
             TextBox3.Text = ds1.Tables(0).Rows(0)(1)
             TextBox2.Text = ds1.Tables(0).Rows(0)(2)
@@ -118,6 +126,22 @@ Public Class eventManagementEditORAddEvent
         guestManagement.guestManagement_Load(Nothing, Nothing)
         Me.Close()
     End Sub
+
+    Private Sub CheckBox1_CheckedChanged(sender As Object, e As EventArgs) Handles CheckBox1.CheckedChanged
+        If CheckBox1.Checked = True Then
+            CheckBox2.Checked = False
+        Else
+            CheckBox2.Checked = True
+        End If
+    End Sub
+
+    Private Sub CheckBox2_CheckedChanged(sender As Object, e As EventArgs) Handles CheckBox2.CheckedChanged
+        If CheckBox2.Checked = True Then
+            CheckBox1.Checked = False
+        Else
+            CheckBox1.Checked = True
+        End If
+    End Sub
     Private Sub ComboBox1_Click(sender As Object, e As EventArgs) Handles ComboBox1.Click
         sender.DroppedDown = True
     End Sub
@@ -145,6 +169,4 @@ Public Class eventManagementEditORAddEvent
         ReleaseCapture()
         SendMessage(Me.Handle, &H112&, &HF012&, 0)
     End Sub
-
-
 End Class

@@ -143,7 +143,7 @@ Public Class guestManagement
         ElseIf e.ColumnIndex = 5 Then
             Timer1.Enabled = False
 
-            If DataGridView1.Rows(e.RowIndex).Cells(3).Value = "booker" Then
+            If DataGridView1.Rows(e.RowIndex).Cells(3).Value = "BOOKER" Then
                 MessageBox.Show("Cannot delete a booker")
                 Return
             End If

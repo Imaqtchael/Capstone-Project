@@ -23,6 +23,8 @@ Partial Class eventManagementEditORAddEvent
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.CheckBox2 = New System.Windows.Forms.CheckBox()
+        Me.CheckBox1 = New System.Windows.Forms.CheckBox()
         Me.Panel2 = New System.Windows.Forms.Panel()
         Me.Label11 = New System.Windows.Forms.Label()
         Me.TextBox6 = New System.Windows.Forms.TextBox()
@@ -54,6 +56,8 @@ Partial Class eventManagementEditORAddEvent
         'Panel1
         '
         Me.Panel1.BackColor = System.Drawing.Color.White
+        Me.Panel1.Controls.Add(Me.CheckBox2)
+        Me.Panel1.Controls.Add(Me.CheckBox1)
         Me.Panel1.Controls.Add(Me.Panel2)
         Me.Panel1.Controls.Add(Me.Label5)
         Me.Panel1.Controls.Add(Me.DateTimePicker1)
@@ -72,6 +76,26 @@ Partial Class eventManagementEditORAddEvent
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(591, 871)
         Me.Panel1.TabIndex = 1
+        '
+        'CheckBox2
+        '
+        Me.CheckBox2.AutoSize = True
+        Me.CheckBox2.Location = New System.Drawing.Point(311, 275)
+        Me.CheckBox2.Name = "CheckBox2"
+        Me.CheckBox2.Size = New System.Drawing.Size(88, 24)
+        Me.CheckBox2.TabIndex = 6
+        Me.CheckBox2.Text = "Not Paid"
+        Me.CheckBox2.UseVisualStyleBackColor = True
+        '
+        'CheckBox1
+        '
+        Me.CheckBox1.AutoSize = True
+        Me.CheckBox1.Location = New System.Drawing.Point(23, 275)
+        Me.CheckBox1.Name = "CheckBox1"
+        Me.CheckBox1.Size = New System.Drawing.Size(59, 24)
+        Me.CheckBox1.TabIndex = 6
+        Me.CheckBox1.Text = "Paid"
+        Me.CheckBox1.UseVisualStyleBackColor = True
         '
         'Panel2
         '
@@ -199,7 +223,7 @@ Partial Class eventManagementEditORAddEvent
         '
         'DateTimePicker1
         '
-        Me.DateTimePicker1.Location = New System.Drawing.Point(23, 133)
+        Me.DateTimePicker1.Location = New System.Drawing.Point(23, 99)
         Me.DateTimePicker1.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.DateTimePicker1.Name = "DateTimePicker1"
         Me.DateTimePicker1.Size = New System.Drawing.Size(542, 27)
@@ -209,7 +233,7 @@ Partial Class eventManagementEditORAddEvent
         '
         Me.ComboBox1.FormattingEnabled = True
         Me.ComboBox1.Items.AddRange(New Object() {"BIRTHDAY", "DEBUT", "WEDDING", "OTHERS: TYPE THE EVENT TYPE"})
-        Me.ComboBox1.Location = New System.Drawing.Point(23, 204)
+        Me.ComboBox1.Location = New System.Drawing.Point(23, 159)
         Me.ComboBox1.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.ComboBox1.Name = "ComboBox1"
         Me.ComboBox1.Size = New System.Drawing.Size(542, 28)
@@ -253,7 +277,7 @@ Partial Class eventManagementEditORAddEvent
         'TextBox7
         '
         Me.TextBox7.Font = New System.Drawing.Font("Poppins", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-        Me.TextBox7.Location = New System.Drawing.Point(23, 285)
+        Me.TextBox7.Location = New System.Drawing.Point(23, 225)
         Me.TextBox7.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.TextBox7.Name = "TextBox7"
         Me.TextBox7.Size = New System.Drawing.Size(542, 30)
@@ -262,7 +286,7 @@ Partial Class eventManagementEditORAddEvent
         'TextBox1
         '
         Me.TextBox1.Font = New System.Drawing.Font("Poppins", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-        Me.TextBox1.Location = New System.Drawing.Point(23, 61)
+        Me.TextBox1.Location = New System.Drawing.Point(23, 33)
         Me.TextBox1.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.TextBox1.Name = "TextBox1"
         Me.TextBox1.Size = New System.Drawing.Size(542, 30)
@@ -272,7 +296,7 @@ Partial Class eventManagementEditORAddEvent
         '
         Me.Label7.AutoSize = True
         Me.Label7.Font = New System.Drawing.Font("Poppins", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-        Me.Label7.Location = New System.Drawing.Point(23, 171)
+        Me.Label7.Location = New System.Drawing.Point(23, 131)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(47, 26)
         Me.Label7.TabIndex = 0
@@ -282,7 +306,7 @@ Partial Class eventManagementEditORAddEvent
         '
         Me.Label3.AutoSize = True
         Me.Label3.Font = New System.Drawing.Font("Poppins", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-        Me.Label3.Location = New System.Drawing.Point(23, 100)
+        Me.Label3.Location = New System.Drawing.Point(23, 69)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(47, 26)
         Me.Label3.TabIndex = 0
@@ -292,7 +316,7 @@ Partial Class eventManagementEditORAddEvent
         '
         Me.Label12.AutoSize = True
         Me.Label12.Font = New System.Drawing.Font("Poppins", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-        Me.Label12.Location = New System.Drawing.Point(23, 246)
+        Me.Label12.Location = New System.Drawing.Point(23, 192)
         Me.Label12.Name = "Label12"
         Me.Label12.Size = New System.Drawing.Size(48, 26)
         Me.Label12.TabIndex = 0
@@ -302,7 +326,7 @@ Partial Class eventManagementEditORAddEvent
         '
         Me.Label2.AutoSize = True
         Me.Label2.Font = New System.Drawing.Font("Poppins", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-        Me.Label2.Location = New System.Drawing.Point(23, 28)
+        Me.Label2.Location = New System.Drawing.Point(23, 6)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(57, 26)
         Me.Label2.TabIndex = 0
@@ -364,4 +388,6 @@ Partial Class eventManagementEditORAddEvent
     Friend WithEvents TextBox6 As TextBox
     Friend WithEvents TextBox7 As TextBox
     Friend WithEvents Label12 As Label
+    Friend WithEvents CheckBox2 As CheckBox
+    Friend WithEvents CheckBox1 As CheckBox
 End Class

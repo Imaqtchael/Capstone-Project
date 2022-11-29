@@ -367,7 +367,7 @@ body {
 .search-events,
 .book-events {
     height: 500px;
-    width: 98%;
+    width: 85%;
     border-radius: 5px;
     display: flex;
     /* establish flex container */
@@ -424,7 +424,7 @@ body {
 
 .event-text {
     min-height: 90%;
-    width: 40%;
+    width: 30%;
     float: left;
     margin: 0 10px;
 }
@@ -445,7 +445,7 @@ body {
 .event-form {
     border-radius: 5px;
     background-color: white;
-    width: 60%;
+    width: 70%;
     float: right;
 }
 

@@ -96,6 +96,7 @@ Public Class eventManagement
         ElseIf e.ColumnIndex = 4 Then
             editOrAddEvent = "edit"
             editEvent = selectedEvent
+            MessageBox.Show(editEvent)
 
             Timer1.Enabled = False
             eventManagementEditORAddEvent.Show()
