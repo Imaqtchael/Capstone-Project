@@ -7,7 +7,7 @@ Public Class eventManagementEditORAddEvent
     Dim loadDone As Boolean = False
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
-        'Check for empty textboxes
+        'Check for empty textboxes excluding RFID
         Dim emptyTextBoxes =
             From txt In Me.Panel1.Controls.OfType(Of TextBox)()
             Where txt.Text.Length = 0 And txt.Name <> TextBox6.Name
@@ -19,7 +19,7 @@ Public Class eventManagementEditORAddEvent
 
         'UPDATE Database if the user is only editing
         If eventManagement.editOrAddEvent = "edit" Then
-            Dim query As String = $"UPDATE events SET name='{TextBox1.Text}', date='{DateTimePicker1.Value.ToString("M/dd/yyyy")}', time='{TextBox7.Text}', type='{ComboBox1.Text}', booker='{TextBox3.Text}', ispaid={CheckBox1.Checked} WHERE guests_id={editEventGuestsID}"
+            Dim query As String = $"UPDATE events SET name='{TextBox1.Text}', date='{DateTimePicker1.Value.ToString("MM/dd/yyyy")}', time='{TextBox7.Text}', type='{ComboBox1.Text}', booker='{TextBox3.Text}', ispaid={CheckBox1.Checked} WHERE guests_id={editEventGuestsID}"
             Dim eventSuccess As Boolean = executeNonQuery(query)
 
             query = $"UPDATE guest SET rfid='{TextBox6.Text}', name='{TextBox3.Text}', address='{TextBox2.Text}', email='{TextBox5.Text}', number='{TextBox4.Text}' WHERE id={selectedBookerID}"
@@ -34,7 +34,7 @@ Public Class eventManagementEditORAddEvent
         End If
 
         'INSERT values into Database if the user is adding
-        Dim query1 = $"INSERT INTO events(name, date, time, type, booker, ispaid) VALUES('{TextBox1.Text}', '{DateTimePicker1.Value.ToString("M/dd/yyyy")}', '{TextBox7.Text}', '{ComboBox1.Text}', '{TextBox3.Text}', {CheckBox1.Checked})"
+        Dim query1 = $"INSERT INTO events(name, date, time, type, booker, ispaid) VALUES('{TextBox1.Text}', '{DateTimePicker1.Value.ToString("MM/dd/yyyy")}', '{TextBox7.Text}', '{ComboBox1.Text}', '{TextBox3.Text}', {CheckBox1.Checked})"
         Dim eventSuccess1 As Boolean = executeNonQuery(query1)
 
         Dim query2 As String = $"SELECT guests_id FROM events WHERE name='{TextBox1.Text}'"
@@ -92,7 +92,7 @@ Public Class eventManagementEditORAddEvent
     Private Sub DateTimePicker1_ValueChanged(sender As Object, e As EventArgs) Handles DateTimePicker1.ValueChanged
         'Check if selected date is available
 
-        Dim selectedDate As String = DateTimePicker1.Value.ToString("M/dd/yyyy")
+        Dim selectedDate As String = DateTimePicker1.Value.ToString("MM/dd/yyyy")
         MessageBox.Show(selectedDate)
         Dim dateNow As Date = Date.Now
         If DateTimePicker1.Value < dateNow Then

@@ -37,7 +37,8 @@
         $eventType = $_POST['type'];
         
         $dateTime = explode(" ", $_POST['date_time']);
-        $date = $dateTime[0];
+        $date = date("m/d/Y", strtotime($_POST['date_time']));
+        
         $time = date("g:i A", strtotime($_POST['date_time']));
 
         $sql = "INSERT INTO events (name, date, time, type, booker) VALUES ('{$_POST['event_name']}', '$date', '$time', '$eventType', '$name')";

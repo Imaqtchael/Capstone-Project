@@ -13,7 +13,7 @@
 
     'Loading the data and putting them into DataGridView1
     Private Sub trackingReport_Load(sender As Object, e As EventArgs) Handles MyBase.Load, Timer1.Tick
-        Dim Events As String = $"SELECT name, guests_id, date FROM events WHERE date>=date_format(curdate(), '%m/%d/%Y') ORDER BY date DESC"
+        Dim Events As String = $"SELECT name, guests_id, date FROM events WHERE date_format(str_to_date(date, '%m/%d/%Y'), '%Y/%m/%d')<=date_format(curdate(), '%Y/%m/%d') ORDER BY date DESC"
         Dim EventsDS As DataSet = getData(Events)
 
         If EventsDS.Tables(0).Rows.Count = 0 Then
@@ -28,10 +28,11 @@
         End If
 
         If EventsDS.Tables(0).Rows.Count > 0 Then
-            eventName = EventsDS.Tables(0).Rows(EventsDS.Tables(0).Rows.Count - 1)(0).ToString
-            guestsID = EventsDS.Tables(0).Rows(EventsDS.Tables(0).Rows.Count - 1)(1).ToString()
-            eventDate = EventsDS.Tables(0).Rows(EventsDS.Tables(0).Rows.Count - 1)(2).ToString()
+            eventName = EventsDS.Tables(0).Rows(0)(0).ToString
+            guestsID = EventsDS.Tables(0).Rows(0)(1).ToString()
+            eventDate = EventsDS.Tables(0).Rows(0)(2).ToString()
         End If
+
 
         ComboBox1.Text = eventName
         Label2.Text = eventDate
