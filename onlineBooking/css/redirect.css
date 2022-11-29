@@ -49,156 +49,9 @@ body {
     position: relative;
 }
 
-.header .navigation {
-    float: right;
-}
-
-.header .link {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    z-index: 1;
-}
-
-.events-list {
-    height: 95%;
-    width: 95%;
-    margin: 10px auto;
-    display: flex;
-    /* establish flex container */
-    flex-direction: column;
-    /* default value; can be omitted */
-    flex-wrap: nowrap;
-    /* default value; can be omitted */
-    justify-content: space-evenly;
-}
-
-.events-table {
-    margin: auto;
-    border-collapse: collapse;
-    margin: 25px 0;
-    font-size: .9em;
-    width: 100%;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0, 0.15);
-    border-radius: 5px 5px 0 0;
-    overflow: hidden;
-}
-
-.events-table thead tr {
-    background-color: dodgerblue;
-    color: #FFFFFF;
-    text-align: left;
-}
-
-.events-table th,
-.events-table td {
-    padding: 12px 15px;
-}
-
-.events-table tbody tr {
-    border-bottom: 1px solid #dddddd;
-}
-
-.events-table tbody tr:last-of-type {
-    border-bottom: 2px solid dodgerblue;
-}
-
-.submit-table-btn {
-    float: right;
-    color: white;
-    background-color: dodgerblue;
-    padding: 10px 20px;
-    border-radius: 3px;
-    border: none;
-    margin-top: 20px;
-    font-size: 18px;
-    font-weight: 500;
-    display: none;
-}
-
-.submit-table-btn:hover {
-    background-color: green;
-}
-
-.delete-btn {
-    padding: 5px 10px;
-    background-color: red;
-    border-radius: 3px;
-    border: none;
-    color: white;
-}
-
-.delete-btn:hover {
-    background-color: black;
-}
-
-.search-text {
-    width: 100%;
-    text-align: center;
-    font-size: 36px;
-    font-weight: 500;
-    margin-bottom: 20px;
-}
-
-.center-search {
-    height: auto;
-    width: 100%;
-    margin-bottom: 50px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.search-events,
-.book-events {
-    width: 98%;
-    border-radius: 5px;
-    display: flex;
-    /* establish flex container */
-    flex-direction: row;
-    /* default value; can be omitted */
-    flex-wrap: nowrap;
-    /* default value; can be omitted */
-    justify-content: space-evenly;
-    background: linear-gradient(0deg, #333399, #3399FF);
-    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.12), 0 1px 4px rgba(0, 0, 0, 0.24);
-}
-
-.search-event,
-.book-event {
-    background-color: white;
-    min-height: 200px;
-    align-self: center;
-    border-radius: 5px;
-    width: 99%;
-    margin-top: 20px;
-    margin-bottom: 20px;
-}
-
-.book-events {
-    background: dodgerblue;
-    height: auto;
-}
-
-.book-event {
-    height: 90%;
-    width: 99%;
-    margin: 10px auto;
-    display: flex;
-    background-color: dodgerblue;
-    /* establish flex container */
-    flex-direction: row;
-    /* default value; can be omitted */
-    flex-wrap: nowrap;
-    /* default value; can be omitted */
-    justify-content: space-evenly;
-}
-
 .slides {
     width: 500%;
-    height: 500px;
+    height: 550px;
     display: flex;
 }
 
@@ -209,16 +62,37 @@ body {
 .slide {
     width: 20%;
     transition: 2s;
+    overflow: hidden;
+    background-size: cover;
 }
 
-.slide img {
-    width: 700px;
-    height: 500px;
+.background h1 {
+    position: absolute;
+    padding-top: 10%;
+    font-weight: 500;
+    font-size: 100px;
+    color: white;
+}
+
+.first-image {
+    background-image: linear-gradient(0deg, rgba(36, 44, 51, 0.5), rgba(36, 44, 51, 0.5)), url(../pictures/index/basketball.jpg);
+}
+
+.second-image {
+    background-image: linear-gradient(0deg, rgba(36, 44, 51, 0.5), rgba(36, 44, 51, 0.5)), url(../pictures/index/birthday.jpg);
+}
+
+.third-image {
+    background-image: linear-gradient(0deg, rgba(36, 44, 51, 0.5), rgba(36, 44, 51, 0.5)), url(../pictures/index/debut.jpg);
+}
+
+.fourth-image {
+    background-image: linear-gradient(0deg, rgba(36, 44, 51, 0.5), rgba(36, 44, 51, 0.5)), url(../pictures/index/wedding.jpg);
 }
 
 .navigation-manual {
     position: absolute;
-    width: 700px;
+    width: 100vw;
     margin-top: -40px;
     display: flex;
     justify-content: center;
@@ -259,9 +133,9 @@ body {
 .navigation-auto {
     position: absolute;
     display: flex;
-    width: 700px;
+    width: 100vw;
     justify-content: center;
-    margin-top: 460px;
+    margin-top: 510px;
 }
 
 .navigation-auto div {
@@ -291,8 +165,86 @@ body {
     background: dodgerblue;
 }
 
+.link {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+
 .search {
     width: 100%;
+}
+
+.course {
+    width: 18%;
+    float: right;
+    margin-right: 5px;
+}
+
+.course select {
+    margin-left: 5px;
+    outline: none;
+    padding: 5px 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    border-bottom-width: 2px;
+    font-size: 16px;
+}
+
+.course select:valid {
+    background-color: dodgerblue;
+    border: none;
+    color: white;
+}
+
+.events-list {
+    height: 95%;
+    width: 95%;
+    margin: 10px auto;
+    display: flex;
+    /* establish flex container */
+    flex-direction: row;
+    /* default value; can be omitted */
+    flex-wrap: nowrap;
+    /* default value; can be omitted */
+    justify-content: space-evenly;
+}
+
+.events-table {
+    margin: auto;
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: .9em;
+    width: 98%;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0, 0.15);
+    border-radius: 5px 5px 0 0;
+    overflow: hidden;
+}
+
+.events-table thead tr {
+    background-color: dodgerblue;
+    color: #FFFFFF;
+    text-align: left;
+}
+
+.events-table th,
+.events-table td {
+    padding: 12px 15px;
+}
+
+.events-table tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+.events-table tbody tr:last-of-type {
+    border-bottom: 2px solid dodgerblue;
+}
+
+.header .navigation {
+    float: right;
 }
 
 .search form {
@@ -316,7 +268,6 @@ body {
     border-radius: 5px 0 0 5px;
     padding-left: 10px;
     letter-spacing: 1px;
-    margin-left: 40px;
 }
 
 .search button {
@@ -339,23 +290,167 @@ body {
     float: right;
 }
 
-.event-text {
+.header ul li {
+    width: 80px;
+    float: right;
+    text-align: center;
+    opacity: 0.8;
+    padding: 7px;
+    margin-right: 10px;
+    margin-top: 10px;
+    font-weight: 500;
+    font-size: 14px;
+    border-radius: 5px;
+}
+
+.header ul li a {
+    text-decoration: none;
+    color: white;
+}
+
+.header ul li:hover>a {
+    color: black;
+}
+
+.header ul li:hover {
+    background-color: white;
+}
+
+#profile {
+    display: none;
+}
+
+.background {
+    height: 60%;
+    width: 100%;
+}
+
+
+/*
+.sidenav {
+    position: fixed;
+    padding-right: 10px;
+    bottom: 40%;
+    left: 0;
+    border-radius: 0 5px 5px 0;
     background-color: dodgerblue;
+}
+
+.sidenav a {
+    font-size: 40px;
+    display: block;
+    color: white;
+    margin-left: 10px;
+}
+
+.sidenav a:hover {
+    color: #ddd;
+} */
+
+.search-text {
+    width: 100%;
+    text-align: center;
+    font-size: 36px;
+    font-weight: 500;
+    margin: 20px;
+}
+
+.center-search {
+    height: auto;
+    width: 100%;
+    margin-bottom: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.search-events,
+.book-events {
+    height: 500px;
+    width: 98%;
+    border-radius: 5px;
+    display: flex;
+    /* establish flex container */
+    flex-direction: row;
+    /* default value; can be omitted */
+    flex-wrap: nowrap;
+    /* default value; can be omitted */
+    justify-content: space-evenly;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.12), 0 1px 4px rgba(0, 0, 0, 0.24);
+}
+
+.book-events {
+    background: dodgerblue;
+    height: auto;
+}
+
+.gcash {
+    background-color: #2570e3;
+}
+
+.paymaya {
+    background-color: #87ba41;
+}
+
+.bpi {
+    background-color: #b4031c;
+}
+
+.bdo {
+    background-color: #0b2972;
+}
+
+.search-event,
+.book-event {
+    background-color: white;
     min-height: 90%;
-    width: 38%;
+    align-self: center;
+    border-radius: 5px;
+    width: 99%;
+}
+
+.book-event {
+    height: 90%;
+    width: 99%;
+    margin: 10px auto;
+    display: flex;
+    /* establish flex container */
+    flex-direction: row;
+    /* default value; can be omitted */
+    flex-wrap: nowrap;
+    /* default value; can be omitted */
+    justify-content: space-evenly;
+}
+
+.event-text {
+    min-height: 90%;
+    width: 40%;
     float: left;
-    border-radius: 5px 0 0 5px;
-    overflow: hidden;
+    margin: 0 10px;
+}
+
+.event-text div {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.event-text div img {
+    height: 60%;
+    max-width: 80%;
 }
 
 .event-form {
-    border-radius: 0 5px 5px 0;
+    border-radius: 5px;
     background-color: white;
     width: 60%;
     float: right;
 }
 
 .container {
+    display: none;
     width: auto;
     background: #fff;
     padding: 25px 30px;
@@ -390,7 +485,8 @@ form .user-details .input-box {
     width: calc(100% / 2 - 20px);
 }
 
-.user-details .input-box .details {
+.user-details .input-box .details,
+.sNum .details {
     display: block;
     font-weight: 500;
     margin-bottom: 5px;
@@ -407,13 +503,125 @@ form .user-details .input-box {
     border-bottom-width: 2px;
 }
 
-.user-details .input-box input:focus {
+.sNum input {
+    height: 45px;
+    width: 40%;
+    outline: none;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    padding-left: 10px;
+    font-size: 16px;
+    border-bottom-width: 2px;
+    margin-left: 10px;
+}
+
+.user-details .input-box input:focus,
+.sNum input:focus {
     border-color: dodgerblue;
+}
+
+form .gender-details .gender-title {
+    font-size: 20px;
+    font-weight: 500;
+}
+
+form .gender-details .category {
+    width: 65%;
+    display: flex;
+    justify-content: space-between;
+    margin: 14px 0;
+}
+
+.gender-details .category label {
+    display: flex;
+    align-items: center;
+}
+
+.gender-details .category .dot {
+    height: 18px;
+    width: 18px;
+    border-radius: 50%;
+    background-color: #d9d9d9;
+    margin-right: 7px;
+    border: 5px solid transparent;
+}
+
+.files {
+    padding-top: 10px;
+}
+
+.files input {
+    display: none;
+}
+
+.files label {
+    padding: 5px;
+    display: block;
+    outline: none;
+    border-radius: 5px;
+    width: 40%;
+    margin-bottom: 10px;
+    color: white;
+    background-color: #ccc;
+    border-bottom-width: 2px;
+}
+
+.course,
+.sNum,
+.year {
+    width: 100%;
+    margin: 10px 0 10px 0;
+}
+
+.course label,
+.year label {
+    display: block;
+    font-weight: 500;
+}
+
+.course select,
+.year select {
+    margin-left: 5px;
+    outline: none;
+    padding: 5px 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    border-bottom-width: 2px;
+    font-size: 16px;
+}
+
+.course select:valid,
+.year select:valid {
+    background-color: dodgerblue;
+    border: none;
+    color: white;
+}
+
+#dot-1:checked~.category label .one,
+#dot-2:checked~.category label .two,
+#dot2-1:checked~.category label .one,
+#dot2-2:checked~.category label .two,
+#dot3-1:checked~.category label .one,
+#dot3-2:checked~.category label .two {
+    border-color: #d9d9d9;
+    background-color: dodgerblue;
+}
+
+#first {
+    background-color: white;
+}
+
+#freshmen {
+    display: block;
+}
+
+form input[type="radio"] {
+    display: none;
 }
 
 form .button {
     height: 45px;
-    margin-top: 150px;
+    margin: 45px 0;
 }
 
 form .button input {
@@ -431,6 +639,11 @@ form .button input {
 
 form .button input:hover {
     background-color: orange;
+}
+
+.check-text {
+    width: 100%;
+    margin: 10px;
 }
 
 footer {

@@ -49,7 +49,7 @@
 
         $guests_id = $result[0];
 
-        $sql = "INSERT INTO guest (guest_id, name, address, email, number, type) VALUES ($guests_id, '$name', '$address', '$email', '$number', 'booker')";
+        $sql = "INSERT INTO guest (guest_id, name, address, email, number, type) VALUES ($guests_id, '$name', '$address', '$email', '$number', 'BOOKER')";
         $result = $connection->query($sql);
     }
 ?>
@@ -84,8 +84,198 @@
     <br>
     <br>
 
-    <div class="search-text">Waiting for your payment</div>
+    <div class="center">
+        <div class="search-text">Waiting for your payment</div>
+    </div>
 
+    <div class="center-search">
+        <div class="book-events gcash">
+            <div class="book-event" style="background-color: #2570e3;">
+                <div class="event-text gcash">
+                    <div>
+                        <center>
+                            <img src="pictures/redirect/GCASH.png" alt="">
+                        </center>
+                    </div>
+
+                </div>
+                <div class="event-form">
+                    <div id="freshmen" class="container">
+                        <form method="post" enctype="multipart/form-data" action="redirect.php">
+                            <div class="user-details">
+
+                                <div class="input-box">
+                                    <span class="details">Number</span>
+                                    <input type="text" name="fname" placeholder="Enter your first name" readonly>
+                                </div>
+
+                                <div class="input-box">
+                                    <span class="details">Name</span>
+                                    <input type="text" name="lname" placeholder="Enter your last name" readonly>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="center-search">
+        <div class="book-events paymaya">
+            <div class="book-event" style="background-color: #87ba41;">
+                <div class="event-text paymaya">
+                    <div>
+                        <center>
+                            <img src="pictures/redirect/PAYMAYA.png" alt="">
+                        </center>
+                    </div>
+
+                </div>
+                <div class="event-form">
+                    <div id="freshmen" class="container">
+                        <form method="post" enctype="multipart/form-data" action="redirect.php">
+                            <div class="user-details">
+
+                                <div class="input-box">
+                                    <span class="details">Number</span>
+                                    <input type="text" name="fname" placeholder="Enter your first name" readonly>
+                                </div>
+
+                                <div class="input-box">
+                                    <span class="details">Name</span>
+                                    <input type="text" name="lname" placeholder="Enter your last name" readonly>
+                                </div>
+
+                                <div class="input-box">
+                                    <span class="details">Middle Name [Leave blank if n/a]</span>
+                                    <input type="text" name="mname" placeholder="Enter your middle name">
+                                </div>
+
+                                <div class="input-box">
+                                    <span class="details">E-Mail</span>
+                                    <input type="text" name="email" placeholder="Enter your email" readonly>
+                                </div>
+
+                                <div class="input-box">
+                                    <span class="details">Number</span>
+                                    <input type="text" name="no" placeholder="Enter your number" readonly>
+                                </div>
+
+                                <div class="input-box">
+                                    <span class="details">Address</span>
+                                    <input type="input" name="address" placeholder="Enter your address" readonly>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="center-search">
+        <div class="book-events bpi">
+            <div class="book-event" style="background-color: #b4031c;">
+                <div class="event-text bpi">
+                    <div>
+                        <center>
+                            <img src="pictures/redirect/BPI.png" alt="">
+                        </center>
+                    </div>
+
+                </div>
+                <div class="event-form">
+                    <div id="freshmen" class="container">
+                        <form method="post" enctype="multipart/form-data" action="redirect.php">
+                            <div class="user-details">
+
+                                <div class="input-box">
+                                    <span class="details">Number</span>
+                                    <input type="text" name="fname" placeholder="Enter your first name" readonly>
+                                </div>
+
+                                <div class="input-box">
+                                    <span class="details">Name</span>
+                                    <input type="text" name="lname" placeholder="Enter your last name" readonly>
+                                </div>
+
+                                <div class="input-box">
+                                    <span class="details">Middle Name [Leave blank if n/a]</span>
+                                    <input type="text" name="mname" placeholder="Enter your middle name">
+                                </div>
+
+                                <div class="input-box">
+                                    <span class="details">E-Mail</span>
+                                    <input type="text" name="email" placeholder="Enter your email" readonly>
+                                </div>
+
+                                <div class="input-box">
+                                    <span class="details">Number</span>
+                                    <input type="text" name="no" placeholder="Enter your number" readonly>
+                                </div>
+
+                                <div class="input-box">
+                                    <span class="details">Address</span>
+                                    <input type="input" name="address" placeholder="Enter your address" readonly>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="center-search">
+        <div class="book-events bdo">
+            <div class="book-event" style="background-color: #0b2972;">
+                <div class="event-text bdo">
+                    <div>
+                        <center>
+                            <img src="pictures/redirect/BDO.png" alt="">
+                        </center>
+                    </div>
+
+                </div>
+                <div class="event-form">
+                    <div id="freshmen" class="container">
+                        <form method="post" enctype="multipart/form-data" action="redirect.php">
+                            <div class="user-details">
+
+                                <div class="input-box">
+                                    <span class="details">Number</span>
+                                    <input type="text" name="fname" placeholder="Enter your first name" readonly>
+                                </div>
+
+                                <div class="input-box">
+                                    <span class="details">Name</span>
+                                    <input type="text" name="lname" placeholder="Enter your last name" readonly>
+                                </div>
+
+                                <div class="input-box">
+                                    <span class="details">Middle Name [Leave blank if n/a]</span>
+                                    <input type="text" name="mname" placeholder="Enter your middle name">
+                                </div>
+
+                                <div class="input-box">
+                                    <span class="details">E-Mail</span>
+                                    <input type="text" name="email" placeholder="Enter your email" readonly>
+                                </div>
+
+                                <div class="input-box">
+                                    <span class="details">Number</span>
+                                    <input type="text" name="no" placeholder="Enter your number" readonly>
+                                </div>
+
+                                <div class="input-box">
+                                    <span class="details">Address</span>
+                                    <input type="input" name="address" placeholder="Enter your address" readonly>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <footer>
         <div class="footer">
             <div class="like" style="text-align: center;">
@@ -101,7 +291,8 @@
                 <p><i class="fa fa-comments"></i> (+63) 9366296799</p>
                 <p><a href="https://www.imaqtchael@gmail.com" style="text-decoration: none; color: white;"><i
                             class="fa fa-envelope"></i> nicolasresort@gmail.com</a></p>
-                <p><i class="fa fa-home"></i> Nicolas Resort Building, Phase 1a Sub-Urban Village Brgy. San Jose, Rodriguez, Rizal, Philippines</p>
+                <p><i class="fa fa-home"></i> Nicolas Resort Building, Phase 1a Sub-Urban Village Brgy. San Jose,
+                    Rodriguez, Rizal, Philippines</p>
             </div>
             <div class="follow">
                 <p style="font-size: 18px;">FOLLOW US</p>

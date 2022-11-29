@@ -1,12 +1,6 @@
 <?php
     if (isset($_POST['functionname'])) {
-        if ($_POST['functionname'] == 'getAllList') {
-            getAllList();
-        } elseif ($_POST['functionname'] == 'getThis') {
-            $type = $_POST['arguments'][0];
-            $search = $_POST['arguments'][1];
-            getThis($type, $search);
-        } elseif ($_POST['functionname'] == 'insertData') {
+        if ($_POST['functionname'] == 'insertData') {
             $json = $_POST['arguments'];
             insertData($json);
         } elseif ($_POST['functionname'] == 'checkIfPaid') {
@@ -74,7 +68,7 @@
             $email = $person['email'];
             $number = $person['number'];
 
-            $new_sql = " ({$guests_id}, '{$name}', '{$address}', '{$email}', '{$number}', 'guest'),";
+            $new_sql = " ({$guests_id}, '{$name}', '{$address}', '{$email}', '{$number}', 'GUEST'),";
 
             $sql = "{$sql}{$new_sql}";
         }
@@ -112,45 +106,4 @@
 
         echo json_encode($connectionResult);
     }
-
-    function getAllList() {
-        $connection = new mysqli("localhost", "root", "", "real_capstone");
-        $connectionResult = array();
-
-        if ($connection -> connect_errno) {
-            echo "<script>alert('Failed to connect to database')</script>";
-            exit();
-        }
-
-        $sql = "SELECT name, time, due, price FROM events";
-        $result = $connection->query($sql);
-    
-        $data = $result->fetch_all(MYSQLI_ASSOC);
-
-        $connectionResult['result'] = $data;
-
-        echo json_encode($connectionResult);
-
-    }
-
-    function getThis($type, $search) {
-        $connection = new mysqli("localhost", "root", "", "real_capstone");
-        $connectionResult = array();
-
-        if ($connection -> connect_errno) {
-            echo "<script>alert('Failed to connect to database')</script>";
-            exit();
-        }
-
-        $sql = "SELECT * FROM events WHERE {$type} LIKE '%{$search}%'";
-        $result = $connection->query($sql);
-    
-        $data = $result->fetch_all(MYSQLI_ASSOC);
-
-        $connectionResult['result'] = $data;
-
-        echo json_encode($connectionResult);
-    }
-
-    
 ?>

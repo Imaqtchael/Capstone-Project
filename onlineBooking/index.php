@@ -138,8 +138,7 @@
                         <br>
                         <br>
                         <br>
-                        <p>Experience the fullest of the moment with us.
-                            <p>
+                        <p>Experience the fullest of the moment with us.</p>
                     </center>
                 </div>
                 <div class="event-form">
@@ -185,7 +184,8 @@
 
                                 <div class="input-box">
                                     <span class="details">Date and Time</span>
-                                    <input type="text" id="datetimepicker" name="date_time" placeholder="Choose date and time" autocomplete="off" required>
+                                    <input type="text" id="datetimepicker" name="date_time"
+                                        placeholder="Choose date and time" autocomplete="off" required>
                                 </div>
 
                                 <div class="course">
@@ -215,7 +215,9 @@
     <div class="check-text">
         <center>
             <p style="font-size: 25px; font-weight: 500;">We also accept walk-ins!</p>
-            <p style="font-size: 16px;">Come and visit our store so we can check your device, it's always <strong>free!</strong></p>
+            <p style="font-size: 16px;">Come and visit our store so we can check your device, it's always
+                <strong>free!</strong>
+            </p>
         </center>
 
     </div>
@@ -233,15 +235,20 @@
                 <img src="pictures/Nicolas_Logo.jpg" alt="">
                 <span style="font-size: 18px;">CONTACT US</span>
                 <p><i class="fa fa-comments"></i> (+63) 9366296799</p>
-                <p><a href="https://www.imaqtchael@gmail.com" style="text-decoration: none; color: white;"><i class="fa fa-envelope"></i> nicolasresort@gmail.com</a></p>
-                <p><i class="fa fa-home"></i> Nicolas Resort Building, Phase 1a Sub-Urban Village Brgy. San Jose, Rodriguez, Rizal, Philippines</p>
+                <p><a href="https://www.imaqtchael@gmail.com" style="text-decoration: none; color: white;"><i
+                            class="fa fa-envelope"></i> nicolasresort@gmail.com</a></p>
+                <p><i class="fa fa-home"></i> Nicolas Resort Building, Phase 1a Sub-Urban Village Brgy. San Jose,
+                    Rodriguez, Rizal, Philippines</p>
             </div>
             <div class="follow">
                 <p style="font-size: 18px;">FOLLOW US</p>
                 <br>
-                <a href="https://www.facebook.com/" target="_blank" title="Visit our Facebook Page"><i class="fa fa-facebook-square"></i></a>
-                <a href="https://www.instagram.com/" target="_blank" title="Visit our Instagram account"><i class="fa fa-instagram"></i></a>
-                <a href="https://twitter.com/" target="_blank" title="Visis our Twitter account"><i class="fa fa-twitter-square"></i></a>
+                <a href="https://www.facebook.com/" target="_blank" title="Visit our Facebook Page"><i
+                        class="fa fa-facebook-square"></i></a>
+                <a href="https://www.instagram.com/" target="_blank" title="Visit our Instagram account"><i
+                        class="fa fa-instagram"></i></a>
+                <a href="https://twitter.com/" target="_blank" title="Visis our Twitter account"><i
+                        class="fa fa-twitter-square"></i></a>
 
             </div>
         </div>
@@ -253,7 +260,7 @@
 
 </body>
 
-<link rel="stylesheet" type="text/css" href="css/jquery.datetimepicker.min.css"/>
+<link rel="stylesheet" type="text/css" href="css/jquery.datetimepicker.min.css" />
 <script src="js/jquery.datetimepicker.js"></script>
 
 </html>
