@@ -65,7 +65,7 @@ $(document).ready(function() {
 
         jQuery.ajax({
             type: "POST",
-            url: 'http://localhost/Capstone/onlineBooking/includes/functions.php',
+            url: 'https://event-venue.website/includes/functions.php',
             dataType: 'json',
             data: { functionname: 'uploadData', arguments: localStorage.getItem('backup.json') },
 
@@ -85,13 +85,13 @@ $(document).ready(function() {
     setInterval(function() {
         jQuery.ajax({
             type: "POST",
-            url: 'http://localhost/Capstone/onlineBooking/includes/functions.php',
+            url: 'https://event-venue.website/includes/functions.php',
             dataType: 'json',
             data: { functionname: "checkIfPaid", arguments: 'js' },
 
             success: function(obj, textstatus) {
                 if (obj.result == "true") {
-                    window.location.href = "http://localhost/Capstone/onlineBooking/guest.php";
+                    window.location.href = "https://event-venue.website/guest.php";
                 }
             }
         });

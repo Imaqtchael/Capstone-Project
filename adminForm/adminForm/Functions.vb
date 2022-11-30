@@ -2,7 +2,7 @@
 
 Module Functions
     'Declaring DB-related variables
-    Public str As String = "server=localhost; uid=root; pwd=; database=real_capstone"
+    Public str As String = "server=191.101.230.103; uid=u608197321_van_; pwd=~C3qt^9kZ; database=u608197321_real_capstone"
     Public con As New MySqlConnection(str)
 
     'Assorted Variables

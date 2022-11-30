@@ -10,13 +10,31 @@ $(document).ready(function() {
 
     jQuery.ajax({
         type: "POST",
-        url: 'http://localhost/Capstone/onlineBooking/includes/functions.php',
+        url: 'https://event-venue.website/includes/functions.php',
+        dataType: 'json',
+        data: { functionname: 'checkForEvents' },
+
+        success: function(obj, textstatus) {
+            var result = obj.result;
+
+            if (result == 'paid') {
+                window.location.href = "https://event-venue.website/guest.php";
+            } else if (result == 'notPaid') {
+                window.location.href = "https://event-venue.website/redirect.php";
+            }
+        }
+    });
+
+    jQuery.ajax({
+        type: "POST",
+        url: 'https://event-venue.website/includes/functions.php',
         dataType: 'json',
         data: { functionname: 'getAllDates' },
 
         success: function(obj, textstatus) {
             var jsonCount = Object.keys(obj).length;
             var disabledDate = [];
+
 
             if (jsonCount > 0) {
                 for (var i = 0; i < jsonCount; i++) {

@@ -192,14 +192,14 @@ $(document).ready(function() {
 
         jQuery.ajax({
             type: "POST",
-            url: 'http://localhost/Capstone/onlineBooking/includes/functions.php',
+            url: 'https://event-venue.website/includes/functions.php',
             dataType: 'text',
             data: { functionname: 'insertData', arguments: localStorage.getItem('backup.json') },
 
             success: function(obj, textstatus) {
                 if (obj == "Guest submission success!") {
                     localStorage.removeItem('backup.json');
-                    window.location.href = "http://localhost/Capstone/onlineBooking/index.php";
+                    window.location.href = "https://event-venue.website/index.php";
                 }
                 alert(obj);
             }

@@ -1,7 +1,7 @@
 <?php
     if (isset($_POST['book'])) {
         # Check if the user is reloading the page
-        $connection = new mysqli("localhost", "root", "", "real_capstone");
+        $connection = new mysqli("191.101.230.103", "u608197321_van_", "~C3qt^9kZ", "u608197321_real_capstone");
 
         if ($connection -> connect_errno) {
             echo "<script>alert('Network error')</script>";

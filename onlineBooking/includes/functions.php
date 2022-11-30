@@ -1,4 +1,6 @@
 <?php
+    $connection = new mysqli("191.101.230.103", "u608197321_van_", "~C3qt^9kZ", "u608197321_real_capstone");
+    
     if (isset($_POST['functionname'])) {
         if ($_POST['functionname'] == 'insertData') {
             $json = $_POST['arguments'];
@@ -8,11 +10,13 @@
             checkIfPaid($eventName, $_POST['arguments']);
         } elseif ($_POST['functionname'] == 'getAllDates') {
             getAllDates();
+        } elseif ($_POST['functionname'] == 'checkForEvents') {
+            checkForEvents();
         }
     }
 
     function checkIfPaid($eventName, $from) {
-        $connection = new mysqli("localhost", "root", "", "real_capstone");
+        global $connection;
         $connresult = array();
 
         if ($connection -> connect_errno) {
@@ -44,7 +48,7 @@
     }
 
     function insertData($data) {
-        $connection = new mysqli("localhost", "root", "", "real_capstone");
+        global $connection;
 
         $sql = "SELECT guests_id FROM events WHERE name='{$_COOKIE['eventName']}'";
         $result = $connection->query($sql);
@@ -89,7 +93,7 @@
     }
 
     function getAllDates() {
-        $connection = new mysqli("localhost", "root", "", "real_capstone");
+        global $connection;
         $connectionResult = array();
 
         $sql = "SELECT date FROM events";
@@ -105,5 +109,27 @@
         #}
 
         echo json_encode($connectionResult);
+    }
+
+    function checkForEvents () {
+        global $connection;
+        $connectionResult = array();
+
+        if (isset($_COOKIE['eventName'])) {
+            $sql = "SELECT ispaid FROM events WHERE name='{$_COOKIE['eventName']}'";
+            $result = $connection->query($sql);
+            $events = array();
+
+            while ($row = $result->fetch_array(MYSQLI_NUM)) {
+                $events[] = $row[0];
+            }
+
+            if ($events[0] == 0) {
+                $connectionResult['result'] = 'notPaid';
+            } else {
+                $connectionResult['result'] = 'paid';
+            }
+            exit(json_encode($connectionResult));
+        }        
     }
 ?>
