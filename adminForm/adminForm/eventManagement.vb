@@ -9,10 +9,10 @@ Public Class eventManagement
     Dim selectedRow As Integer = 0
 
     'Showing data on DataGridView on form load
-    Public Sub eventManagement_Load(sender As Object, e As EventArgs) Handles MyBase.Load, Timer1.Tick
+    Public Async Sub eventManagement_Load(sender As Object, e As EventArgs) Handles MyBase.Load, Timer1.Tick
         DataGridView1.Rows.Clear()
 
-        Dim ds As DataSet = getData(query)
+        Dim ds As DataSet = Await Task.Run(Function() getData(query))
 
         If ds.Tables(0).Rows.Count = 0 Then
             Return
@@ -63,7 +63,7 @@ Public Class eventManagement
         Timer1.Enabled = True
     End Sub
 
-    Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles TextBox1.TextChanged
+    Private Async Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles TextBox1.TextChanged
         Timer1.Enabled = False
 
         DataGridView1.Rows.Clear()
@@ -74,7 +74,7 @@ Public Class eventManagement
         End If
 
         Dim query1 As String = $"SELECT name, type, date FROM events WHERE name LIKE '%{TextBox1.Text}%'"
-        Dim ds As DataSet = getData(query1)
+        Dim ds As DataSet = Await Task.Run(Function() getData(query1))
 
         For i As Integer = 0 To ds.Tables(0).Rows.Count - 1
             Dim eventName As String = ds.Tables(0).Rows(i)(0)
@@ -85,7 +85,7 @@ Public Class eventManagement
         Next
     End Sub
 
-    Private Sub DataGridView1_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView1.CellContentClick
+    Private Async Sub DataGridView1_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView1.CellContentClick
         Dim selectedEvent As String = DataGridView1.Rows(e.RowIndex).Cells(0).Value
         selectedRow = e.RowIndex
 
@@ -106,7 +106,7 @@ Public Class eventManagement
             Dim confirm As MsgBoxResult = MsgBox($"Are you sure you want to DELETE {selectedEvent} in the database??", MsgBoxStyle.YesNo)
 
             If confirm = MsgBoxResult.Yes Then
-                Dim guestsID As DataSet = getData($"SELECT guests_id FROM events WHERE name='{selectedEvent}'")
+                Dim guestsID As DataSet = Await Task.Run(Function() getData($"SELECT guests_id FROM events WHERE name='{selectedEvent}'"))
                 Dim id As String = guestsID.Tables(0).Rows(0)(0)
 
                 Dim query2 As String = $"DELETE FROM events WHERE name='{selectedEvent}'"

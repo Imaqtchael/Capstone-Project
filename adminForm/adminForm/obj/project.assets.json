@@ -898,11 +898,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Programming\\Capstone\\adminForm\\adminForm\\adminForm.vbproj",
+      "projectUniqueName": "C:\\Programming\\Capstone-Project\\adminForm\\adminForm\\adminForm.vbproj",
       "projectName": "adminForm",
-      "projectPath": "D:\\Programming\\Capstone\\adminForm\\adminForm\\adminForm.vbproj",
+      "projectPath": "C:\\Programming\\Capstone-Project\\adminForm\\adminForm\\adminForm.vbproj",
       "packagesPath": "C:\\Users\\van_\\.nuget\\packages\\",
-      "outputPath": "D:\\Programming\\Capstone\\adminForm\\adminForm\\obj\\",
+      "outputPath": "C:\\Programming\\Capstone-Project\\adminForm\\adminForm\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\van_\\AppData\\Roaming\\NuGet\\NuGet.Config",

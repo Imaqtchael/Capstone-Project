@@ -6,9 +6,9 @@ Public Class userManagement
     Public editORAdd As String
     Public selectedUser As String
     Dim selectedRow As Integer = 0
-    Private Sub userManagement_Load(sender As Object, e As EventArgs) Handles MyBase.Load, Timer1.Tick
+    Private Async Sub userManagement_Load(sender As Object, e As EventArgs) Handles MyBase.Load, Timer1.Tick
         Dim query As String = $"SELECT fullname, role, status FROM admin"
-        Dim ds As DataSet = getData(query)
+        Dim ds As DataSet = Await Task.Run(Function() getData(query))
 
         DataGridView1.Rows.Clear()
 

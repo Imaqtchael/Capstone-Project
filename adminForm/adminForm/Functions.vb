@@ -39,9 +39,23 @@ Module Functions
     End Function
 
     Public Function getData(ByVal query As String) As DataSet
-        Dim adpt As New MySqlDataAdapter(query, con)
+        'Dim adpt As New MySqlDataAdapter(query, con)
+        'Dim ds As New DataSet()
+        'adpt.Fill(ds)
+
+        Dim newCon As MySqlConnection
         Dim ds As New DataSet()
-        adpt.Fill(ds)
+
+        If con.State = ConnectionState.Closed Then
+            newCon = con.Clone()
+            Dim adpt As New MySqlDataAdapter(query, newCon)
+            adpt.Fill(ds)
+        Else
+            Dim adpt As New MySqlDataAdapter(query, con)
+            adpt.Fill(ds)
+        End If
+
+        'Return ds
 
         Return ds
     End Function

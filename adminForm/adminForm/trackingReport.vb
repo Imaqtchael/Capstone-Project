@@ -12,9 +12,9 @@
     Dim loadDone As Boolean = False
 
     'Loading the data and putting them into DataGridView1
-    Private Sub trackingReport_Load(sender As Object, e As EventArgs) Handles MyBase.Load, Timer1.Tick
+    Private Async Sub trackingReport_Load(sender As Object, e As EventArgs) Handles MyBase.Load, Timer1.Tick
         Dim Events As String = $"SELECT name, guests_id, date FROM events WHERE date_format(str_to_date(date, '%m/%d/%Y'), '%Y/%m/%d')<=date_format(curdate(), '%Y/%m/%d') ORDER BY date DESC"
-        Dim EventsDS As DataSet = getData(Events)
+        Dim EventsDS As DataSet = Await Task.Run(Function() getData(Events))
 
         If EventsDS.Tables(0).Rows.Count = 0 Then
             Return
@@ -38,7 +38,7 @@
         Label2.Text = eventDate
 
         Dim query As String = $"SELECT name, logs FROM guest WHERE logs<>'' AND guest_id={guestsID}"
-        Dim ds As DataSet = getData(query)
+        Dim ds As DataSet = Await Task.Run(Function() getData(query))
 
         'Creating another table that we will manipulate to contain
         'the right number of column that we want
@@ -52,7 +52,7 @@
 
         'Getting the total number of attendes
         Dim query1 As String = $"SELECT name FROM guest WHERE guest_id={guestsID}"
-        Dim ds1 As DataSet = getData(query1)
+        Dim ds1 As DataSet = Await Task.Run(Function() getData(query1))
 
         Label7.Text = ds1.Tables(0).Rows.Count
 
@@ -106,9 +106,9 @@
         trackingReportGuestLog.Show()
     End Sub
 
-    Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles TextBox1.TextChanged
+    Private Async Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles TextBox1.TextChanged
         Dim query As String = $"SELECT name, logs FROM guest WHERE logs<>'' AND name LIKE '%{TextBox1.Text}%' AND guest_id='{guestsID}'"
-        Dim ds As DataSet = getData(query)
+        Dim ds As DataSet = Await Task.Run(Function() getData(query))
 
         Dim realDataSet As New DataSet()
         Dim realDataTable As New DataTable()

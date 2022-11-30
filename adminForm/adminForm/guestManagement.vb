@@ -5,11 +5,11 @@ Public Class guestManagement
     Public selectedGuest As String
     Dim selectedRow As Integer = 0
 
-    Public Sub guestManagement_Load(sender As Object, e As EventArgs) Handles MyBase.Load, Timer1.Tick
-        DataGridView1.Rows.Clear()
+    Public Async Sub guestManagement_Load(sender As Object, e As EventArgs) Handles MyBase.Load, Timer1.Tick
+
 
         Dim query As String = $"SELECT guests_id, name, date FROM events"
-        Dim ds As DataSet = getData(query)
+        Dim ds As DataSet = Await Task.Run(Function() getData(query))
 
         If ds.Tables(0).Rows.Count = 0 Then
             Return
@@ -65,6 +65,7 @@ Public Class guestManagement
         End If
 
         loadDone = True
+        DataGridView1.Rows.Clear()
 
         For i As Integer = 0 To eventGuestsIDSL.Length - 1
             'Dim tryrow As DataRow
@@ -75,7 +76,7 @@ Public Class guestManagement
             'tryrow(2) = practiceDateString
 
             Dim query1 As String = $"SELECT name, type FROM guest WHERE guest_id='{eventGuestsIDSL(i)}'"
-            Dim ds1 As DataSet = getData(query1)
+            Dim ds1 As DataSet = await task.Run(Function() getData(query1))
 
             For j As Integer = 0 To ds1.Tables(0).Rows.Count - 1
                 DataGridView1.Rows.Add(ds1.Tables(0).Rows(j)(0), eventListsL(i), eventDatesL(i), ds1.Tables(0).Rows(j)(1), "EDIT", "DELETE")
@@ -91,7 +92,7 @@ Public Class guestManagement
 
     End Sub
 
-    Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles TextBox1.TextChanged
+    Private Async Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles TextBox1.TextChanged
         If TextBox1.Text.Length > 0 Then
             Timer1.Enabled = False
         Else
@@ -101,7 +102,7 @@ Public Class guestManagement
         DataGridView1.Rows.Clear()
 
         Dim query As String = $"SELECT guests_id, name, date FROM events WHERE name LIKE '%{TextBox1.Text}%'"
-        Dim ds As DataSet = getData(query)
+        Dim ds As DataSet = Await Task.Run(Function() getData(query))
 
         If ds.Tables(0).Rows.Count < 1 Then
             Return
@@ -113,7 +114,7 @@ Public Class guestManagement
             Dim eventDate As String = ds.Tables(0).Rows(i)(2).ToString()
 
             Dim query1 As String = $"SELECT name, type FROM guest WHERE guest_id='{guestID}'"
-            Dim ds1 As DataSet = getData(query1)
+            Dim ds1 As DataSet = Await Task.Run(Function() getData(query1))
 
 
             For j As Integer = 0 To ds1.Tables(0).Rows.Count - 1
