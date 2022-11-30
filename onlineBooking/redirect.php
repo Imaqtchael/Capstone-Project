@@ -86,7 +86,13 @@
     <br>
 
     <div class="center">
-        <div class="search-text">Waiting for your payment</div>
+        <div class="search-text">
+            Waiting for your payment
+        <span></span>
+        <span></span>
+        <span></span>
+        </div>
+        
     </div>
 
     <div class="center-search">
