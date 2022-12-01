@@ -1,10 +1,21 @@
 ﻿Imports System.IO
 Public Class login
     Dim role As String
+
+    'Checking if there are admin user that has previously logged in
+    'and just continue to the home form
+    Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        role = My.Computer.FileSystem.ReadAllText("..\..\..\REMEMBERED.txt")
+        If role.Length > 0 Then
+            showHome()
+        End If
+    End Sub
+
     'Login the admin if the credentials are correct, and check if they
     'preferred to be remembered
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
-        Dim ds As DataSet = getData("SELECT username, password, role FROM admin")
+    Private Async Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        Button1.Enabled = False
+        Dim ds As DataSet = Await Task.Run(Function() getData("SELECT username, password, role FROM admin"))
 
         For i As Integer = 0 To ds.Tables(0).Rows.Count - 1
             Dim username As String = ds.Tables(0).Rows(i)(0)
@@ -13,21 +24,16 @@ Public Class login
                 role = ds.Tables(0).Rows(i)(2)
                 If CheckBox1.Checked = True Then
                     My.Computer.FileSystem.WriteAllText(
-                "D:\Programming\Capstone\adminForm\adminForm\REMEMBERED.txt", role, False)
+                "..\..\..\REMEMBERED.txt", role, False)
                 End If
                 showHome()
+                Button1.Enabled = True
+                Return
             End If
         Next
+        MessageBox.Show("Wrong username or password")
+        Button1.Enabled = True
 
-    End Sub
-
-    'Checking if there are admin user that has previously logged in
-    'and just continue to the home form
-    Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        role = My.Computer.FileSystem.ReadAllText("D:\Programming\Capstone\adminForm\adminForm\REMEMBERED.txt")
-        If role.Length > 0 Then
-            showHome()
-        End If
     End Sub
 
     'Just clearing the admin user credentials and uncheck the 'remember me' checkbox

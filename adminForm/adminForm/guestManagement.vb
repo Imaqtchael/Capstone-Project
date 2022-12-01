@@ -6,12 +6,11 @@ Public Class guestManagement
     Dim selectedRow As Integer = 0
 
     Public Async Sub guestManagement_Load(sender As Object, e As EventArgs) Handles MyBase.Load, Timer1.Tick
+        'Dim query As String = $"SELECT guests_id, name, date FROM events"
+        'Dim ds As DataSet = home.allTabDataSet
+        Dim guestsTable = home.allTabDataSet.Tables(1)
 
-
-        Dim query As String = $"SELECT guests_id, name, date FROM events"
-        Dim ds As DataSet = Await Task.Run(Function() getData(query))
-
-        If ds.Tables(0).Rows.Count = 0 Then
+        If guestsTable.Rows.Count = 0 Then
             Return
         End If
 
@@ -19,15 +18,15 @@ Public Class guestManagement
         Dim eventLists As String = ""
         Dim eventDates As String = ""
 
-        For i As Integer = 0 To ds.Tables(0).Rows.Count - 1
+        For i As Integer = 0 To guestsTable.Rows.Count - 1
             If eventGuestsIDS.Length = 0 Then
-                eventGuestsIDS = ds.Tables(0).Rows(i)(0)
-                eventLists = ds.Tables(0).Rows(i)(1)
-                eventDates = ds.Tables(0).Rows(i)(2)
+                eventGuestsIDS = guestsTable.Rows(i)(0)
+                eventLists = guestsTable.Rows(i)(1)
+                eventDates = guestsTable.Rows(i)(2)
             Else
-                eventGuestsIDS += $", {ds.Tables(0).Rows(i)(0)}"
-                eventLists += $", {ds.Tables(0).Rows(i)(1)}"
-                eventDates += $", {ds.Tables(0).Rows(i)(2)}"
+                eventGuestsIDS += $", {guestsTable.Rows(i)(0)}"
+                eventLists += $", {guestsTable.Rows(i)(1)}"
+                eventDates += $", {guestsTable.Rows(i)(2)}"
             End If
         Next
 
@@ -67,6 +66,28 @@ Public Class guestManagement
         loadDone = True
         DataGridView1.Rows.Clear()
 
+        'If home.allTabDataSet Is Nothing Then
+        '    MessageBox.Show("nothing")
+        'End If
+
+        'Parallel.For(0, eventGuestsIDSL.Length,
+        '             Async Sub(i As Integer)
+        '                 'Dim query1 As String = $"SELECT name, type FROM guest WHERE guest_id='{eventGuestsIDSL(i)}'"
+        '                 'Dim ds1 As DataSet = Await Task.Run(Function() getData(query1))
+
+        '                 Dim guests = Await Task.Run(Function() home.allTabDataSet.Tables(4).AsEnumerable.Select(Function(guest) New With {
+        '                        .name = guest.Field(Of String)("name"),
+        '                        .type = guest.Field(Of String)("type"),
+        '                        .guest_id = guest.Field(Of Integer)("guest_id")
+        '                    }).Where(Function(guest) guest.guest_id = eventGuestsIDSL(i)))
+
+        '                 For j As Integer = 0 To guests.Count - 1
+        '                     Me.Invoke(Sub()
+        '                                   DataGridView1.Rows.Add(guests(j).name, eventListsL(i), eventDatesL(i), guests(j).type, "EDIT", "DELETE")
+        '                               End Sub)
+        '                 Next
+        '             End Sub)
+
         For i As Integer = 0 To eventGuestsIDSL.Length - 1
             'Dim tryrow As DataRow
             'tryrow = realDataSet.Tables(0).NewRow
@@ -75,11 +96,17 @@ Public Class guestManagement
             'tryrow(1) = trackingReport.eventName
             'tryrow(2) = practiceDateString
 
-            Dim query1 As String = $"SELECT name, type FROM guest WHERE guest_id='{eventGuestsIDSL(i)}'"
-            Dim ds1 As DataSet = await task.Run(Function() getData(query1))
+            'Dim query1 As String = $"SELECT name, type FROM guest WHERE guest_id='{eventGuestsIDSL(i)}'"
+            'Dim ds1 As DataSet = Await Task.Run(Function() getData(query1))
 
-            For j As Integer = 0 To ds1.Tables(0).Rows.Count - 1
-                DataGridView1.Rows.Add(ds1.Tables(0).Rows(j)(0), eventListsL(i), eventDatesL(i), ds1.Tables(0).Rows(j)(1), "EDIT", "DELETE")
+            Dim guests = home.allTabDataSet.Tables(4).AsEnumerable.Select(Function(guest) New With {
+                                .name = guest.Field(Of String)("name"),
+                                .type = guest.Field(Of String)("type"),
+                                .guest_id = guest.Field(Of Integer)("guest_id")
+                            }).Where(Function(guest) guest.guest_id = eventGuestsIDSL(i))
+
+            For j As Integer = 0 To guests.Count - 1
+                DataGridView1.Rows.Add(guests(j).name, eventListsL(i), eventDatesL(i), guests(j).type, "EDIT", "DELETE")
             Next
 
             'realDataSet.Tables(0).Rows.Add(tryrow)
@@ -92,36 +119,56 @@ Public Class guestManagement
 
     End Sub
 
-    Private Async Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles TextBox1.TextChanged
+    'Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles TextBox1.TextChanged
+    '    If TextBox1.Text.Length > 0 Then
+    '        Timer1.Enabled = False
+    '    Else
+    '        Timer1.Enabled = True
+    '        guestManagement_Load(Nothing, Nothing)
+    '    End If
+    'End Sub
+
+    Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles TextBox1.TextChanged
         If TextBox1.Text.Length > 0 Then
             Timer1.Enabled = False
         Else
             Timer1.Enabled = True
+            guestManagement_Load(Nothing, Nothing)
         End If
 
         DataGridView1.Rows.Clear()
 
-        Dim query As String = $"SELECT guests_id, name, date FROM events WHERE name LIKE '%{TextBox1.Text}%'"
-        Dim ds As DataSet = Await Task.Run(Function() getData(query))
+        'Dim query As String = $"SELECT guests_id, name, date FROM events WHERE name LIKE '%{TextBox1.Text}%'"
+        'Dim ds As DataSet = Await Task.Run(Function() getData(query))
 
-        If ds.Tables(0).Rows.Count < 1 Then
+        Dim events = home.allTabDataSet.Tables(1).AsEnumerable.Select(Function(eve) New With {
+                                .guests_id = eve.Field(Of Integer)("guests_id"),
+                                .name = eve.Field(Of String)("name"),
+                                .date = eve.Field(Of String)("date")
+                            }).Where(Function(eve) eve.name.ToUpper.Contains(TextBox1.Text.ToUpper))
+
+        If events.Count < 1 Then
             Return
         End If
 
-        For i As Integer = 0 To ds.Tables(0).Rows.Count - 1
-            Dim guestID As String = ds.Tables(0).Rows(i)(0).ToString()
-            Dim eventName As String = ds.Tables(0).Rows(i)(1).ToString()
-            Dim eventDate As String = ds.Tables(0).Rows(i)(2).ToString()
+        For i As Integer = 0 To events.Count - 1
+            Dim guestID As String = events(i).guests_id.ToString()
+            Dim eventName As String = events(i).name
+            Dim eventDate As String = events(i).date
 
-            Dim query1 As String = $"SELECT name, type FROM guest WHERE guest_id='{guestID}'"
-            Dim ds1 As DataSet = Await Task.Run(Function() getData(query1))
+            'Dim query1 As String = $"SELECT name, type FROM guest WHERE guest_id='{guestID}'"
+            'Dim ds1 As DataSet = Await Task.Run(Function() getData(query1))
+
+            Dim guests = home.allTabDataSet.Tables(4).AsEnumerable.Select(Function(guest) New With {
+                                .name = guest.Field(Of String)("name"),
+                                .type = guest.Field(Of String)("type"),
+                                .guest_id = guest.Field(Of Integer)("guest_id")
+                            }).Where(Function(guest) guest.guest_id = guestID)
 
 
-            For j As Integer = 0 To ds1.Tables(0).Rows.Count - 1
-                DataGridView1.Rows.Add(ds1.Tables(0).Rows(j)(0), eventName, eventDate, ds1.Tables(0).Rows(j)(1), "EDIT", "DELETE")
+            For j As Integer = 0 To guests.Count - 1
+                DataGridView1.Rows.Add(guests(j).name, eventName, eventDate, guests(j).type, "EDIT", "DELETE")
             Next
-
-            ds1.Tables.Clear()
         Next
 
     End Sub

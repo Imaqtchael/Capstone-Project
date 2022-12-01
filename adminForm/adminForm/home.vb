@@ -1,12 +1,24 @@
 ﻿Imports System.Runtime.InteropServices
+Imports System.Security.Cryptography
 
 Public Class home
-    Private Sub home_Load(sender As Object, e As EventArgs) Handles MyBase.Load, Button5.Click
+    Public allTabDataSet As DataSet
+    Private Async Sub home_Load(sender As Object, e As EventArgs) Handles MyBase.Load, Button5.Click
+        allTabDataSet = Await Task.Run(Function() getAllData())
+        Button1.Enabled = True
+        Button2.Enabled = True
+        Button3.Enabled = True
+        Button4.Enabled = True
+
         'Show the trackingreport form and changing the 
         'trackingreport buttont to white on form load
         showThis(sender, Panel1, trackingReport)
         changeColor(Button1, Button2, Button3, Button4)
 
+    End Sub
+
+    Private Async Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
+        allTabDataSet = Await Task.Run(Function() getAllData())
     End Sub
 
     'Changing the clicked button to white and other button to whitesmoke
@@ -29,7 +41,7 @@ Public Class home
     'Loggin out the admin user and removing him in the REMEBERED.txt
     Private Sub Button6_Click(sender As Object, e As EventArgs) Handles Button6.Click
         My.Computer.FileSystem.WriteAllText(
-            "D:\Programming\Capstone\adminForm\adminForm\REMEMBERED.txt", "", False)
+            "..\..\..\REMEMBERED.txt", "", False)
         Me.Hide()
 
         'If the login form is previously used we will just show it

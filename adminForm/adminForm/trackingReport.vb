@@ -13,24 +13,26 @@
 
     'Loading the data and putting them into DataGridView1
     Private Async Sub trackingReport_Load(sender As Object, e As EventArgs) Handles MyBase.Load, Timer1.Tick
-        Dim Events As String = $"SELECT name, guests_id, date FROM events WHERE date_format(str_to_date(date, '%m/%d/%Y'), '%Y/%m/%d')<=date_format(curdate(), '%Y/%m/%d') ORDER BY date DESC"
-        Dim EventsDS As DataSet = Await Task.Run(Function() getData(Events))
+        'Dim Events As String = $"SELECT name, guests_id, date FROM events WHERE date_format(str_to_date(date, '%m/%d/%Y'), '%Y/%m/%d')<=date_format(curdate(), '%Y/%m/%d') ORDER BY date DESC"
+        'Dim EventsDS As DataSet = home.allTabDataSet
 
-        If EventsDS.Tables(0).Rows.Count = 0 Then
+        Dim eventsTable As DataTable = home.allTabDataSet.Tables(0)
+
+        If eventsTable.Rows.Count = 0 Then
             Return
         End If
 
         If Not loadDone Then
-            For i As Integer = 0 To EventsDS.Tables(0).Rows.Count - 1
-                ComboBox1.Items.Add(EventsDS.Tables(0).Rows(i)(0))
+            For i As Integer = 0 To eventsTable.Rows.Count - 1
+                ComboBox1.Items.Add(eventsTable.Rows(i)(0))
             Next
             loadDone = True
         End If
 
-        If EventsDS.Tables(0).Rows.Count > 0 Then
-            eventName = EventsDS.Tables(0).Rows(0)(0).ToString
-            guestsID = EventsDS.Tables(0).Rows(0)(1).ToString()
-            eventDate = EventsDS.Tables(0).Rows(0)(2).ToString()
+        If eventsTable.Rows.Count > 0 Then
+            eventName = eventsTable.Rows(0)(0).ToString
+            guestsID = eventsTable.Rows(0)(1).ToString()
+            eventDate = eventsTable.Rows(0)(2).ToString()
         End If
 
 
@@ -106,9 +108,9 @@
         trackingReportGuestLog.Show()
     End Sub
 
-    Private Async Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles TextBox1.TextChanged
+    Private async Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles TextBox1.TextChanged
         Dim query As String = $"SELECT name, logs FROM guest WHERE logs<>'' AND name LIKE '%{TextBox1.Text}%' AND guest_id='{guestsID}'"
-        Dim ds As DataSet = Await Task.Run(Function() getData(query))
+        Dim ds As DataSet = await task.run(Function() getData(query))
 
         Dim realDataSet As New DataSet()
         Dim realDataTable As New DataTable()

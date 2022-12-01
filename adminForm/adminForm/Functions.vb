@@ -38,6 +38,29 @@ Module Functions
         Return complete
     End Function
 
+    Public Function getAllData() As DataSet
+        Dim trackingReportQuery = "SELECT name, guests_id, date FROM events WHERE date_format(str_to_date(date, '%m/%d/%Y'), '%Y/%m/%d')<=date_format(curdate(), '%Y/%m/%d') ORDER BY date DESC;"
+        Dim guestManagementQuery = "SELECT guests_id, name, date FROM events;"
+        Dim eventManagementQuery = "SELECT name, type, date, guests_id FROM events;"
+        Dim userManagementQuery = "SELECT fullname, role, status FROM admin;"
+        Dim guestQuery = "SELECT name, type, guest_id FROM guest;"
+
+        Dim query As String = $"{trackingReportQuery} {guestManagementQuery} {eventManagementQuery} {userManagementQuery} {guestQuery}"
+        Dim newCon As MySqlConnection
+        Dim ds As New DataSet()
+
+        If con.State = ConnectionState.Closed Then
+            newCon = con.Clone()
+            Dim adpt As New MySqlDataAdapter(query, newCon)
+            adpt.Fill(ds)
+        Else
+            Dim adpt As New MySqlDataAdapter(query, con)
+            adpt.Fill(ds)
+        End If
+
+        Return ds
+    End Function
+
     Public Function getData(ByVal query As String) As DataSet
         'Dim adpt As New MySqlDataAdapter(query, con)
         'Dim ds As New DataSet()

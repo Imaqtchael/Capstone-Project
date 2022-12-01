@@ -7,12 +7,13 @@ Public Class userManagement
     Public selectedUser As String
     Dim selectedRow As Integer = 0
     Private Async Sub userManagement_Load(sender As Object, e As EventArgs) Handles MyBase.Load, Timer1.Tick
-        Dim query As String = $"SELECT fullname, role, status FROM admin"
-        Dim ds As DataSet = Await Task.Run(Function() getData(query))
+        'Dim query As String = $"SELECT fullname, role, status FROM admin"
+        'Dim ds As DataSet = Await Task.Run(Function() getData(query))
 
-        DataGridView1.Rows.Clear()
+        Dim usersTable = home.allTabDataSet.Tables(3)
 
-        If ds.Tables(0).Rows.Count = 0 Then
+
+        If usersTable.Rows.Count = 0 Then
             Return
         End If
 
@@ -35,11 +36,12 @@ Public Class userManagement
         End If
 
         loadDone = True
+        DataGridView1.Rows.Clear()
 
-        For i As Integer = 0 To ds.Tables(0).Rows.Count - 1
-            Dim name As String = ds.Tables(0).Rows(i)(0)
-            Dim role As String = ds.Tables(0).Rows(i)(1)
-            Dim status As String = ds.Tables(0).Rows(i)(2)
+        For i As Integer = 0 To usersTable.Rows.Count - 1
+            Dim name As String = usersTable.Rows(i)(0)
+            Dim role As String = usersTable.Rows(i)(1)
+            Dim status As String = usersTable.Rows(i)(2)
             DataGridView1.Rows.Add(name, role, status, "EDIT", "DELETE")
         Next
 

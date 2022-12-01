@@ -22,6 +22,7 @@ Partial Class home
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(home))
         Me.Button1 = New System.Windows.Forms.Button()
         Me.Button2 = New System.Windows.Forms.Button()
@@ -31,12 +32,14 @@ Partial Class home
         Me.Button6 = New System.Windows.Forms.Button()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.Panel2 = New System.Windows.Forms.Panel()
+        Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.Panel2.SuspendLayout()
         Me.SuspendLayout()
         '
         'Button1
         '
         Me.Button1.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.Button1.Enabled = False
         Me.Button1.FlatAppearance.BorderSize = 0
         Me.Button1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White
         Me.Button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
@@ -55,6 +58,7 @@ Partial Class home
         'Button2
         '
         Me.Button2.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.Button2.Enabled = False
         Me.Button2.FlatAppearance.BorderSize = 0
         Me.Button2.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White
         Me.Button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat
@@ -73,6 +77,7 @@ Partial Class home
         'Button3
         '
         Me.Button3.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.Button3.Enabled = False
         Me.Button3.FlatAppearance.BorderSize = 0
         Me.Button3.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White
         Me.Button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat
@@ -91,6 +96,7 @@ Partial Class home
         'Button4
         '
         Me.Button4.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.Button4.Enabled = False
         Me.Button4.FlatAppearance.BorderSize = 0
         Me.Button4.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White
         Me.Button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat
@@ -152,6 +158,11 @@ Partial Class home
         Me.Panel2.Size = New System.Drawing.Size(1600, 53)
         Me.Panel2.TabIndex = 2
         '
+        'Timer1
+        '
+        Me.Timer1.Enabled = True
+        Me.Timer1.Interval = 15000
+        '
         'home
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 20.0!)
@@ -180,4 +191,5 @@ Partial Class home
     Friend WithEvents Button6 As Button
     Friend WithEvents Panel1 As Panel
     Friend WithEvents Panel2 As Panel
+    Friend WithEvents Timer1 As Timer
 End Class

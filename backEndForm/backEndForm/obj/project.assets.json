@@ -1111,11 +1111,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Programming\\Capstone\\backEndForm\\backEndForm\\backEndForm.vbproj",
+      "projectUniqueName": "C:\\Programming\\Capstone-Project\\backEndForm\\backEndForm\\backEndForm.vbproj",
       "projectName": "backEndForm",
-      "projectPath": "D:\\Programming\\Capstone\\backEndForm\\backEndForm\\backEndForm.vbproj",
+      "projectPath": "C:\\Programming\\Capstone-Project\\backEndForm\\backEndForm\\backEndForm.vbproj",
       "packagesPath": "C:\\Users\\van_\\.nuget\\packages\\",
-      "outputPath": "D:\\Programming\\Capstone\\backEndForm\\backEndForm\\obj\\",
+      "outputPath": "C:\\Programming\\Capstone-Project\\backEndForm\\backEndForm\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\van_\\AppData\\Roaming\\NuGet\\NuGet.Config",

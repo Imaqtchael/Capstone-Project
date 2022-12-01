@@ -98,7 +98,7 @@ Partial Class guestManagement
         'Timer1
         '
         Me.Timer1.Enabled = True
-        Me.Timer1.Interval = 10000
+        Me.Timer1.Interval = 15000
         '
         'Panel4
         '
