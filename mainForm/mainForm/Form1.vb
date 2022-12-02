@@ -29,7 +29,7 @@ Public Class Form1
 
     'Dim currDate As String = Date.Now.ToString("d")
 
-    Dim currdate As String = New Date(2022, 11, 9).ToString("d")
+    Dim currdate As String = Date.Now.ToString("MM/dd/yyyy")
     Dim dateQuery As String = $"SELECT guests_id FROM events WHERE date='{currDate}'"
     Dim dateDS As DataSet
     Dim guestsID As String

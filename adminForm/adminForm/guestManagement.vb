@@ -199,11 +199,10 @@ Public Class guestManagement
 
             If confirm = MsgBoxResult.Yes Then
                 Dim query2 As String = $"DELETE FROM guest WHERE name='{selectedGuest}'"
-                executeNonQuery(query2)
+                executeNonQuery(query2, remoteConnection)
             Else
                 Return
             End If
-            con.Close()
             Timer1.Enabled = True
             guestManagement_Load(Nothing, Nothing)
         End If

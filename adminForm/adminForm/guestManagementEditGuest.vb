@@ -63,7 +63,7 @@ Public Class guestManagementEditGuest
         Dim guestID As DataSet = getData($"SELECT guests_id FROM events WHERE name='{ComboBox1.Text}'")
 
         Dim localquery = $"UPDATE guest SET guest_id={guestID.Tables(0).Rows(0)(0)}, rfid='{TextBox7.Text}', name='{TextBox1.Text}', address='{TextBox2.Text}', email='{TextBox4.Text}', number='{TextBox3.Text}' WHERE id={id}"
-        executeNonQuery(localquery)
+        executeNonQuery(localquery, localConnection)
 
         MessageBox.Show("Guest Information updated successfully!")
 

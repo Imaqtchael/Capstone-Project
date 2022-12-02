@@ -1,5 +1,4 @@
-﻿Imports System.IO
-Public Class login
+﻿Public Class login
     Dim role As String
 
     'Checking if there are admin user that has previously logged in
@@ -17,9 +16,14 @@ Public Class login
         Button1.Enabled = False
         Dim ds As DataSet = Await Task.Run(Function() getData("SELECT username, password, role FROM admin"))
 
+        While ds Is Nothing
+            ds = Await Task.Run(Function() getData("SELECT username, password, role FROM admin"))
+        End While
+
         For i As Integer = 0 To ds.Tables(0).Rows.Count - 1
             Dim username As String = ds.Tables(0).Rows(i)(0)
             Dim password As String = ds.Tables(0).Rows(i)(1)
+            MessageBox.Show(username)
             If TextBox1.Text = username And TextBox2.Text = password Then
                 role = ds.Tables(0).Rows(i)(2)
                 If CheckBox1.Checked = True Then
@@ -31,7 +35,7 @@ Public Class login
                 Return
             End If
         Next
-        MessageBox.Show("Wrong username or password")
+        MessageBox.Show($"Wrong username or password {ds.Tables(0).Rows.Count}")
         Button1.Enabled = True
 
     End Sub

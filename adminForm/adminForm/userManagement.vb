@@ -77,7 +77,7 @@ Public Class userManagement
 
             If confirm = MsgBoxResult.Yes Then
                 Dim query2 As String = $"DELETE FROM admin WHERE fullname='{selectedUser}'"
-                executeNonQuery(query2)
+                executeNonQuery(query2, remoteConnection)
             Else
                 Return
             End If

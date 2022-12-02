@@ -2,8 +2,11 @@
 
 Module Functions
     'Declaring DB-related variables
-    Public str As String = "server=191.101.230.103; uid=u608197321_van_; pwd=~C3qt^9kZ; database=u608197321_real_capstone"
-    Public con As New MySqlConnection(str)
+    Public remoteConnectionString As String = "server=191.101.230.103; uid=u608197321_van_; pwd=~C3qt^9kZ; database=u608197321_real_capstone"
+    Public remoteConnection As New MySqlConnection(remoteConnectionString)
+
+    Public localConnectionString As String = "server=localhost; uid=root; pwd=; database=local_copy"
+    Public localConnection As New MySqlConnection(localConnectionString)
 
     'Assorted Variables
     'Get what is the current event
@@ -22,65 +25,70 @@ Module Functions
     End Sub
 
     'Execute a query
-    Public Function executeNonQuery(ByVal query As String) As Boolean
-        Dim complete As Boolean = True
-        Dim cmd As MySqlCommand
+    Public Function executeNonQuery(ByVal query As String, ByRef connection As MySqlConnection) As Boolean
+        Dim isComplete As Boolean = True
+        Dim command As MySqlCommand
         Try
-            con.Open()
-            cmd = con.CreateCommand()
-            cmd.CommandText = query
-            cmd.ExecuteNonQuery()
-        Catch ex As MySql.Data.MySqlClient.MySqlException
+            connection.Open()
+            command = connection.CreateCommand()
+            command.CommandText = query
+            command.ExecuteNonQuery()
+        Catch ex As MySqlException
             MessageBox.Show(ex.Message())
-            complete = False
+            isComplete = False
         End Try
-        con.Close()
-        Return complete
+        connection.Close()
+        Return isComplete
     End Function
 
     Public Function getAllData() As DataSet
-        Dim trackingReportQuery = "SELECT name, guests_id, date FROM events WHERE date_format(str_to_date(date, '%m/%d/%Y'), '%Y/%m/%d')<=date_format(curdate(), '%Y/%m/%d') ORDER BY date DESC;"
-        Dim guestManagementQuery = "SELECT guests_id, name, date FROM events;"
-        Dim eventManagementQuery = "SELECT name, type, date, guests_id FROM events;"
-        Dim userManagementQuery = "SELECT fullname, role, status FROM admin;"
-        Dim guestQuery = "SELECT name, type, guest_id FROM guest;"
+        Try
+            Dim trackingReportQuery = "SELECT name, guests_id, date FROM events WHERE date_format(str_to_date(date, '%m/%d/%Y'), '%Y/%m/%d')<=date_format(curdate(), '%Y/%m/%d') ORDER BY date DESC;"
+            Dim guestManagementQuery = "SELECT guests_id, name, date FROM events;"
+            Dim eventManagementQuery = "SELECT name, type, date, guests_id FROM events;"
+            Dim userManagementQuery = "SELECT fullname, role, status FROM admin;"
+            Dim guestQuery = "SELECT name, type, guest_id FROM guest;"
 
-        Dim query As String = $"{trackingReportQuery} {guestManagementQuery} {eventManagementQuery} {userManagementQuery} {guestQuery}"
-        Dim newCon As MySqlConnection
-        Dim ds As New DataSet()
+            Dim allQuery As String = $"{trackingReportQuery} {guestManagementQuery} {eventManagementQuery} {userManagementQuery} {guestQuery}"
+            Dim newConnection As MySqlConnection
+            Dim allDataSet As New DataSet()
 
-        If con.State = ConnectionState.Closed Then
-            newCon = con.Clone()
-            Dim adpt As New MySqlDataAdapter(query, newCon)
-            adpt.Fill(ds)
-        Else
-            Dim adpt As New MySqlDataAdapter(query, con)
-            adpt.Fill(ds)
-        End If
+            If localConnection.State = ConnectionState.Closed Then
+                newConnection = localConnection.Clone()
+                Dim allDataAdapter As New MySqlDataAdapter(allQuery, newConnection)
+                allDataAdapter.Fill(allDataSet)
+            Else
+                Dim allDataAdapter As New MySqlDataAdapter(allQuery, localConnection)
+                allDataAdapter.Fill(allDataSet)
+            End If
 
-        Return ds
+            Return allDataSet
+        Catch ex As Exception
+            Return Nothing
+        End Try
     End Function
 
     Public Function getData(ByVal query As String) As DataSet
         'Dim adpt As New MySqlDataAdapter(query, con)
         'Dim ds As New DataSet()
         'adpt.Fill(ds)
+        Try
+            Dim newConnection As MySqlConnection
+            Dim dataSet As New DataSet()
 
-        Dim newCon As MySqlConnection
-        Dim ds As New DataSet()
+            If localConnection.State = ConnectionState.Closed Then
+                newConnection = localConnection.Clone()
+                Dim adapter As New MySqlDataAdapter(query, newConnection)
+                adapter.Fill(dataSet)
+            Else
+                Dim adapter As New MySqlDataAdapter(query, localConnection)
+                adapter.Fill(dataSet)
+            End If
 
-        If con.State = ConnectionState.Closed Then
-            newCon = con.Clone()
-            Dim adpt As New MySqlDataAdapter(query, newCon)
-            adpt.Fill(ds)
-        Else
-            Dim adpt As New MySqlDataAdapter(query, con)
-            adpt.Fill(ds)
-        End If
-
-        'Return ds
-
-        Return ds
+            Return dataSet
+        Catch ex As Exception
+            Return Nothing
+        End Try
     End Function
 
     'Home Functions

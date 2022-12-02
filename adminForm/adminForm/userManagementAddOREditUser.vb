@@ -34,7 +34,7 @@ Public Class userManagementAddOREditUser
             Dim selectedUserID As String = ds.Tables(0).Rows(0)(0)
 
             Dim query2 As String = $"UPDATE admin SET fullname='{TextBox1.Text}', username='{TextBox2.Text}', password='{TextBox3.Text}', address='{TextBox4.Text}', contact='{TextBox5.Text}', email='{TextBox7.Text}', role='{ComboBox1.Text}' WHERE id='{selectedUserID}'"
-            Dim userSuccess As Boolean = executeNonQuery(query2)
+            Dim userSuccess As Boolean = executeNonQuery(query2, localConnection)
 
             If userSuccess Then
                 userManagement.editORAdd = ""
@@ -44,7 +44,7 @@ Public Class userManagementAddOREditUser
         End If
 
         Dim query As String = $"INSERT INTO admin(username, password, fullname, address, contact, email, role) VALUES('{TextBox2.Text}', '{TextBox3.Text}', '{TextBox1.Text}', '{TextBox4.Text}', '{TextBox5.Text}', '{TextBox7.Text}', '{ComboBox1.Text}')"
-        Dim insertSuccess As Boolean = executeNonQuery(query)
+        Dim insertSuccess As Boolean = executeNonQuery(query, remoteConnection)
 
         If insertSuccess Then
             TextBox1.Clear()

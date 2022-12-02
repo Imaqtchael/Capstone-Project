@@ -20,10 +20,10 @@ Public Class eventManagementEditORAddEvent
         'UPDATE Database if the user is only editing
         If eventManagement.editOrAddEvent = "edit" Then
             Dim query As String = $"UPDATE events SET name='{TextBox1.Text}', date='{DateTimePicker1.Value.ToString("MM/dd/yyyy")}', time='{TextBox7.Text}', type='{ComboBox1.Text}', booker='{TextBox3.Text}', ispaid={CheckBox1.Checked} WHERE guests_id={editEventGuestsID}"
-            Dim eventSuccess As Boolean = executeNonQuery(query)
+            Dim eventSuccess As Boolean = executeNonQuery(query, localConnection)
 
             query = $"UPDATE guest SET rfid='{TextBox6.Text}', name='{TextBox3.Text}', address='{TextBox2.Text}', email='{TextBox5.Text}', number='{TextBox4.Text}' WHERE id={selectedBookerID}"
-            Dim guestSuccess As Boolean = executeNonQuery(query)
+            Dim guestSuccess As Boolean = executeNonQuery(query, localConnection)
 
             If eventSuccess And guestSuccess Then
                 eventManagement.editOrAddEvent = ""
@@ -35,13 +35,13 @@ Public Class eventManagementEditORAddEvent
 
         'INSERT values into Database if the user is adding
         Dim query1 = $"INSERT INTO events(name, date, time, type, booker, ispaid) VALUES('{TextBox1.Text}', '{DateTimePicker1.Value.ToString("MM/dd/yyyy")}', '{TextBox7.Text}', '{ComboBox1.Text}', '{TextBox3.Text}', {CheckBox1.Checked})"
-        Dim eventSuccess1 As Boolean = executeNonQuery(query1)
+        Dim eventSuccess1 As Boolean = executeNonQuery(query1, remoteConnection)
 
         Dim query2 As String = $"SELECT guests_id FROM events WHERE name='{TextBox1.Text}'"
         Dim ds As DataSet = getData(query2)
 
         Dim query3 = $"INSERT INTO guest(guest_id, rfid, name, address, email, number, type) VALUES({ds.Tables(0).Rows(0)(0)}, '{TextBox6.Text}', '{TextBox3.Text}', '{TextBox2.Text}', '{TextBox5.Text}', '{TextBox4.Text}', 'booker')"
-        Dim guestSuccess1 As Boolean = executeNonQuery(query3)
+        Dim guestSuccess1 As Boolean = executeNonQuery(query3, remoteConnection)
 
         If eventSuccess1 And guestSuccess1 Then
             clearAll()

@@ -15,6 +15,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="DownloadFile" Version="1.0.2" />
+    <PackageReference Include="MySql.Data" Version="8.0.31" />
     <PackageReference Include="System.IO.Ports" Version="6.0.0" />
   </ItemGroup>
 

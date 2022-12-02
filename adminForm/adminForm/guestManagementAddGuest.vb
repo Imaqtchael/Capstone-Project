@@ -25,7 +25,7 @@ Public Class guestManagementAddGuest
 
         If confirm = MsgBoxResult.Yes Then
             Dim localQuery = $"INSERT INTO guest(guest_id, rfid, name, address, email, number, type) VALUES({guestID}, '{TextBox7.Text}', '{TextBox1.Text}', '{TextBox2.Text}', '{TextBox4.Text}', '{TextBox3.Text}', 'guest')"
-            completed = executeNonQuery(localQuery)
+            completed = executeNonQuery(localQuery, remoteConnection)
         Else
             Return
         End If

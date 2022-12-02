@@ -121,7 +121,7 @@ Public Class eventManagement
 
                 Dim query2 As String = $"DELETE FROM events WHERE name='{selectedEvent}'"
                 Dim query3 As String = $"DELETE FROM guest WHERE guest_id={id}"
-                executeNonQuery($"{query2}; {query3}")
+                executeNonQuery($"{query2}; {query3}", remoteConnection)
                 eventManagement_Load(Nothing, Nothing)
 
                 guestManagement.guestManagement_Load(Nothing, Nothing)

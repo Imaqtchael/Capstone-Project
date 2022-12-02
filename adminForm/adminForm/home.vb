@@ -1,10 +1,11 @@
 ﻿Imports System.Runtime.InteropServices
-Imports System.Security.Cryptography
 
 Public Class home
     Public allTabDataSet As DataSet
     Private Async Sub home_Load(sender As Object, e As EventArgs) Handles MyBase.Load, Button5.Click
-        allTabDataSet = Await Task.Run(Function() getAllData())
+        While allTabDataSet Is Nothing
+            allTabDataSet = Await Task.Run(Function() getAllData())
+        End While
         Button1.Enabled = True
         Button2.Enabled = True
         Button3.Enabled = True
@@ -19,6 +20,10 @@ Public Class home
 
     Private Async Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
         allTabDataSet = Await Task.Run(Function() getAllData())
+        While allTabDataSet Is Nothing
+            allTabDataSet = Await Task.Run(Function() getAllData())
+        End While
+        MessageBox.Show("From home: " & allTabDataSet.Tables(0).Rows.Count.ToString())
     End Sub
 
     'Changing the clicked button to white and other button to whitesmoke

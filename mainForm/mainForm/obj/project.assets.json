@@ -903,11 +903,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Programming\\Capstone\\mainForm\\mainForm\\mainForm.vbproj",
+      "projectUniqueName": "C:\\Programming\\Capstone-Project\\mainForm\\mainForm\\mainForm.vbproj",
       "projectName": "mainForm",
-      "projectPath": "D:\\Programming\\Capstone\\mainForm\\mainForm\\mainForm.vbproj",
+      "projectPath": "C:\\Programming\\Capstone-Project\\mainForm\\mainForm\\mainForm.vbproj",
       "packagesPath": "C:\\Users\\van_\\.nuget\\packages\\",
-      "outputPath": "D:\\Programming\\Capstone\\mainForm\\mainForm\\obj\\",
+      "outputPath": "C:\\Programming\\Capstone-Project\\mainForm\\mainForm\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\van_\\AppData\\Roaming\\NuGet\\NuGet.Config",
