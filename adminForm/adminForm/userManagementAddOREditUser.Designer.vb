@@ -72,6 +72,7 @@ Partial Class userManagementAddOREditUser
         '
         'ComboBox1
         '
+        Me.ComboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.ComboBox1.FormattingEnabled = True
         Me.ComboBox1.Items.AddRange(New Object() {"EVENT COORDINATOR", "EVENT MANAGER", "EVENT ASSISTANT", "STAFF"})
         Me.ComboBox1.Location = New System.Drawing.Point(23, 549)

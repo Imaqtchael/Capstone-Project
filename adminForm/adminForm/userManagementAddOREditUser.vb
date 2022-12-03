@@ -2,11 +2,11 @@
 Imports System.Runtime.InteropServices
 
 Public Class userManagementAddOREditUser
+    Dim ds As DataSet
     Private Sub userManagementAddOREditUser_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        MessageBox.Show(userManagement.editORAdd)
         If userManagement.editORAdd = "edit" Then
             Label1.Text = "EDIT USER"
-            Dim ds As DataSet = getData($"SELECT username, password, fullname, address, contact, email, role FROM admin WHERE fullname='{userManagement.selectedUser}'")
+            ds = getData($"SELECT username, password, fullname, address, contact, email, role, id FROM admin WHERE fullname='{userManagement.selectedUser}'")
 
             TextBox1.Text = ds.Tables(0).Rows(0)(2)
             TextBox2.Text = ds.Tables(0).Rows(0)(0)
@@ -28,16 +28,15 @@ Public Class userManagementAddOREditUser
         End If
 
         If userManagement.editORAdd = "edit" Then
-            Dim query1 As String = $"SELECT id FROM admin WHERE fullname='{userManagement.selectedUser}'"
-            Dim ds As DataSet = getData(query1)
-
-            Dim selectedUserID As String = ds.Tables(0).Rows(0)(0)
+            Dim selectedUserID As String = ds.Tables(0).Rows(0)(7)
 
             Dim query2 As String = $"UPDATE admin SET fullname='{TextBox1.Text}', username='{TextBox2.Text}', password='{TextBox3.Text}', address='{TextBox4.Text}', contact='{TextBox5.Text}', email='{TextBox7.Text}', role='{ComboBox1.Text}' WHERE id='{selectedUserID}'"
             Dim userSuccess As Boolean = executeNonQuery(query2, localConnection)
 
+
             If userSuccess Then
                 userManagement.editORAdd = ""
+                userManagement.userManagement_Load(Nothing, Nothing)
                 Me.Close()
             End If
             Return
@@ -45,6 +44,7 @@ Public Class userManagementAddOREditUser
 
         Dim query As String = $"INSERT INTO admin(username, password, fullname, address, contact, email, role) VALUES('{TextBox2.Text}', '{TextBox3.Text}', '{TextBox1.Text}', '{TextBox4.Text}', '{TextBox5.Text}', '{TextBox7.Text}', '{ComboBox1.Text}')"
         Dim insertSuccess As Boolean = executeNonQuery(query, remoteConnection)
+
 
         If insertSuccess Then
             TextBox1.Clear()
@@ -61,6 +61,7 @@ Public Class userManagementAddOREditUser
 
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
         userManagement.editORAdd = ""
+        userManagement.userManagement_Load(Nothing, Nothing)
         Me.Close()
     End Sub
 
@@ -89,7 +90,4 @@ Public Class userManagementAddOREditUser
         SendMessage(Me.Handle, &H112&, &HF012&, 0)
     End Sub
 
-    Private Sub ComboBox1_MouseDown(sender As Object, e As MouseEventArgs) Handles ComboBox1.MouseDown
-        ComboBox1.DroppedDown = True
-    End Sub
 End Class

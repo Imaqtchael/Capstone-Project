@@ -3,12 +3,16 @@ Imports MySql.Data.MySqlClient
 
 Public Class trackingReportGuestLog
     'Loading data on form load
-    Private Sub trackingReportGuestLog_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Async Sub trackingReportGuestLog_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         'Getting the selected guest by the admin from trackingreport form
         Label1.Text = trackingReport.selectedGuest
 
         Dim query As String = $"SELECT logs FROM guest WHERE name='{trackingReport.selectedGuest}'"
-        Dim ds As DataSet = getData(query)
+        Dim ds As DataSet = Await Task.Run(Function() getData(query))
+
+        While ds Is Nothing
+            ds = Await Task.Run(Function() getData(query))
+        End While
 
         'Creating another Dataset 
         'Which we will manipulate to have the number of column that we want
@@ -18,7 +22,6 @@ Public Class trackingReportGuestLog
         realDataSet.Tables.Add(realDataTable)
 
         Dim logs As String() = Split(ds.Tables(0).Rows(0)(0).ToString(), ", ")
-        MessageBox.Show(ds.Tables(0).Rows(0)(0).ToString())
 
         'Adding two columns because we want Time in and Time out
         addColumns(2, realDataTable)
@@ -61,6 +64,10 @@ Public Class trackingReportGuestLog
         trackingReport.Timer1.Enabled = True
     End Sub
 
+    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+        Me.Close()
+    End Sub
+
     'Casting Shadow to the Form
     Private Const CS_DROPSHADOW As Integer = 131072
     Protected Overrides ReadOnly Property CreateParams() As System.Windows.Forms.CreateParams
@@ -79,13 +86,9 @@ Public Class trackingReportGuestLog
     Private Shared Sub SendMessage(ByVal hWnd As System.IntPtr, ByVal wMsg As Integer, ByVal wParam As Integer, ByVal lParam As Integer)
     End Sub
 
-    Private Sub Form1_MouseDown(sender As Object, e As MouseEventArgs) Handles MyBase.MouseDown
+    Private Sub Form1_MouseDown(sender As Object, e As MouseEventArgs) Handles MyBase.MouseDown, Label1.MouseDown
         ReleaseCapture()
         ReleaseCapture()
         SendMessage(Me.Handle, &H112&, &HF012&, 0)
-    End Sub
-
-    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
-        Me.Close()
     End Sub
 End Class

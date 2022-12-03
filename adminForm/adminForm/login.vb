@@ -1,11 +1,11 @@
 ﻿Public Class login
-    Dim role As String
+    Public userRole As String
 
     'Checking if there are admin user that has previously logged in
     'and just continue to the home form
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        role = My.Computer.FileSystem.ReadAllText("..\..\..\REMEMBERED.txt")
-        If role.Length > 0 Then
+        userRole = My.Computer.FileSystem.ReadAllText("..\..\..\REMEMBERED.txt")
+        If userRole.Length > 0 Then
             showHome()
         End If
     End Sub
@@ -23,12 +23,11 @@
         For i As Integer = 0 To ds.Tables(0).Rows.Count - 1
             Dim username As String = ds.Tables(0).Rows(i)(0)
             Dim password As String = ds.Tables(0).Rows(i)(1)
-            MessageBox.Show(username)
             If TextBox1.Text = username And TextBox2.Text = password Then
-                role = ds.Tables(0).Rows(i)(2)
+                userRole = ds.Tables(0).Rows(i)(2)
                 If CheckBox1.Checked = True Then
                     My.Computer.FileSystem.WriteAllText(
-                "..\..\..\REMEMBERED.txt", role, False)
+                "..\..\..\REMEMBERED.txt", userRole, False)
                 End If
                 showHome()
                 Button1.Enabled = True
@@ -49,17 +48,16 @@
         CheckBox1.Checked = False
         Me.Hide()
         If home Is Nothing Then
-            If Not role = "EVENT MANAGER" Then
-                home.Button4.Enabled = False
-                home.Button2.Enabled = False
-                home.Button3.Enabled = False
-            End If
             home.ShowDialog()
         Else
-            If Not role = "EVENT MANAGER" Then
+            If Not userRole = "EVENT MANAGER" Then
                 home.Button4.Enabled = False
                 home.Button2.Enabled = False
                 home.Button3.Enabled = False
+            Else
+                home.Button4.Enabled = True
+                home.Button2.Enabled = True
+                home.Button3.Enabled = True
             End If
             home.Show()
         End If

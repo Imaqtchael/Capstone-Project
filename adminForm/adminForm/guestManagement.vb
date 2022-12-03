@@ -2,8 +2,14 @@
 
 Public Class guestManagement
     Dim loadDone As Boolean = False
-    Public selectedGuest As String
+
+    Public selectedGuestName As String
+    Public selectedGuestEventID As String
+
     Dim selectedRow As Integer = 0
+
+    Dim eventGuestsIDSL As String()
+    Dim eventListsL As String()
 
     Public Async Sub guestManagement_Load(sender As Object, e As EventArgs) Handles MyBase.Load, Timer1.Tick
         'Dim query As String = $"SELECT guests_id, name, date FROM events"
@@ -30,17 +36,11 @@ Public Class guestManagement
             End If
         Next
 
-        Dim eventGuestsIDSL As String() = Split(eventGuestsIDS, ", ")
-        Dim eventListsL As String() = Split(eventLists, ", ")
+        eventGuestsIDSL = Split(eventGuestsIDS, ", ")
+        eventListsL = Split(eventLists, ", ")
         Dim eventDatesL As String() = Split(eventDates, ", ")
 
         DataGridView1.Rows.Clear()
-
-        'Creating another table that we will manipulate to contain
-        'the right number of column that we want
-        Dim realDataSet As New DataSet()
-        Dim realDataTable As New DataTable()
-        realDataSet.Tables.Add(realDataTable)
 
         If Not loadDone Then
             DataGridView1.Columns.AddRange(New DataGridViewColumn(3) _
@@ -98,7 +98,6 @@ Public Class guestManagement
 
             'Dim query1 As String = $"SELECT name, type FROM guest WHERE guest_id='{eventGuestsIDSL(i)}'"
             'Dim ds1 As DataSet = Await Task.Run(Function() getData(query1))
-
             Dim guests = home.allTabDataSet.Tables(4).AsEnumerable.Select(Function(guest) New With {
                                 .name = guest.Field(Of String)("name"),
                                 .type = guest.Field(Of String)("type"),
@@ -181,7 +180,8 @@ Public Class guestManagement
     End Sub
 
     Private Sub DataGridView1_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView1.CellContentClick
-        selectedGuest = DataGridView1.Rows(e.RowIndex).Cells(0).Value
+        selectedGuestName = DataGridView1.Rows(e.RowIndex).Cells(0).Value
+        selectedGuestEventID = eventGuestsIDSL(Array.IndexOf(eventListsL, DataGridView1.Rows(e.RowIndex).Cells(1).Value))
         selectedRow = e.RowIndex
         If e.ColumnIndex = 4 Then
             Timer1.Enabled = False
@@ -195,10 +195,10 @@ Public Class guestManagement
                 MessageBox.Show("Cannot delete a booker")
                 Return
             End If
-            Dim confirm As MsgBoxResult = MsgBox($"Are you sure you want to DELETE {selectedGuest} in the database??", MsgBoxStyle.YesNo)
+            Dim confirm As MsgBoxResult = MsgBox($"Are you sure you want to DELETE {selectedGuestName} for event {DataGridView1.Rows(e.RowIndex).Cells(1).Value} in the database??", MsgBoxStyle.YesNo)
 
             If confirm = MsgBoxResult.Yes Then
-                Dim query2 As String = $"DELETE FROM guest WHERE name='{selectedGuest}'"
+                Dim query2 As String = $"DELETE FROM guest WHERE name='{selectedGuestName}' AND guest_id={selectedGuestEventID}"
                 executeNonQuery(query2, remoteConnection)
             Else
                 Return

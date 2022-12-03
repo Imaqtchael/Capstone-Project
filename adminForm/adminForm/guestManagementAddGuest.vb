@@ -1,10 +1,23 @@
 ﻿Imports System.Runtime.InteropServices
 Imports MySql.Data.MySqlClient
 Public Class guestManagementAddGuest
-    Dim query As String = $"SELECT guests_id, name, date FROM events"
-    Dim ds As New DataSet()
     Dim guestID, eventDate As String
     Dim loadDone As Boolean = False
+
+    Dim eventTable As DataTable
+
+    Private Sub guestManagementAddGuest_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        eventTable = home.allTabDataSet.Tables(1)
+
+        If Not loadDone Then
+            For i As Integer = 0 To eventTable.Rows.Count - 1
+                ComboBox1.Items.Add(eventTable.Rows(i)(1))
+            Next
+        End If
+
+        loadDone = True
+    End Sub
+
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         Dim emptyTextBoxes =
             From txt In Me.Panel1.Controls.OfType(Of TextBox)()
@@ -15,7 +28,7 @@ Public Class guestManagementAddGuest
             Return
         End If
 
-        If TextBox7.Text.Length <> 10 Then
+        If TextBox7.Text.Length > 0 And TextBox7.Text.Length <> 10 Then
             MessageBox.Show("Invalid RFID")
             Return
         End If
@@ -37,31 +50,13 @@ Public Class guestManagementAddGuest
             TextBox5.Clear()
             ComboBox1.Text = ""
         End If
+
         TextBox7.Clear()
     End Sub
 
-    Private Sub guestManagementAddGuest_Load(sender As Object, e As EventArgs) Handles MyBase.Load, Timer1.Tick
-        ds = getData(query)
-
-        If Not loadDone Then
-            For i As Integer = 0 To ds.Tables(0).Rows.Count - 1
-                ComboBox1.Items.Add(ds.Tables(0).Rows(i)(1))
-            Next
-        End If
-
-        loadDone = True
-    End Sub
-
-    Private Sub ComboBox1_Click(sender As Object, e As EventArgs) Handles ComboBox1.Click
-        sender.DroppedDown = True
-    End Sub
-
-    Private Sub ComboBox1_TextChanged(sender As Object, e As EventArgs) Handles ComboBox1.TextChanged
-        If sender.Text.Length = 0 Then
-            Return
-        End If
-        guestID = ds.Tables(0).Rows(ComboBox1.SelectedIndex)(0)
-        eventDate = ds.Tables(0).Rows(ComboBox1.SelectedIndex)(2)
+    Private Sub ComboBox1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ComboBox1.SelectedIndexChanged
+        guestID = eventTable.Rows(ComboBox1.SelectedIndex)(0)
+        eventDate = eventTable.Rows(ComboBox1.SelectedIndex)(2)
 
         TextBox5.Text = eventDate
     End Sub

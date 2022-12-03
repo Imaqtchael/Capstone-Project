@@ -231,6 +231,7 @@ Partial Class eventManagementEditORAddEvent
         '
         'ComboBox1
         '
+        Me.ComboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.ComboBox1.FormattingEnabled = True
         Me.ComboBox1.Items.AddRange(New Object() {"BIRTHDAY", "DEBUT", "WEDDING", "OTHERS: TYPE THE EVENT TYPE"})
         Me.ComboBox1.Location = New System.Drawing.Point(23, 159)

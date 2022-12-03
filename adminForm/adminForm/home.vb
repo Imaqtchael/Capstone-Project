@@ -2,15 +2,21 @@
 
 Public Class home
     Public allTabDataSet As DataSet
+    Dim counter As Integer
     Private Async Sub home_Load(sender As Object, e As EventArgs) Handles MyBase.Load, Button5.Click
-        While allTabDataSet Is Nothing
-            allTabDataSet = Await Task.Run(Function() getAllData())
+        MessageBox.Show("From home: " & login.userRole)
+        Dim checkFirst = Await Task.Run(Function() getAllData())
+        While checkFirst Is Nothing
+            checkFirst = Await Task.Run(Function() getAllData())
         End While
+        allTabDataSet = Await Task.Run(Function() getAllData())
         Button1.Enabled = True
-        Button2.Enabled = True
-        Button3.Enabled = True
-        Button4.Enabled = True
 
+        If login.userRole = "EVENT MANAGER" Then
+            Button2.Enabled = True
+            Button3.Enabled = True
+            Button4.Enabled = True
+        End If
         'Show the trackingreport form and changing the 
         'trackingreport buttont to white on form load
         showThis(sender, Panel1, trackingReport)
@@ -23,7 +29,6 @@ Public Class home
         While allTabDataSet Is Nothing
             allTabDataSet = Await Task.Run(Function() getAllData())
         End While
-        MessageBox.Show("From home: " & allTabDataSet.Tables(0).Rows.Count.ToString())
     End Sub
 
     'Changing the clicked button to white and other button to whitesmoke
@@ -56,6 +61,8 @@ Public Class home
         Else
             login.Show()
         End If
+        showThis(sender, Panel1, trackingReport)
+        changeColor(Button1, Button2, Button3, Button4)
         Me.Close()
     End Sub
 
@@ -82,4 +89,5 @@ Public Class home
         ReleaseCapture()
         SendMessage(Me.Handle, &H112&, &HF012&, 0)
     End Sub
+
 End Class

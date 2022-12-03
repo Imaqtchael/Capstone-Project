@@ -8,25 +8,20 @@
 
     Dim selectedRow As Integer = 0
 
-    Dim loadDone As Boolean = False
+    Dim selectedEventIndex As Integer = 0
 
-    'Loading the data and putting them into DataGridView1
-    Private Async Sub trackingReport_Load(sender As Object, e As EventArgs) Handles MyBase.Load, Timer1.Tick
-        'Dim Events As String = $"SELECT name, guests_id, date FROM events WHERE date_format(str_to_date(date, '%m/%d/%Y'), '%Y/%m/%d')<=date_format(curdate(), '%Y/%m/%d') ORDER BY date DESC"
-        'Dim EventsDS As DataSet = home.allTabDataSet
+    Public eventsTable As DataTable
 
+    'Refresh the DataGridView1 for a given event
+    Private Async Sub refreshDataGridView(ByVal indexOfEvent As Integer)
         ComboBox1.Items.Clear()
-
-        While home.allTabDataSet Is Nothing
-            Continue While
-        End While
 
         Dim eventsTable As DataTable = home.allTabDataSet.Tables(0)
 
         If eventsTable.Rows.Count > 0 Then
-            eventName = eventsTable.Rows(0)(0).ToString()
-            guestsID = eventsTable.Rows(0)(1).ToString()
-            eventDate = eventsTable.Rows(0)(2).ToString()
+            eventName = eventsTable.Rows(indexOfEvent)(0).ToString()
+            guestsID = eventsTable.Rows(indexOfEvent)(1).ToString()
+            eventDate = eventsTable.Rows(indexOfEvent)(2).ToString()
         Else
             Return
         End If
@@ -102,6 +97,36 @@
         End If
     End Sub
 
+    'Loading the data and putting them into DataGridView1
+    Private Sub trackingReport_Load(sender As Object, e As EventArgs) Handles MyBase.Load, Timer1.Tick
+        refreshDataGridView(selectedEventIndex)
+    End Sub
+
+    Private Sub TextBox1_KeyPress(sender As Object, e As KeyPressEventArgs) Handles TextBox1.KeyPress
+        Timer1.Enabled = False
+        If e.KeyChar = Convert.ToChar(Keys.Back) Then
+            TextBox1.Clear()
+        End If
+
+        If TextBox1.Text.Length = 0 Then
+            refreshDataGridView(selectedEventIndex)
+            Timer1.Enabled = True
+            Return
+        End If
+
+        For i As Integer = 0 To DataGridView1.Rows.Count - 1
+            If Not DataGridView1.Rows(i).Cells(0).Value.ToString().ToUpper.Contains(TextBox1.Text.ToUpper) Then
+                DataGridView1.Rows.RemoveAt(i)
+            End If
+        Next
+    End Sub
+
+    Private Sub ComboBox1_SelectionChangeCommitted(sender As Object, e As EventArgs) Handles ComboBox1.SelectionChangeCommitted
+        selectedEventIndex = ComboBox1.SelectedIndex
+        TextBox1.Clear()
+        refreshDataGridView(selectedEventIndex)
+    End Sub
+
     'A sub for CellDoubleClick where we will show all of the logs of the selected guest
     Private Sub DataGridView1_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView1.CellDoubleClick
         Timer1.Enabled = False
@@ -110,50 +135,6 @@
         Dim guest = row.Cells(0).Value.ToString()
         selectedGuest = guest
         trackingReportGuestLog.Show()
-    End Sub
-
-    Private Async Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles TextBox1.TextChanged
-        Dim query As String = $"SELECT name, logs FROM guest WHERE logs<>'' AND name LIKE '%{TextBox1.Text}%' AND guest_id='{guestsID}'"
-        Dim ds As DataSet = Await task.run(Function() getData(query))
-
-        Dim realDataSet As New DataSet()
-        Dim realDataTable As New DataTable()
-        realDataSet.Tables.Add(realDataTable)
-
-        addColumns(4, realDataTable)
-
-        For i As Integer = 0 To ds.Tables(0).Rows.Count - 1
-            Dim tryrow As DataRow
-            tryrow = realDataSet.Tables(0).NewRow
-
-            tryrow(0) = ds.Tables(0).Rows(i)(0)
-
-            Dim logs As String() = Split(ds.Tables(0).Rows(i)(1).ToString(), ", ")
-            Dim firstTimeInDate As String = Split(logs(0), " ")(0)
-            Dim lastTimeIn
-            Dim lastTimeOut
-
-            If Not isIn(logs) Then
-                lastTimeIn = $"{Split(logs(logs.Length - 2), " ")(1)} {Split(logs(logs.Length - 2), " ")(2)}"
-                lastTimeOut = $"{Split(logs(logs.Length - 1), " ")(1)} {Split(logs(logs.Length - 1), " ")(2)}"
-            Else
-                lastTimeIn = $"{Split(logs(logs.Length - 1), " ")(1)} {Split(logs(logs.Length - 1), " ")(2)}"
-                lastTimeOut = ""
-            End If
-
-            tryrow(1) = firstTimeInDate
-            tryrow(2) = lastTimeIn
-            tryrow(3) = lastTimeOut
-
-            realDataSet.Tables(0).Rows.Add(tryrow)
-
-        Next
-
-        DataGridView1.DataSource = realDataSet.Tables(0)
-    End Sub
-
-    Private Sub ComboBox1_TextChanged(sender As Object, e As EventArgs) Handles ComboBox1.TextChanged
-
     End Sub
 
     Private Sub DataGridView1_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView1.CellContentClick
