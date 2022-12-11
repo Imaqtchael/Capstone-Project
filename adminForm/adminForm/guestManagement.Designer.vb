@@ -22,14 +22,12 @@ Partial Class guestManagement
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(guestManagement))
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.Button1 = New System.Windows.Forms.Button()
         Me.TextBox1 = New System.Windows.Forms.TextBox()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.Button2 = New System.Windows.Forms.Button()
-        Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.Panel4 = New System.Windows.Forms.Panel()
         Me.DataGridView1 = New System.Windows.Forms.DataGridView()
         Me.Label11 = New System.Windows.Forms.Label()
@@ -94,11 +92,6 @@ Partial Class guestManagement
         Me.Button2.TabIndex = 5
         Me.Button2.Text = "ADD GUEST"
         Me.Button2.UseVisualStyleBackColor = False
-        '
-        'Timer1
-        '
-        Me.Timer1.Enabled = True
-        Me.Timer1.Interval = 15000
         '
         'Panel4
         '
@@ -224,7 +217,6 @@ Partial Class guestManagement
     Friend WithEvents TextBox1 As TextBox
     Friend WithEvents Panel1 As Panel
     Friend WithEvents Button2 As Button
-    Friend WithEvents Timer1 As Timer
     Friend WithEvents Panel4 As Panel
     Friend WithEvents DataGridView1 As DataGridView
     Friend WithEvents Label11 As Label

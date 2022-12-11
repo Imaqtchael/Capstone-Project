@@ -8,7 +8,7 @@
         'Dim ds As DataSet = Await Task.Run(Function() getData(query))
 
         Dim usersTable = home.allTabDataSet.Tables(3)
-
+        DataGridView1.Rows.Clear()
 
         If usersTable.Rows.Count = 0 Then
             Return
@@ -33,7 +33,7 @@
         End If
 
         loadDone = True
-        DataGridView1.Rows.Clear()
+
 
         For i As Integer = 0 To usersTable.Rows.Count - 1
             Dim name As String = usersTable.Rows(i)(0)
@@ -53,7 +53,10 @@
     End Sub
 
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
-        userManagementAddOREditUser.Show()
+        home.Timer1.Enabled = False
+        userManagementAddOREditUser.ShowDialog()
+        home.refreshAllForms()
+        home.Timer1.Enabled = True
     End Sub
 
     Private Async Sub DataGridView1_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView1.CellContentClick
@@ -61,12 +64,12 @@
         selectedRow = e.RowIndex
         Dim role As String = DataGridView1.Rows(e.RowIndex).Cells(1).Value
         If e.ColumnIndex = 3 Then
-            Timer1.Enabled = False
             editORAdd = "edit"
-            userManagementAddOREditUser.Show()
-            Timer1.Enabled = True
+            home.Timer1.Enabled = False
+            userManagementAddOREditUser.ShowDialog()
+            home.refreshAllForms()
+            home.Timer1.Enabled = True
         ElseIf e.ColumnIndex = 4 Then
-            Timer1.Enabled = False
 
             If role = "Event Coordinator" Then
                 MessageBox.Show("Cannot delete an Event Coordinator")
@@ -84,8 +87,6 @@
             Else
                 Return
             End If
-            Timer1.Enabled = True
-            userManagement_Load(Nothing, Nothing)
         End If
     End Sub
 End Class

@@ -70,3 +70,4 @@ C:\Programming\Capstone-Project\adminForm\adminForm\obj\Debug\net6.0-windows\ref
 C:\Programming\Capstone-Project\adminForm\adminForm\obj\Debug\net6.0-windows\adminForm.pdb
 C:\Programming\Capstone-Project\adminForm\adminForm\obj\Debug\net6.0-windows\adminForm.genruntimeconfig.cache
 C:\Programming\Capstone-Project\adminForm\adminForm\obj\Debug\net6.0-windows\ref\adminForm.dll
+C:\Programming\Capstone-Project\adminForm\adminForm\obj\Debug\net6.0-windows\adminForm.registerGuests.resources

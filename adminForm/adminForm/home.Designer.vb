@@ -192,6 +192,5 @@ Partial Class home
     Friend WithEvents Panel1 As Panel
     Friend WithEvents Panel2 As Panel
     Friend WithEvents Timer1 As Timer
-    Friend WithEvents TextBox1 As TextBox
     Friend WithEvents Timer2 As Timer
 End Class

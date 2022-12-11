@@ -29,12 +29,22 @@ Module Functions
     Public Function executeNonQuery(ByVal query As String, ByRef connection As MySqlConnection) As Boolean
         Dim isComplete As Boolean = True
         Dim command As MySqlCommand
+        Dim newConnection As MySqlConnection
 
         Try
-            connection.Open()
-            command = connection.CreateCommand()
-            command.CommandText = query
-            command.ExecuteNonQuery()
+            If connection.State = ConnectionState.Open Then
+                newConnection = connection.Clone()
+                newConnection.Open()
+                command = newConnection.CreateCommand()
+                command.CommandText = query
+                command.ExecuteNonQuery()
+                newConnection.Close()
+            Else
+                connection.Open()
+                command = connection.CreateCommand()
+                command.CommandText = query
+                command.ExecuteNonQuery()
+            End If
         Catch ex As MySqlException
             MessageBox.Show(ex.Message())
             isComplete = False

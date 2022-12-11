@@ -13,7 +13,9 @@
         'Dim query As String = $"SELECT guests_id, name, date FROM events"
         'Dim ds As DataSet = home.allTabDataSet
         Dim guestsTable = home.allTabDataSet.Tables(1)
+
         DataGridView1.Rows.Clear()
+
         If guestsTable.Rows.Count = 0 Then
             Return
         End If
@@ -124,14 +126,16 @@
     'End Sub
 
     Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles TextBox1.TextChanged
+        DataGridView1.Rows.Clear()
         If TextBox1.Text.Length > 0 Then
-            Timer1.Enabled = False
+            home.Timer1.Enabled = False
         Else
-            Timer1.Enabled = True
+            home.Timer1.Enabled = True
             guestManagement_Load(Nothing, Nothing)
+            Return
         End If
 
-        DataGridView1.Rows.Clear()
+
 
         'Dim query As String = $"SELECT guests_id, name, date FROM events WHERE name LIKE '%{TextBox1.Text}%'"
         'Dim ds As DataSet = Await Task.Run(Function() getData(query))
@@ -169,10 +173,10 @@
     End Sub
 
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
-        Timer1.Enabled = False
-        guestManagementAddGuest.Show()
-        Timer1.Enabled = True
-        guestManagement_Load(Nothing, Nothing)
+        home.Timer1.Enabled = False
+        guestManagementAddGuest.ShowDialog()
+        home.refreshAllForms()
+        home.Timer1.Enabled = True
     End Sub
 
     Private Async Sub DataGridView1_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView1.CellContentClick
@@ -180,13 +184,11 @@
         selectedGuestEventID = eventGuestsIDSL(Array.IndexOf(eventListsL, DataGridView1.Rows(e.RowIndex).Cells(1).Value))
         selectedRow = e.RowIndex
         If e.ColumnIndex = 4 Then
-            Timer1.Enabled = False
-            guestManagementEditGuest.Show()
-            Timer1.Enabled = True
-            guestManagement_Load(Nothing, Nothing)
-        ElseIf e.ColumnIndex = 5 Then
-            Timer1.Enabled = False
             home.Timer1.Enabled = False
+            guestManagementEditGuest.ShowDialog()
+            home.refreshAllForms()
+            home.Timer1.Enabled = True
+        ElseIf e.ColumnIndex = 5 Then
             If DataGridView1.Rows(e.RowIndex).Cells(3).Value = "BOOKER" Then
                 MessageBox.Show("Cannot delete a booker")
                 Return
@@ -195,14 +197,13 @@
 
             If confirm = MsgBoxResult.Yes Then
                 Dim query2 As String = $"DELETE FROM guest WHERE name='{selectedGuestName}' AND guest_id={selectedGuestEventID}"
+                home.Timer1.Enabled = False
                 Await Task.Run(Function() executeNonQuery(query2, remoteConnection))
+                home.refreshAllForms()
+                home.Timer1.Enabled = True
             Else
                 Return
             End If
-            home.refreshAllForms()
-            home.Timer1.Enabled = True
-            Timer1.Enabled = True
-            guestManagement_Load(Nothing, Nothing)
         End If
     End Sub
 End Class

@@ -4,7 +4,9 @@ Imports System.Runtime.InteropServices
 Public Class userManagementAddOREditUser
     Dim ds As DataSet
     Private Sub userManagementAddOREditUser_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        home.Timer1.Enabled = False
+        home.Enabled = False
+        Me.TopMost = True
+
         If userManagement.editORAdd = "edit" Then
             Label1.Text = "EDIT USER"
             ds = getData($"SELECT username, password, fullname, address, contact, email, role, id FROM admin WHERE fullname='{userManagement.selectedUser}'")
@@ -36,10 +38,10 @@ Public Class userManagementAddOREditUser
 
             If userSuccess Then
                 userManagement.editORAdd = ""
-                userManagement.userManagement_Load(Nothing, Nothing)
                 home.refreshAllForms()
                 home.Timer1.Enabled = True
                 Button1.Enabled = True
+                home.Enabled = True
                 Me.Close()
             End If
             Return
@@ -65,10 +67,8 @@ Public Class userManagementAddOREditUser
 
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
         userManagement.editORAdd = ""
-        userManagement.userManagement_Load(Nothing, Nothing)
-        home.refreshAllForms()
-        home.Timer1.Enabled = True
         Button1.Enabled = True
+        home.Enabled = True
         Me.Close()
     End Sub
 

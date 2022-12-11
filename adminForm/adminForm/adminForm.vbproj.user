@@ -13,6 +13,9 @@
     <Compile Update="guestManagementEditGuest.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="registerGuests.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="trackingReportGuestLog.vb">
       <SubType>Form</SubType>
     </Compile>

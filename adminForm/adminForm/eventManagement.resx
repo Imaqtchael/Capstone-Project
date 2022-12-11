@@ -58,6 +58,26 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="Button3.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6
+        JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAB3RJTUUH5gwLESEks0AASgAAAypJREFU
+        WEfVl1uITVEYx2fMMJcwCSMkJfKAJCUjuaWMS3IZl3kyaYyizDCMIg8iTTyb8iK5pUk8jdS4Nq8migkP
+        pDFGMcYTHmavtfzWt9e5bfvMOGef8zBf/Vprfd//W+vbe6999joF6cwYM9so1QeDIzCAdpVLy50Zz9tq
+        tL4ufWMWwNIAS6CIAlrglCRlYyy0hQm64UOArxRwjUUKaduhM0AHsUp0J+BHUl6M13DILZPeEPVTxHba
+        t0w4KY69A0q9gpPDovVD2paUXK3v4WuAL4ynuaXCDdFPRDNp3ziXGL5CfHUQvnCCw2jLXZoYBdzhAjYQ
+        6yK20LnDDVFoAVEs0wJ6YwXAGfB3t+dtZKInotH6Mb698ZhSjfg6Xb+f/LW0AzLW+lZmBRhTFi9A6zba
+        Wue3O3xA+kp9g6PEb5ihoTXExjB+zyI1bmw342l4jm9zZgUodTylAK0v0v8F9ZBagFI9xG+jtxvtLLRL
+        jEWgivED0We7B0i0BTyi/wKOwR/GV2h/QxN0y9g+Hjv2Y/YRLILljDtkzqwLMGYuibsEXh/aajeuZlyZ
+        FJsHK9x4B/1iKAFZLOsCnEuMSdrwz5K+jdur9R+P/0NjzGrad278VJKc5aYApZ7hXyx9JpHJtL5P28zk
+        6/CNp38EemG/JDnLXwGJ1+8zC9Tgr6D/SRKSLHcFaH0VLhC3t7uLSe0HqpX+S9iT3wKMWYnP/p7X058C
+        VbDM+Q7Qn+x0/3yKc1JAFItUAP1SSHzZfCaIOMnwpdVFK8A+98Q3PYb9VFdIgjN0N0N0PejKR/kj4J1m
+        gtYA5+2VSYIzdA0hunPoSmgjFOB562XyVOrQjJUEZ26BoG4fuqJIBeTCot0B+7lNHDxi9KGZKAnO0N0N
+        0dnDzejfhLshePC0h5ZSSXCGrzagsTSjGxcvQOvLjGe4lHAjKbgJtyVNGKPJTiwJztDtDNE1oiuOFeCk
+        wxtJ+XsE/pkiszuQC4sXkMEemEprz332LJgez9uEdn5oLJVBdP4n/D8KsP9upzvmjECR5Nh/zuHxGDZe
+        xtwfaeVYl9YQHYTvEHyno6P1JbdMGiso+AvcCKmzyTfThwAAAABJRU5ErkJggg==
+</value>
+  </data>
   <data name="Button2.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6
@@ -82,7 +102,4 @@
         ODpUKkI3b7+ZDW0Df0gUK3MljEIAAAAASUVORK5CYII=
 </value>
   </data>
-  <metadata name="Timer1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
-  </metadata>
 </root>

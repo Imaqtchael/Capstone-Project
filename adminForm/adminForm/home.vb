@@ -2,6 +2,7 @@
 Imports System.Runtime.InteropServices
 Imports MySql.Data.MySqlClient
 Imports System.IO
+Imports System.Threading
 
 Public Class home
     Public allTabDataSet As DataSet
@@ -77,6 +78,19 @@ Public Class home
             showThis(Button4, Panel1, userManagement)
             changeColor(Button4, Button1, Button2, Button3)
         End If
+
+        If Not trackingReport Is Nothing Then
+            trackingReport.TextBox1.Clear()
+        End If
+
+        If Not guestManagement Is Nothing Then
+            guestManagement.TextBox1.Clear()
+        End If
+
+        If Not eventManagement Is Nothing Then
+            eventManagement.TextBox1.Clear()
+        End If
+
     End Sub
 
     'Loggin out the admin user and removing him in the REMEBERED.txt
@@ -98,11 +112,7 @@ Public Class home
         Me.Close()
     End Sub
 
-    Private Sub performAll()
-        downloadRemoteDB("local_copy")
-        refreshLocalDB("local_copy")
-    End Sub
-
+    'Download the remote database onto the local hard drive
     Private Sub downloadRemoteDB(ByVal DBName As String)
         'Download the remote database
         Dim remoteURI = "https://event-venue.website/includes/downloadSQL.php"
@@ -111,8 +121,10 @@ Public Class home
         Dim client As New WebClient()
 
         client.DownloadFile(remoteURI, fileName)
+
     End Sub
 
+    'Recreate the local database with the downloaded data from the remote database
     Private Sub refreshLocalDB(ByVal DBName As String)
 
         'Create a blank database in localhost
@@ -162,6 +174,7 @@ Public Class home
         End While
     End Sub
 
+    'Delete local database, especially used with closing the form
     Private Sub deleteLocalDB()
         Dim connectionString = "server=localhost;uid=root;pwd="
         Dim connection = New MySqlConnection(connectionString)
@@ -182,6 +195,7 @@ Public Class home
         End While
     End Sub
 
+    'Update the remote database with the values from the local database
     Private Sub updateRemoteDB()
         Dim dataTables() As String = {"admin", "events", "guest"}
 
@@ -227,7 +241,7 @@ Public Class home
                 ElseIf dataTables(i) = "events" Then
                     Dim guests_id = editedTables.Tables(1).Rows(j)(0)
                     Dim registered = editedTables.Tables(1).Rows(j)(1)
-                    Dim name = editedTables.Tables(1).Rows(j)(2)
+                    Dim name = editedTables.Tables(1).Rows(j)(2).ToString().Replace("'", "\'")
                     Dim event_date = editedTables.Tables(1).Rows(j)(3)
                     Dim event_time = editedTables.Tables(1).Rows(j)(4)
                     Dim type = editedTables.Tables(1).Rows(j)(5)
@@ -250,12 +264,13 @@ Public Class home
                     Dim address = editedTables.Tables(2).Rows(j)(5)
                     Dim email = editedTables.Tables(2).Rows(j)(6)
                     Dim number = editedTables.Tables(2).Rows(j)(7)
+                    Dim type = editedTables.Tables(2).Rows(j)(8)
                     Dim editORInsert = Integer.Parse(editedTables.Tables(2).Rows(j)(9))
 
                     If editORInsert = 1 Then
                         updateQuery += $"UPDATE guest SET guest_id={guest_id}, logs='{logs}', rfid='{rfid}', name='{name}', address='{address}', email='{email}', number='{number}' WHERE id={id};"
                     ElseIf editORInsert = 2 Then
-                        updateQuery += $"INSERT INTO guest(guest_id, logs, rfid, name, address, email, number) VALUES({guest_id}, '{logs}', '{rfid}', '{name}', '{address}', '{email}', '{number}');"
+                        updateQuery += $"INSERT INTO guest(guest_id, logs, rfid, name, address, email, number, type) VALUES({guest_id}, '{logs}', '{rfid}', '{name}', '{address}', '{email}', '{number}', '{type}');"
                     End If
 
                 End If
@@ -273,19 +288,25 @@ Public Class home
                 remoteCommand.CommandText = updateQuery
                 remoteCommand.ExecuteNonQuery()
                 remoteConnection.Close()
+                remotelyConnected = True
             Catch ex As Exception
 
             End Try
-            remotelyConnected = True
         End While
+
+    End Sub
+
+    Private Async Sub home_FormClosed(sender As Object, e As FormClosedEventArgs) Handles MyBase.FormClosed
+        Await Task.Run(Sub() updateRemoteDB())
+        Await Task.Run(Sub() deleteLocalDB())
     End Sub
 
     'Casting Shadow to the Form
-    Private Const CS_DROPSHADOW As Integer = 131072
+    Private Const CS_SHADOW As Integer = &H20000
     Protected Overrides ReadOnly Property CreateParams() As System.Windows.Forms.CreateParams
         Get
             Dim cp As CreateParams = MyBase.CreateParams
-            cp.ClassStyle = cp.ClassStyle Or CS_DROPSHADOW
+            cp.ClassStyle = cp.ClassStyle Or CS_SHADOW
             Return cp
         End Get
     End Property

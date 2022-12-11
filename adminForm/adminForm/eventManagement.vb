@@ -9,8 +9,13 @@ Public Class eventManagement
 
     'Showing data on DataGridView on form load
     Public Sub eventManagement_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        'Get the refreshed table from home form
         Dim eventsTable = home.allTabDataSet.Tables(2)
+
+        'Clear the data that may be in the datagridview1
         DataGridView1.Rows.Clear()
+
+        'Do nothing if there is no data that will be displayed
         If eventsTable.Rows.Count = 0 Then
             Return
         End If
@@ -37,10 +42,9 @@ Public Class eventManagement
             DataGridView1.Columns(5).Width = 150
             DataGridView1.Columns(5).DefaultCellStyle.BackColor = Color.Red
         End If
-
         loadDone = True
 
-
+        'Add the data from the eventsTable to the customized DataGridView
         For i As Integer = 0 To eventsTable.Rows.Count - 1
             Dim eventName As String = eventsTable.Rows(i)(0)
             Dim eventType As String = eventsTable.Rows(i)(1)
@@ -49,6 +53,7 @@ Public Class eventManagement
             DataGridView1.Rows.Add(eventName, eventType, eventDate, "VIEW GUESTS", "EDIT", "DELETE")
         Next
 
+        'Reselect a previously selected row, if there is one
         DataGridView1.ClearSelection()
         If DataGridView1.Rows.Count - 1 >= selectedRow Then
             DataGridView1.Rows(selectedRow).Selected = True
@@ -56,31 +61,30 @@ Public Class eventManagement
     End Sub
 
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
-        Timer1.Enabled = False
-        eventManagementEditORAddEvent.Show()
-        eventManagement_Load(Nothing, Nothing)
-        Timer1.Enabled = True
+        home.Timer1.Stop()
+        eventManagementEditORAddEvent.ShowDialog()
+        home.refreshAllForms()
+        home.Timer1.Start()
     End Sub
 
     Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles TextBox1.TextChanged
-        Timer1.Enabled = False
-
+        'If there is no user input, then reload the form
+        home.Timer1.Enabled = False
         DataGridView1.Rows.Clear()
         If TextBox1.Text.Length = 0 Then
-            Timer1.Enabled = True
+            home.Timer1.Enabled = True
             eventManagement_Load(Nothing, Nothing)
             Return
         End If
 
-        'Dim query1 As String = $"SELECT name, type, date FROM events WHERE name LIKE '%{TextBox1.Text}%'"
-        'Dim ds As DataSet = Await Task.Run(Function() getData(query1))
-
+        'Get an eventTable where the event name contains the text in textbox
         Dim events = home.allTabDataSet.Tables(2).AsEnumerable.Select(Function(eve) New With {
                                 .name = eve.Field(Of String)("name"),
                                 .type = eve.Field(Of String)("type"),
                                 .date = eve.Field(Of String)("date")
                             }).Where(Function(eve) eve.name.ToUpper.Contains(TextBox1.Text.ToUpper))
 
+        'Display all the events that contains the string input of the user
         For i As Integer = 0 To events.Count - 1
             Dim eventName As String = events(i).name
             Dim eventType As String = events(i).type
@@ -90,29 +94,33 @@ Public Class eventManagement
         Next
     End Sub
 
+    Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
+        home.Timer1.Stop()
+        registerGuests.ShowDialog()
+        home.refreshAllForms()
+        home.Timer1.Start()
+    End Sub
+
     Private Async Sub DataGridView1_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView1.CellContentClick
         Dim selectedEvent As String = DataGridView1.Rows(e.RowIndex).Cells(0).Value
         selectedRow = e.RowIndex
 
+        'Show the geusts of the cliked event
         If e.ColumnIndex = 3 Then
             showThis(home.Button2, home.Panel1, guestManagement)
             changeColor(home.Button2, home.Button1, home.Button3, home.Button4)
             guestManagement.TextBox1.Text = selectedEvent
-        ElseIf e.ColumnIndex = 4 Then
+        ElseIf e.ColumnIndex = 4 Then 'Edit the selected event
             editOrAddEvent = "edit"
             editEvent = selectedEvent
 
-            Timer1.Enabled = False
-            eventManagementEditORAddEvent.Show()
-            eventManagement_Load(Nothing, Nothing)
-            Timer1.Enabled = True
-        ElseIf e.ColumnIndex = 5 Then
-            Dim confirm As MsgBoxResult = MsgBox($"Are you sure you want to DELETE {selectedEvent} in the database??", MsgBoxStyle.YesNo)
             home.Timer1.Enabled = False
+            eventManagementEditORAddEvent.ShowDialog()
+            home.refreshAllForms()
+            home.Timer1.Enabled = True
+        ElseIf e.ColumnIndex = 5 Then 'Delete an event and it's guest after the user confirms it
+            Dim confirm As MsgBoxResult = MsgBox($"Are you sure you want to DELETE {selectedEvent} in the database??", MsgBoxStyle.YesNo)
             If confirm = MsgBoxResult.Yes Then
-                'Dim guestsID As DataSet = Await Task.Run(Function() getData($"SELECT guests_id FROM events WHERE name='{selectedEvent}'"))
-                'Dim id As String = guestsID.Tables(0).Rows(0)(0)
-
                 Dim id = home.allTabDataSet.Tables(2).AsEnumerable.Select(Function(eve) New With {
                                 .name = eve.Field(Of String)("name"),
                                 .guests_id = eve.Field(Of Integer)("guests_id")
@@ -120,13 +128,12 @@ Public Class eventManagement
 
                 Dim query2 As String = $"DELETE FROM events WHERE name='{selectedEvent}'"
                 Dim query3 As String = $"DELETE FROM guest WHERE guest_id={id.guests_id}"
-                Await Task.Run(Function() executeNonQuery($"{query2}; {query3}", remoteConnection))
 
-                eventManagement_Load(Nothing, Nothing)
-                guestManagement.guestManagement_Load(Nothing, Nothing)
+                home.Timer1.Enabled = False
+                Await Task.Run(Function() executeNonQuery($"{query2}; {query3}", remoteConnection))
+                home.refreshAllForms()
+                home.Timer1.Enabled = True
             End If
-            home.refreshAllForms()
-            home.Timer1.Enabled = True
         End If
     End Sub
 End Class

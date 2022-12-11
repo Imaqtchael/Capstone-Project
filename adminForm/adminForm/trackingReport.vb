@@ -12,9 +12,17 @@
 
     Public eventsTable As DataTable
 
+    Dim loadDone As Boolean = False
+
     'Refresh the DataGridView1 for a given event
     Private Async Sub refreshDataGridView(ByVal indexOfEvent As Integer)
         ComboBox1.Items.Clear()
+
+        DataGridView1.Rows.Clear()
+        Label2.Text = ""
+        Label5.Text = ""
+        Label7.Text = ""
+        ComboBox1.Text = ""
 
         Dim eventsTable As DataTable = home.allTabDataSet.Tables(0)
 
@@ -25,6 +33,29 @@
         Else
             Return
         End If
+
+        If Not loadDone Then
+            DataGridView1.Columns.AddRange(New DataGridViewColumn(3) _
+                                    {New DataGridViewTextBoxColumn(),
+                                     New DataGridViewTextBoxColumn(),
+                                     New DataGridViewTextBoxColumn(),
+                                     New DataGridViewTextBoxColumn()})
+
+            DataGridView1.Columns(3).Width = 150
+
+            DataGridView1.Columns.AddRange(New DataGridViewColumn(1) _
+                                        {New DataGridViewButtonColumn() With
+                                        {.FlatStyle = FlatStyle.Flat},
+                                         New DataGridViewButtonColumn() With
+                                        {.FlatStyle = FlatStyle.Flat}})
+
+            DataGridView1.Columns(4).Width = 150
+            DataGridView1.Columns(4).DefaultCellStyle.BackColor = Color.DodgerBlue
+            DataGridView1.Columns(5).Width = 150
+            DataGridView1.Columns(5).DefaultCellStyle.BackColor = Color.Red
+        End If
+
+        loadDone = True
 
         For i As Integer = 0 To eventsTable.Rows.Count - 1
             ComboBox1.Items.Add(eventsTable.Rows(i)(0))
@@ -57,7 +88,7 @@
         Label7.Text = ds1.Tables(0).Rows.Count
 
         'Creating 4 columns for our realDataTable
-        addColumns(4, realDataTable)
+        'addColumns(4, realDataTable)
 
         'Looping for all the attendee's logs and putting their
         'data on the DataGridView1
@@ -80,6 +111,8 @@
                 lastTimeOut = ""
             End If
 
+            DataGridView1.Rows.Add(firstTimeInDate, lastTimeIn, lastTimeOut)
+
             tryrow(1) = firstTimeInDate
             tryrow(2) = lastTimeIn
             tryrow(3) = lastTimeOut
@@ -88,7 +121,7 @@
 
         Next
 
-        DataGridView1.DataSource = realDataSet.Tables(0)
+        'DataGridView1.DataSource = realDataSet.Tables(0)
 
         'Reselect the previous row selection of the user 
         DataGridView1.ClearSelection()
@@ -103,14 +136,14 @@
     End Sub
 
     Private Sub TextBox1_KeyPress(sender As Object, e As KeyPressEventArgs) Handles TextBox1.KeyPress
-        Timer1.Enabled = False
+        home.Timer1.Enabled = False
         If e.KeyChar = Convert.ToChar(Keys.Back) Then
             TextBox1.Clear()
         End If
 
         If TextBox1.Text.Length = 0 Then
             refreshDataGridView(selectedEventIndex)
-            Timer1.Enabled = True
+            home.Timer1.Enabled = True
             Return
         End If
 
@@ -129,12 +162,12 @@
 
     'A sub for CellDoubleClick where we will show all of the logs of the selected guest
     Private Sub DataGridView1_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView1.CellDoubleClick
-        Timer1.Enabled = False
         Dim row As DataGridViewRow = DataGridView1.CurrentRow
 
         Dim guest = row.Cells(0).Value.ToString()
         selectedGuest = guest
-        trackingReportGuestLog.Show()
+        home.Enabled = False
+        trackingReportGuestLog.ShowDialog()
     End Sub
 
     Private Sub DataGridView1_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView1.CellContentClick

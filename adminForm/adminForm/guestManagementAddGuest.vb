@@ -7,6 +7,9 @@ Public Class guestManagementAddGuest
     Dim eventTable As DataTable
 
     Private Sub guestManagementAddGuest_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        home.Enabled = False
+        Me.TopMost = True
+
         Button1.Enabled = True
         eventTable = home.allTabDataSet.Tables(1)
 
@@ -64,9 +67,7 @@ Public Class guestManagementAddGuest
     End Sub
 
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
-        guestManagement.guestManagement_Load(Nothing, Nothing)
-        home.refreshAllForms()
-        home.Timer1.Enabled = True
+        home.Enabled = True
         Me.Close()
     End Sub
 

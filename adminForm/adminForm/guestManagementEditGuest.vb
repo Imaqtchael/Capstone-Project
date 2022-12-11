@@ -13,7 +13,9 @@ Public Class guestManagementEditGuest
     Dim id As String
 
     Private Sub guestManagementEditGuest_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        home.Timer1.Enabled = False
+        home.Enabled = False
+        Me.TopMost = True
+
         ds = getData(query)
         id = ds.Tables(0).Rows(0)(6)
 
@@ -76,17 +78,14 @@ Public Class guestManagementEditGuest
 
         Dim localquery = $"UPDATE guest SET guest_id={guestID.Tables(0).Rows(0)(0)}, rfid='{TextBox7.Text}', name='{TextBox1.Text}', address='{TextBox2.Text}', email='{TextBox4.Text}', number='{TextBox3.Text}', edited=1 WHERE id={id}"
         executeNonQuery(localquery, localConnection)
-        home.Timer1.Enabled = True
         MessageBox.Show("Guest Information updated successfully!")
 
-        guestManagement.guestManagement_Load(Nothing, Nothing)
+        home.Enabled = True
         Me.Close()
     End Sub
 
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
-        guestManagement.guestManagement_Load(Nothing, Nothing)
-        home.refreshAllForms()
-        home.Timer1.Enabled = True
+        home.Enabled = True
         Me.Close()
     End Sub
 

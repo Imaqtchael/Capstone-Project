@@ -7,8 +7,14 @@ Public Class eventManagementEditORAddEvent
     Dim loadDone As Boolean = False
 
     Private Sub eventManagementEditORAddGuest_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        home.Timer1.Enabled = False
+        'Disable the home so uses will not be able to click it
+        home.Enabled = False
+        Me.TopMost = True
+
+        'Convert the minDate of DateTimePicker to short date so that it will
+        'not include the current time
         DateTimePicker1.MinDate = Now.ToString("d")
+
         'Default event is not paid
         CheckBox2.Checked = True
         'Adding values on form_load to the textboxes if the user is editing
@@ -98,9 +104,9 @@ Public Class eventManagementEditORAddEvent
 
             If eventSuccess And guestSuccess Then
                 eventManagement.editOrAddEvent = ""
+                home.Enabled = True
                 Me.Close()
             End If
-            home.Timer1.Enabled = True
             Return
         End If
 
@@ -126,10 +132,7 @@ Public Class eventManagementEditORAddEvent
     'Close the form.
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
         eventManagement.editOrAddEvent = ""
-        eventManagement.eventManagement_Load(Nothing, Nothing)
-        guestManagement.guestManagement_Load(Nothing, Nothing)
-        home.refreshAllForms()
-        home.Timer1.Enabled = True
+        home.Enabled = True
         Me.Close()
     End Sub
 

@@ -4,6 +4,10 @@ Imports MySql.Data.MySqlClient
 Public Class trackingReportGuestLog
     'Loading data on form load
     Private Async Sub trackingReportGuestLog_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        'Disable the home form
+        home.Enabled = False
+        Me.TopMost = True
+
         'Getting the selected guest by the admin from trackingreport form
         Label1.Text = trackingReport.selectedGuest
 
@@ -60,11 +64,8 @@ Public Class trackingReportGuestLog
 
     End Sub
 
-    Private Sub guestLog_FormClosed(sender As Object, e As FormClosedEventArgs) Handles MyBase.FormClosed
-        trackingReport.Timer1.Enabled = True
-    End Sub
-
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+        home.Enabled = True
         Me.Close()
     End Sub
 
