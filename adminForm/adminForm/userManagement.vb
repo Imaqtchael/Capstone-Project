@@ -1,12 +1,9 @@
-﻿
-Imports MySql.Data.MySqlClient
-
-Public Class userManagement
+﻿Public Class userManagement
     Dim loadDone As Boolean = False
     Public editORAdd As String
     Public selectedUser As String
     Dim selectedRow As Integer = 0
-    Public Async Sub userManagement_Load(sender As Object, e As EventArgs) Handles MyBase.Load, Timer1.Tick
+    Public Sub userManagement_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         'Dim query As String = $"SELECT fullname, role, status FROM admin"
         'Dim ds As DataSet = Await Task.Run(Function() getData(query))
 
@@ -42,11 +39,14 @@ Public Class userManagement
             Dim name As String = usersTable.Rows(i)(0)
             Dim role As String = usersTable.Rows(i)(1)
             Dim status As String = usersTable.Rows(i)(2)
+            If name = login.currentUser(0) Or name = "ADMIN ADMIN" Then
+                Continue For
+            End If
             DataGridView1.Rows.Add(name, role, status, "EDIT", "DELETE")
         Next
 
         DataGridView1.ClearSelection()
-        If DataGridView1.Rows.Count < 0 Then
+        If DataGridView1.Rows.Count - 1 >= selectedRow Then
             DataGridView1.Rows(selectedRow).Selected = True
         End If
 
@@ -56,7 +56,7 @@ Public Class userManagement
         userManagementAddOREditUser.Show()
     End Sub
 
-    Private Sub DataGridView1_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView1.CellContentClick
+    Private Async Sub DataGridView1_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView1.CellContentClick
         selectedUser = DataGridView1.Rows(e.RowIndex).Cells(0).Value
         selectedRow = e.RowIndex
         Dim role As String = DataGridView1.Rows(e.RowIndex).Cells(1).Value
@@ -76,8 +76,11 @@ Public Class userManagement
             Dim confirm As MsgBoxResult = MsgBox($"Are you sure you want to DELETE {selectedUser} in the database??", MsgBoxStyle.YesNo)
 
             If confirm = MsgBoxResult.Yes Then
+                home.Timer1.Enabled = False
                 Dim query2 As String = $"DELETE FROM admin WHERE fullname='{selectedUser}'"
-                executeNonQuery(query2, remoteConnection)
+                Await Task.Run(Function() executeNonQuery(query2, remoteConnection))
+                home.refreshAllForms()
+                home.Timer1.Enabled = True
             Else
                 Return
             End If

@@ -8,9 +8,9 @@ Public Class eventManagement
     Dim selectedRow As Integer = 0
 
     'Showing data on DataGridView on form load
-    Public Sub eventManagement_Load(sender As Object, e As EventArgs) Handles MyBase.Load, Timer1.Tick
+    Public Sub eventManagement_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Dim eventsTable = home.allTabDataSet.Tables(2)
-
+        DataGridView1.Rows.Clear()
         If eventsTable.Rows.Count = 0 Then
             Return
         End If
@@ -39,7 +39,7 @@ Public Class eventManagement
         End If
 
         loadDone = True
-        DataGridView1.Rows.Clear()
+
 
         For i As Integer = 0 To eventsTable.Rows.Count - 1
             Dim eventName As String = eventsTable.Rows(i)(0)
@@ -50,7 +50,7 @@ Public Class eventManagement
         Next
 
         DataGridView1.ClearSelection()
-        If DataGridView1.Rows.Count > 0 Then
+        If DataGridView1.Rows.Count - 1 >= selectedRow Then
             DataGridView1.Rows(selectedRow).Selected = True
         End If
     End Sub
@@ -108,23 +108,25 @@ Public Class eventManagement
             Timer1.Enabled = True
         ElseIf e.ColumnIndex = 5 Then
             Dim confirm As MsgBoxResult = MsgBox($"Are you sure you want to DELETE {selectedEvent} in the database??", MsgBoxStyle.YesNo)
-
+            home.Timer1.Enabled = False
             If confirm = MsgBoxResult.Yes Then
                 'Dim guestsID As DataSet = Await Task.Run(Function() getData($"SELECT guests_id FROM events WHERE name='{selectedEvent}'"))
                 'Dim id As String = guestsID.Tables(0).Rows(0)(0)
 
                 Dim id = home.allTabDataSet.Tables(2).AsEnumerable.Select(Function(eve) New With {
                                 .name = eve.Field(Of String)("name"),
-                                .guests_id = eve.Field(Of String)("guests_id")
+                                .guests_id = eve.Field(Of Integer)("guests_id")
                             }).Where(Function(eve) eve.name = selectedEvent).First
 
                 Dim query2 As String = $"DELETE FROM events WHERE name='{selectedEvent}'"
-                Dim query3 As String = $"DELETE FROM guest WHERE guest_id={id}"
-                executeNonQuery($"{query2}; {query3}", remoteConnection)
+                Dim query3 As String = $"DELETE FROM guest WHERE guest_id={id.guests_id}"
+                Await Task.Run(Function() executeNonQuery($"{query2}; {query3}", remoteConnection))
 
                 eventManagement_Load(Nothing, Nothing)
                 guestManagement.guestManagement_Load(Nothing, Nothing)
             End If
+            home.refreshAllForms()
+            home.Timer1.Enabled = True
         End If
     End Sub
 End Class

@@ -13,6 +13,7 @@ Public Class guestManagementEditGuest
     Dim id As String
 
     Private Sub guestManagementEditGuest_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        home.Timer1.Enabled = False
         ds = getData(query)
         id = ds.Tables(0).Rows(0)(6)
 
@@ -60,10 +61,12 @@ Public Class guestManagementEditGuest
             From txt In Me.Panel1.Controls.OfType(Of TextBox)()
             Where txt.Text.Length = 0 And txt.Name <> TextBox7.Name
             Select txt.Name
+
         If emptyTextBoxes.Any Then
             MessageBox.Show("Please fill up all the fields")
             Return
         End If
+
         If TextBox7.Text.Length > 0 And TextBox7.Text.Length <> 10 Then
             MessageBox.Show("Invalid RFID")
             Return
@@ -71,9 +74,9 @@ Public Class guestManagementEditGuest
 
         Dim guestID As DataSet = getData($"SELECT guests_id FROM events WHERE name='{ComboBox1.Text}'")
 
-        Dim localquery = $"UPDATE guest SET guest_id={guestID.Tables(0).Rows(0)(0)}, rfid='{TextBox7.Text}', name='{TextBox1.Text}', address='{TextBox2.Text}', email='{TextBox4.Text}', number='{TextBox3.Text}' WHERE id={id}"
+        Dim localquery = $"UPDATE guest SET guest_id={guestID.Tables(0).Rows(0)(0)}, rfid='{TextBox7.Text}', name='{TextBox1.Text}', address='{TextBox2.Text}', email='{TextBox4.Text}', number='{TextBox3.Text}', edited=1 WHERE id={id}"
         executeNonQuery(localquery, localConnection)
-
+        home.Timer1.Enabled = True
         MessageBox.Show("Guest Information updated successfully!")
 
         guestManagement.guestManagement_Load(Nothing, Nothing)
@@ -82,6 +85,8 @@ Public Class guestManagementEditGuest
 
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
         guestManagement.guestManagement_Load(Nothing, Nothing)
+        home.refreshAllForms()
+        home.Timer1.Enabled = True
         Me.Close()
     End Sub
 

@@ -92,13 +92,13 @@
 
         'Reselect the previous row selection of the user 
         DataGridView1.ClearSelection()
-        If DataGridView1.Rows.Count > 0 Then
+        If DataGridView1.Rows.Count - 1 >= selectedRow Then
             DataGridView1.Rows(selectedRow).Selected = True
         End If
     End Sub
 
     'Loading the data and putting them into DataGridView1
-    Private Sub trackingReport_Load(sender As Object, e As EventArgs) Handles MyBase.Load, Timer1.Tick
+    Public Sub trackingReport_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         refreshDataGridView(selectedEventIndex)
     End Sub
 

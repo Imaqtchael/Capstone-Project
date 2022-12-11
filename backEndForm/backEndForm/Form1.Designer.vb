@@ -83,8 +83,8 @@ Partial Class Form1
         Me.ClientSize = New System.Drawing.Size(982, 673)
         Me.Controls.Add(Me.Panel2)
         Me.Controls.Add(Me.Panel1)
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.Name = "Form1"
-        Me.Text = "Form1"
         Me.Panel2.ResumeLayout(False)
         Me.ResumeLayout(False)
 

@@ -48,7 +48,7 @@ Public Class eventsBackEnd
                                Dim name As String = table.Tables(0).Rows(i)(2)
 
                                Me.Invoke(Sub()
-                                             TextBox1.Text += $"Sending email to {name}...   "
+                                             TextBox1.Text += $"Sending email to and message to {name}...   "
                                          End Sub)
 
                                sendEmail(eventName, eventDetails, "mjbrcns51@gmail.com", "tkzoblulgmuleflh", receiverEmail)

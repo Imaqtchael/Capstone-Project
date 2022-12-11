@@ -1,6 +1,6 @@
 ﻿Imports MySql.Data.MySqlClient
 Module Functions
-    Public str As String = "server=191.101.230.103; uid=u608197321_van_; pwd=~C3qt^9kZ; database=u608197321_real_capstone"
+    Public str As String = "server=localhost; uid=root; pwd=; database=local_copy"
     Public connection As New MySqlConnection(str)
 
     Public Sub showThis(ByVal toShow As String, Optional ByVal name As String = "", Optional ByVal eventName As String = "", Optional ByVal counter As Integer = 0)
@@ -40,10 +40,28 @@ Module Functions
     End Function
 
     Public Function getData(ByVal query As String) As DataSet
-        Dim adpt As New MySqlDataAdapter(query, connection)
-        Dim ds As New DataSet()
-        adpt.Fill(ds)
+        Dim executed = False
+        While Not executed
+            Try
+                Dim newConnection As MySqlConnection
+                Dim dataSet As New DataSet()
 
-        Return ds
+                If connection.State = ConnectionState.Closed Then
+                    newConnection = connection.Clone()
+                    Dim adapter As New MySqlDataAdapter(query, newConnection)
+                    adapter.Fill(dataSet)
+                Else
+                    Dim adapter As New MySqlDataAdapter(query, connection)
+                    adapter.Fill(dataSet)
+                End If
+
+                executed = True
+                Return dataSet
+            Catch ex As Exception
+                MessageBox.Show(ex.Message())
+            End Try
+
+        End While
+
     End Function
 End Module

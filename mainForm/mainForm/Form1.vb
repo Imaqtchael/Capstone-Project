@@ -33,21 +33,23 @@ Public Class Form1
     Dim dateQuery As String = $"SELECT guests_id FROM events WHERE date='{currDate}'"
     Dim dateDS As DataSet
     Dim guestsID As String
-    Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load, Timer2.Tick
+    Private Async Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load, Timer2.Tick
         If Not loadDone Then
+            dateDS = Await Task.Run(Function() getData(dateQuery))
+            If dateDS.Tables(0).Rows.Count > 0 Then
+                guestsID = dateDS.Tables(0).Rows(0)(0)
+                loadDone = True
+            Else
+                Return
+            End If
             Timer2.Enabled = False
             Button1_Click(Nothing, Nothing)
             Timer2.Enabled = True
-            loadDone = True
-            dateDS = getData(dateQuery)
-            If dateDS.Tables(0).Rows.Count > 0 Then
-                guestsID = dateDS.Tables(0).Rows(0)(0)
-            End If
         End If
 
         'Getting all the attendees
         Dim query As String = $"SELECT * FROM guest WHERE guest_id={guestsID}"
-        Dim dataset As DataSet = getData(query)
+        Dim dataset As DataSet = Await Task.Run(Function() getData(query))
         arr = (From myRow In dataset.Tables(0).AsEnumerable
                Select myRow.Field(Of String)("rfid")).ToArray
         attendees = (From myRow In dataset.Tables(0).AsEnumerable
@@ -57,6 +59,7 @@ Public Class Form1
 
     Private Sub Form1_KeyPress(sender As Object, e As KeyPressEventArgs) Handles Panel1.KeyPress
         'If the rfid has now a 10 character check if it is in the list of attendees
+        Dim TimerStart = Now
         If rfid.Length = 10 Then
 
             'Stop the timer until the checking and updating is done
@@ -81,7 +84,7 @@ Public Class Form1
                 'Get the log of the attendee
                 Dim Aadapter As MySqlDataAdapter
                 Dim Ads As New DataSet
-                Aadapter = New MySqlDataAdapter($"SELECT logs FROM guest WHERE name='{attendee}'", connection)
+                Aadapter = New MySqlDataAdapter($"SELECT logs FROM guest WHERE name='{attendee}' AND guest_id={guestsID}", connection)
                 Aadapter.Fill(Ads)
 
                 'A boolean to determine if we will INSERT OR UPDATE
@@ -95,29 +98,9 @@ Public Class Form1
 
                     updateLog = $"{log}, {time}"
 
-                    Dim cmd As MySqlCommand
-                    connection.Open()
-                    Try
-                        cmd = connection.CreateCommand()
-                        cmd.CommandText = $"UPDATE guest SET logs='{updateLog}' WHERE name='{attendee}'"
-                        cmd.ExecuteNonQuery()
-                        connection.Close()
-                    Catch ex As Exception
-
-                    End Try
-                    connection.Close()
+                    executeNonQuery($"UPDATE guest SET logs='{updateLog}', edited=1 WHERE name='{attendee}' AND guest_id={guestsID}")
                 Else
-                    Dim cmd As MySqlCommand
-                    connection.Open()
-                    Try
-                        cmd = connection.CreateCommand()
-                        cmd.CommandText = $"UPDATE guest SET logs='{time}' WHERE name='{attendee}'"
-                        cmd.ExecuteNonQuery()
-                        connection.Close()
-                    Catch ex As Exception
-
-                    End Try
-                    connection.Close()
+                    executeNonQuery($"UPDATE guest SET logs='{time}', edited=1 WHERE name='{attendee}' AND guest_id={guestsID}")
                 End If
 
                 'Else show "you are not welcome"
@@ -136,7 +119,10 @@ Public Class Form1
             'If it has less than 10 characters, just add the
             'scanned character to rfid variable
             rfid += e.KeyChar
-        End If
+
+            End If
+        Dim TimeSpent = Now.Subtract(TimerStart)
+        Label9.Text = $"Latest download execution took: {TimeSpent.TotalSeconds}"
     End Sub
 
     'A timer that will help us transition our displayed texts
@@ -173,6 +159,7 @@ Public Class Form1
     End Sub
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        MessageBox.Show("clicked")
         If currentText.Length <> 0 Then
             currentText = Split(InputBox($"CHANGE EVENT TEXT TO: {Environment.NewLine}1. Event Text{Environment.NewLine}2. Event Name{Environment.NewLine}3. Event Date{Environment.NewLine}SEPARATED BY COMMA", "Change Event Texts", Join(currentText, ", ")), ", ")
         Else

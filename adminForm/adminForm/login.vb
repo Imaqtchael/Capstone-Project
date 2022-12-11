@@ -1,11 +1,15 @@
 ﻿Public Class login
-    Public userRole As String
+    Public currentUser(1) As String
 
     'Checking if there are admin user that has previously logged in
     'and just continue to the home form
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        userRole = My.Computer.FileSystem.ReadAllText("..\..\..\REMEMBERED.txt")
-        If userRole.Length > 0 Then
+        If My.Computer.FileSystem.ReadAllText("..\..\..\REMEMBERED.txt").Length < 1 Then
+            Return
+        End If
+
+        currentUser = Split(My.Computer.FileSystem.ReadAllText("..\..\..\REMEMBERED.txt"), ", ")
+        If currentUser.Length > 0 Then
             showHome()
         End If
     End Sub
@@ -14,20 +18,22 @@
     'preferred to be remembered
     Private Async Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         Button1.Enabled = False
-        Dim ds As DataSet = Await Task.Run(Function() getData("SELECT username, password, role FROM admin"))
+        Dim ds As DataSet = Await Task.Run(Function() getData("SELECT username, password, role, fullname FROM admin"))
 
         While ds Is Nothing
-            ds = Await Task.Run(Function() getData("SELECT username, password, role FROM admin"))
+            ds = Await Task.Run(Function() getData("SELECT username, password, role, fullname FROM admin"))
         End While
 
         For i As Integer = 0 To ds.Tables(0).Rows.Count - 1
             Dim username As String = ds.Tables(0).Rows(i)(0)
             Dim password As String = ds.Tables(0).Rows(i)(1)
             If TextBox1.Text = username And TextBox2.Text = password Then
-                userRole = ds.Tables(0).Rows(i)(2)
+                currentUser(1) = ds.Tables(0).Rows(i)(2)
+                currentUser(0) = ds.Tables(0).Rows(i)(3)
+                MessageBox.Show(currentUser(0))
                 If CheckBox1.Checked = True Then
                     My.Computer.FileSystem.WriteAllText(
-                "..\..\..\REMEMBERED.txt", userRole, False)
+                "..\..\..\REMEMBERED.txt", $"{currentUser(0)}, {ds.Tables(0).Rows(i)(2)}", False)
                 End If
                 showHome()
                 Button1.Enabled = True
@@ -50,7 +56,7 @@
         If home Is Nothing Then
             home.ShowDialog()
         Else
-            If Not userRole = "EVENT MANAGER" Then
+            If Not currentUser(1) = "EVENT MANAGER" Then
                 home.Button4.Enabled = False
                 home.Button2.Enabled = False
                 home.Button3.Enabled = False

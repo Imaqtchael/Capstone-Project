@@ -7,7 +7,8 @@ Public Class eventManagementEditORAddEvent
     Dim loadDone As Boolean = False
 
     Private Sub eventManagementEditORAddGuest_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        DateTimePicker1.MinDate = Now
+        home.Timer1.Enabled = False
+        DateTimePicker1.MinDate = Now.ToString("d")
         'Default event is not paid
         CheckBox2.Checked = True
         'Adding values on form_load to the textboxes if the user is editing
@@ -17,11 +18,15 @@ Public Class eventManagementEditORAddEvent
             Dim query As String = $"SELECT name, date, type, booker, guests_id, time, ispaid FROM events WHERE name='{eventManagement.editEvent}'"
             Dim ds As DataSet = getData(query)
 
-            Dim query1 As String = $"SELECT rfid, name, address, email, number, id FROM guest WHERE name='{ds.Tables(0).Rows(0)(3)}'"
+            Dim eventGuestsID = ds.Tables(0).Rows(0)(4)
+
+            Dim query1 As String = $"SELECT rfid, name, address, email, number, id FROM guest WHERE name='{ds.Tables(0).Rows(0)(3)}' AND guest_id={eventGuestsID}"
             Dim ds1 As DataSet = getData(query1)
 
+            'MessageBox.Show(Convert.ToDateTime(ds.Tables(0).Rows(0)(1) + " 08:00 AM").ToString("MM/dd/yyyy h:mm tt"))
+
             TextBox1.Text = ds.Tables(0).Rows(0)(0)
-            DateTimePicker1.Value = ds.Tables(0).Rows(0)(1)
+            DateTimePicker1.Value = Convert.ToDateTime(ds.Tables(0).Rows(0)(1)).ToString("M/d/yyyy")
             ComboBox1.Text = ds.Tables(0).Rows(0)(2)
 
             If ds.Tables(0).Rows(0)(6) = True Then
@@ -76,33 +81,40 @@ Public Class eventManagementEditORAddEvent
             Return
         End If
 
+        If TextBox6.Text.Length > 0 And TextBox6.Text.Length <> 10 Then
+            MessageBox.Show("Invalid RFID")
+            Return
+        End If
+
         loadDone = False
 
         'UPDATE Database if the user is only editing
         If eventManagement.editOrAddEvent = "edit" Then
-            Dim query As String = $"UPDATE events SET name='{TextBox1.Text}', date='{DateTimePicker1.Value.ToString("MM/dd/yyyy")}', time='{TextBox7.Text}', type='{ComboBox1.Text}', booker='{TextBox3.Text}', ispaid={CheckBox1.Checked} WHERE guests_id={editEventGuestsID}"
+            Dim query As String = $"UPDATE events SET name='{TextBox1.Text.Replace("'", "\'")}', date='{DateTimePicker1.Value.ToString("MM/dd/yyyy")}', time='{TextBox7.Text}', type='{ComboBox1.Text}', booker='{TextBox3.Text}', ispaid={CheckBox1.Checked}, edited=1 WHERE guests_id={editEventGuestsID}"
             Dim eventSuccess As Boolean = executeNonQuery(query, localConnection)
 
-            query = $"UPDATE guest SET rfid='{TextBox6.Text}', name='{TextBox3.Text}', address='{TextBox2.Text}', email='{TextBox5.Text}', number='{TextBox4.Text}' WHERE id={selectedBookerID}"
+            query = $"UPDATE guest SET rfid='{TextBox6.Text}', name='{TextBox3.Text}', address='{TextBox2.Text}', email='{TextBox5.Text}', number='{TextBox4.Text}', edited=1 WHERE id={selectedBookerID}"
             Dim guestSuccess As Boolean = executeNonQuery(query, localConnection)
 
             If eventSuccess And guestSuccess Then
                 eventManagement.editOrAddEvent = ""
                 Me.Close()
             End If
+            home.Timer1.Enabled = True
             Return
         End If
 
-        'INSERT values into Database if the user is adding
-        Dim query1 = $"INSERT INTO events(name, date, time, type, booker, ispaid) VALUES('{TextBox1.Text}', '{DateTimePicker1.Value.ToString("MM/dd/yyyy")}', '{TextBox7.Text}', '{ComboBox1.Text}', '{TextBox3.Text}', {CheckBox1.Checked})"
-        Dim eventSuccess1 As Boolean = executeNonQuery(query1, remoteConnection)
-
-        Dim query2 As String = $"SELECT guests_id FROM events WHERE name='{TextBox1.Text}'"
+        'Get the highest available value for event guests_id
+        Dim query2 As String = $"SELECT `AUTO_INCREMENT` FROM  INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'local_copy' AND TABLE_NAME = 'events';"
         Dim ds As DataSet = getData(query2)
 
-        Dim query3 = $"INSERT INTO guest(guest_id, rfid, name, address, email, number, type) VALUES({ds.Tables(0).Rows(0)(0)}, '{TextBox6.Text}', '{TextBox3.Text}', '{TextBox2.Text}', '{TextBox5.Text}', '{TextBox4.Text}', 'booker')"
-        Dim guestSuccess1 As Boolean = executeNonQuery(query3, remoteConnection)
 
+        'INSERT values into Database if the user is adding
+        Dim query1 = $"INSERT INTO events(name, date, time, type, booker, ispaid, edited) VALUES('{TextBox1.Text.Replace("'", "\'")}', '{DateTimePicker1.Value.ToString("MM/dd/yyyy")}', '{TextBox7.Text}', '{ComboBox1.Text}', '{TextBox3.Text}', {CheckBox1.Checked}, 2)"
+        Dim eventSuccess1 As Boolean = executeNonQuery(query1, localConnection)
+
+        Dim query3 = $"INSERT INTO guest(guest_id, rfid, name, address, email, number, type, edited) VALUES({ds.Tables(0).Rows(0)(0)}, '{TextBox6.Text}', '{TextBox3.Text}', '{TextBox2.Text}', '{TextBox5.Text}', '{TextBox4.Text}', 'BOOKER', 2)"
+        Dim guestSuccess1 As Boolean = executeNonQuery(query3, localConnection)
 
         If eventSuccess1 And guestSuccess1 Then
             clearAll()
@@ -116,6 +128,8 @@ Public Class eventManagementEditORAddEvent
         eventManagement.editOrAddEvent = ""
         eventManagement.eventManagement_Load(Nothing, Nothing)
         guestManagement.guestManagement_Load(Nothing, Nothing)
+        home.refreshAllForms()
+        home.Timer1.Enabled = True
         Me.Close()
     End Sub
 

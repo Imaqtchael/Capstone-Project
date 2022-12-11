@@ -99,7 +99,6 @@ Module Functions
 
             End Try
         End While
-
     End Function
 
     'Home Functions

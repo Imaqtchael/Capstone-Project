@@ -7,6 +7,7 @@ Public Class guestManagementAddGuest
     Dim eventTable As DataTable
 
     Private Sub guestManagementAddGuest_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Button1.Enabled = True
         eventTable = home.allTabDataSet.Tables(1)
 
         If Not loadDone Then
@@ -21,7 +22,7 @@ Public Class guestManagementAddGuest
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         Dim emptyTextBoxes =
             From txt In Me.Panel1.Controls.OfType(Of TextBox)()
-            Where txt.Text.Length = 0
+            Where txt.Text.Length = 0 And txt.Name <> TextBox7.Name
             Select txt.Name
         If emptyTextBoxes.Any Then
             MessageBox.Show("Please fill up all the fields")
@@ -37,8 +38,9 @@ Public Class guestManagementAddGuest
         Dim completed As Boolean = True
 
         If confirm = MsgBoxResult.Yes Then
-            Dim localQuery = $"INSERT INTO guest(guest_id, rfid, name, address, email, number, type) VALUES({guestID}, '{TextBox7.Text}', '{TextBox1.Text}', '{TextBox2.Text}', '{TextBox4.Text}', '{TextBox3.Text}', 'guest')"
-            completed = executeNonQuery(localQuery, remoteConnection)
+            Dim localQuery = $"INSERT INTO guest(guest_id, rfid, name, address, email, number, type, edited) VALUES({guestID}, '{TextBox7.Text}', '{TextBox1.Text}', '{TextBox2.Text}', '{TextBox4.Text}', '{TextBox3.Text}', 'GUEST', 2)"
+            completed = executeNonQuery(localQuery, localConnection)
+
         Else
             Return
         End If
@@ -63,6 +65,8 @@ Public Class guestManagementAddGuest
 
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
         guestManagement.guestManagement_Load(Nothing, Nothing)
+        home.refreshAllForms()
+        home.Timer1.Enabled = True
         Me.Close()
     End Sub
 

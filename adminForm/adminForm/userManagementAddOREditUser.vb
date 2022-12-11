@@ -4,6 +4,7 @@ Imports System.Runtime.InteropServices
 Public Class userManagementAddOREditUser
     Dim ds As DataSet
     Private Sub userManagementAddOREditUser_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        home.Timer1.Enabled = False
         If userManagement.editORAdd = "edit" Then
             Label1.Text = "EDIT USER"
             ds = getData($"SELECT username, password, fullname, address, contact, email, role, id FROM admin WHERE fullname='{userManagement.selectedUser}'")
@@ -17,7 +18,7 @@ Public Class userManagementAddOREditUser
             TextBox7.Text = ds.Tables(0).Rows(0)(5)
         End If
     End Sub
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+    Private Async Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         Dim emptyTextBoxes =
             From txt In Me.Panel1.Controls.OfType(Of TextBox)()
             Where txt.Text.Length = 0
@@ -26,24 +27,26 @@ Public Class userManagementAddOREditUser
             MessageBox.Show("Please fill up all the fields")
             Return
         End If
-
+        Button1.Enabled = False
         If userManagement.editORAdd = "edit" Then
             Dim selectedUserID As String = ds.Tables(0).Rows(0)(7)
-
-            Dim query2 As String = $"UPDATE admin SET fullname='{TextBox1.Text}', username='{TextBox2.Text}', password='{TextBox3.Text}', address='{TextBox4.Text}', contact='{TextBox5.Text}', email='{TextBox7.Text}', role='{ComboBox1.Text}' WHERE id='{selectedUserID}'"
+            Dim query2 As String = $"UPDATE admin SET fullname='{TextBox1.Text}', username='{TextBox2.Text}', password='{TextBox3.Text}', address='{TextBox4.Text}', contact='{TextBox5.Text}', email='{TextBox7.Text}', role='{ComboBox1.Text}', edited=1 WHERE id='{selectedUserID}'"
             Dim userSuccess As Boolean = executeNonQuery(query2, localConnection)
 
 
             If userSuccess Then
                 userManagement.editORAdd = ""
                 userManagement.userManagement_Load(Nothing, Nothing)
+                home.refreshAllForms()
+                home.Timer1.Enabled = True
+                Button1.Enabled = True
                 Me.Close()
             End If
             Return
         End If
 
-        Dim query As String = $"INSERT INTO admin(username, password, fullname, address, contact, email, role) VALUES('{TextBox2.Text}', '{TextBox3.Text}', '{TextBox1.Text}', '{TextBox4.Text}', '{TextBox5.Text}', '{TextBox7.Text}', '{ComboBox1.Text}')"
-        Dim insertSuccess As Boolean = executeNonQuery(query, remoteConnection)
+        Dim query As String = $"INSERT INTO admin(username, password, fullname, address, contact, email, role, edited) VALUES('{TextBox2.Text}', '{TextBox3.Text}', '{TextBox1.Text}', '{TextBox4.Text}', '{TextBox5.Text}', '{TextBox7.Text}', '{ComboBox1.Text}', 2)"
+        Dim insertSuccess As Boolean = Await Task.Run(Function() executeNonQuery(query, localConnection))
 
 
         If insertSuccess Then
@@ -57,11 +60,15 @@ Public Class userManagementAddOREditUser
 
             userManagement.editORAdd = ""
         End If
+        Button1.Enabled = True
     End Sub
 
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
         userManagement.editORAdd = ""
         userManagement.userManagement_Load(Nothing, Nothing)
+        home.refreshAllForms()
+        home.Timer1.Enabled = True
+        Button1.Enabled = True
         Me.Close()
     End Sub
 
