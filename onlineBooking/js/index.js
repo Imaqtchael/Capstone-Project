@@ -42,10 +42,15 @@ $(document).ready(function() {
                 }
             }
 
+            var dateNow = new Date();
+            var maxDate = String(parseInt(dateNow.getFullYear(), 10) + 1) + '/' + String(dateNow.getMonth() ).padStart(2, '0') + '/' + String(dateNow.getDate()).padStart(2, '0')
+
+
             $('#datetimepicker').datetimepicker({
                 minDate: 0,
                 format: 'Y/m/d g:i A',
-                disabledDates: disabledDate
+                disabledDates: disabledDate,
+                maxDate: maxDate
             });
 
         }
