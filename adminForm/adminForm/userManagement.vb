@@ -7,7 +7,7 @@
         'Dim query As String = $"SELECT fullname, role, status FROM admin"
         'Dim ds As DataSet = Await Task.Run(Function() getData(query))
 
-        Dim usersTable = home.allTabDataSet.Tables(3)
+        Dim usersTable = login.allTabDataSet.Tables(3)
         DataGridView1.Rows.Clear()
 
         If usersTable.Rows.Count = 0 Then
@@ -53,10 +53,10 @@
     End Sub
 
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
-        home.Timer1.Enabled = False
+        login.Timer3.Stop()
         userManagementAddOREditUser.ShowDialog()
-        home.refreshAllForms()
-        home.Timer1.Enabled = True
+        login.refreshAllForms()
+        login.Timer3.Start()
     End Sub
 
     Private Async Sub DataGridView1_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView1.CellContentClick
@@ -65,10 +65,10 @@
         Dim role As String = DataGridView1.Rows(e.RowIndex).Cells(1).Value
         If e.ColumnIndex = 3 Then
             editORAdd = "edit"
-            home.Timer1.Enabled = False
+            login.Timer3.Stop()
             userManagementAddOREditUser.ShowDialog()
-            home.refreshAllForms()
-            home.Timer1.Enabled = True
+            login.refreshAllForms()
+            login.Timer3.Start()
         ElseIf e.ColumnIndex = 4 Then
 
             If role = "Event Coordinator" Then
@@ -79,11 +79,11 @@
             Dim confirm As MsgBoxResult = MsgBox($"Are you sure you want to DELETE {selectedUser} in the database??", MsgBoxStyle.YesNo)
 
             If confirm = MsgBoxResult.Yes Then
-                home.Timer1.Enabled = False
+                login.Timer3.Stop()
                 Dim query2 As String = $"DELETE FROM admin WHERE fullname='{selectedUser}'"
                 Await Task.Run(Function() executeNonQuery(query2, remoteConnection))
-                home.refreshAllForms()
-                home.Timer1.Enabled = True
+                login.refreshAllForms()
+                login.Timer3.Start()
             Else
                 Return
             End If

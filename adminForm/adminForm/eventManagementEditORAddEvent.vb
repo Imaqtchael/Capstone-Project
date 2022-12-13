@@ -21,7 +21,7 @@ Public Class eventManagementEditORAddEvent
         If eventManagement.editOrAddEvent = "edit" Then
             Label1.Text = "EDIT EVENT"
 
-            Dim query As String = $"SELECT name, date, type, booker, guests_id, time, ispaid FROM events WHERE name='{eventManagement.editEvent}'"
+            Dim query As String = $"SELECT name, date, type, booker, guests_id, time, ispaid FROM events WHERE name='{eventManagement.editEvent.Replace("'", "\'")}'"
             Dim ds As DataSet = getData(query)
 
             Dim eventGuestsID = ds.Tables(0).Rows(0)(4)

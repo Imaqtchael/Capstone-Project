@@ -23,7 +23,7 @@ Public Class guestManagementEditGuest
             Return
         End If
 
-        eventsTable = home.allTabDataSet.Tables(1)
+        eventsTable = login.allTabDataSet.Tables(1)
 
         'Dim guestID As String = ds.Tables(0).Rows(0)(0)
 

@@ -11,7 +11,7 @@ Public Class guestManagementAddGuest
         Me.TopMost = True
 
         Button1.Enabled = True
-        eventTable = home.allTabDataSet.Tables(1)
+        eventTable = login.allTabDataSet.Tables(1)
 
         If Not loadDone Then
             For i As Integer = 0 To eventTable.Rows.Count - 1

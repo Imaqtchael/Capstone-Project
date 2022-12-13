@@ -38,8 +38,7 @@ Public Class userManagementAddOREditUser
 
             If userSuccess Then
                 userManagement.editORAdd = ""
-                home.refreshAllForms()
-                home.Timer1.Enabled = True
+                login.refreshAllForms()
                 Button1.Enabled = True
                 home.Enabled = True
                 Me.Close()

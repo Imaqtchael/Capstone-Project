@@ -12,7 +12,7 @@
     Public Async Sub guestManagement_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         'Dim query As String = $"SELECT guests_id, name, date FROM events"
         'Dim ds As DataSet = home.allTabDataSet
-        Dim guestsTable = home.allTabDataSet.Tables(1)
+        Dim guestsTable = login.allTabDataSet.Tables(1)
 
         DataGridView1.Rows.Clear()
 
@@ -96,7 +96,7 @@
 
             'Dim query1 As String = $"SELECT name, type FROM guest WHERE guest_id='{eventGuestsIDSL(i)}'"
             'Dim ds1 As DataSet = Await Task.Run(Function() getData(query1))
-            Dim guests = home.allTabDataSet.Tables(4).AsEnumerable.Select(Function(guest) New With {
+            Dim guests = login.allTabDataSet.Tables(4).AsEnumerable.Select(Function(guest) New With {
                                 .name = guest.Field(Of String)("name"),
                                 .type = guest.Field(Of String)("type"),
                                 .guest_id = guest.Field(Of Integer)("guest_id")
@@ -128,9 +128,9 @@
     Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles TextBox1.TextChanged
         DataGridView1.Rows.Clear()
         If TextBox1.Text.Length > 0 Then
-            home.Timer1.Enabled = False
+            login.Timer3.Stop()
         Else
-            home.Timer1.Enabled = True
+            login.Timer3.Start()
             guestManagement_Load(Nothing, Nothing)
             Return
         End If
@@ -140,7 +140,7 @@
         'Dim query As String = $"SELECT guests_id, name, date FROM events WHERE name LIKE '%{TextBox1.Text}%'"
         'Dim ds As DataSet = Await Task.Run(Function() getData(query))
 
-        Dim events = home.allTabDataSet.Tables(1).AsEnumerable.Select(Function(eve) New With {
+        Dim events = login.allTabDataSet.Tables(1).AsEnumerable.Select(Function(eve) New With {
                                 .guests_id = eve.Field(Of Integer)("guests_id"),
                                 .name = eve.Field(Of String)("name"),
                                 .date = eve.Field(Of String)("date")
@@ -158,7 +158,7 @@
             'Dim query1 As String = $"SELECT name, type FROM guest WHERE guest_id='{guestID}'"
             'Dim ds1 As DataSet = Await Task.Run(Function() getData(query1))
 
-            Dim guests = home.allTabDataSet.Tables(4).AsEnumerable.Select(Function(guest) New With {
+            Dim guests = login.allTabDataSet.Tables(4).AsEnumerable.Select(Function(guest) New With {
                                 .name = guest.Field(Of String)("name"),
                                 .type = guest.Field(Of String)("type"),
                                 .guest_id = guest.Field(Of Integer)("guest_id")
@@ -173,10 +173,10 @@
     End Sub
 
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
-        home.Timer1.Enabled = False
+        login.Timer3.Stop()
         guestManagementAddGuest.ShowDialog()
-        home.refreshAllForms()
-        home.Timer1.Enabled = True
+        login.refreshAllForms()
+        login.Timer3.Start()
     End Sub
 
     Private Async Sub DataGridView1_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView1.CellContentClick
@@ -184,10 +184,10 @@
         selectedGuestEventID = eventGuestsIDSL(Array.IndexOf(eventListsL, DataGridView1.Rows(e.RowIndex).Cells(1).Value))
         selectedRow = e.RowIndex
         If e.ColumnIndex = 4 Then
-            home.Timer1.Enabled = False
+            login.Timer3.Stop()
             guestManagementEditGuest.ShowDialog()
-            home.refreshAllForms()
-            home.Timer1.Enabled = True
+            login.refreshAllForms()
+            login.Timer3.Start()
         ElseIf e.ColumnIndex = 5 Then
             If DataGridView1.Rows(e.RowIndex).Cells(3).Value = "BOOKER" Then
                 MessageBox.Show("Cannot delete a booker")
@@ -197,10 +197,10 @@
 
             If confirm = MsgBoxResult.Yes Then
                 Dim query2 As String = $"DELETE FROM guest WHERE name='{selectedGuestName}' AND guest_id={selectedGuestEventID}"
-                home.Timer1.Enabled = False
+                login.Timer3.Stop()
                 Await Task.Run(Function() executeNonQuery(query2, remoteConnection))
-                home.refreshAllForms()
-                home.Timer1.Enabled = True
+                login.refreshAllForms()
+                login.Timer3.Start()
             Else
                 Return
             End If

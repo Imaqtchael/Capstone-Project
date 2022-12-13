@@ -24,7 +24,7 @@
         Label7.Text = ""
         ComboBox1.Text = ""
 
-        Dim eventsTable As DataTable = home.allTabDataSet.Tables(0)
+        Dim eventsTable As DataTable = login.allTabDataSet.Tables(0)
 
         If eventsTable.Rows.Count > 0 Then
             eventName = eventsTable.Rows(indexOfEvent)(0).ToString()
@@ -136,14 +136,14 @@
     End Sub
 
     Private Sub TextBox1_KeyPress(sender As Object, e As KeyPressEventArgs) Handles TextBox1.KeyPress
-        home.Timer1.Enabled = False
+        login.Timer3.Stop()
         If e.KeyChar = Convert.ToChar(Keys.Back) Then
             TextBox1.Clear()
         End If
 
         If TextBox1.Text.Length = 0 Then
             refreshDataGridView(selectedEventIndex)
-            home.Timer1.Enabled = True
+            login.Timer3.Start()
             Return
         End If
 

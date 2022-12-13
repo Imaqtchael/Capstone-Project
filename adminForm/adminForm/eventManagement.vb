@@ -10,7 +10,7 @@ Public Class eventManagement
     'Showing data on DataGridView on form load
     Public Sub eventManagement_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         'Get the refreshed table from home form
-        Dim eventsTable = home.allTabDataSet.Tables(2)
+        Dim eventsTable = login.allTabDataSet.Tables(2)
 
         'Clear the data that may be in the datagridview1
         DataGridView1.Rows.Clear()
@@ -61,24 +61,31 @@ Public Class eventManagement
     End Sub
 
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
-        home.Timer1.Stop()
+        login.Timer3.Stop()
         eventManagementEditORAddEvent.ShowDialog()
-        home.refreshAllForms()
-        home.Timer1.Start()
+        login.refreshAllForms()
+        login.Timer3.Start()
+    End Sub
+
+    Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
+        login.Timer3.Stop()
+        registerGuests.ShowDialog()
+        login.refreshAllForms()
+        login.Timer3.Start()
     End Sub
 
     Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles TextBox1.TextChanged
         'If there is no user input, then reload the form
-        home.Timer1.Enabled = False
+        login.Timer3.Stop()
         DataGridView1.Rows.Clear()
         If TextBox1.Text.Length = 0 Then
-            home.Timer1.Enabled = True
+            login.Timer3.Start()
             eventManagement_Load(Nothing, Nothing)
             Return
         End If
 
         'Get an eventTable where the event name contains the text in textbox
-        Dim events = home.allTabDataSet.Tables(2).AsEnumerable.Select(Function(eve) New With {
+        Dim events = login.allTabDataSet.Tables(2).AsEnumerable.Select(Function(eve) New With {
                                 .name = eve.Field(Of String)("name"),
                                 .type = eve.Field(Of String)("type"),
                                 .date = eve.Field(Of String)("date")
@@ -94,13 +101,6 @@ Public Class eventManagement
         Next
     End Sub
 
-    Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
-        home.Timer1.Stop()
-        registerGuests.ShowDialog()
-        home.refreshAllForms()
-        home.Timer1.Start()
-    End Sub
-
     Private Async Sub DataGridView1_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView1.CellContentClick
         Dim selectedEvent As String = DataGridView1.Rows(e.RowIndex).Cells(0).Value
         selectedRow = e.RowIndex
@@ -114,25 +114,25 @@ Public Class eventManagement
             editOrAddEvent = "edit"
             editEvent = selectedEvent
 
-            home.Timer1.Enabled = False
+            login.Timer3.Stop()
             eventManagementEditORAddEvent.ShowDialog()
-            home.refreshAllForms()
-            home.Timer1.Enabled = True
+            login.refreshAllForms()
+            login.Timer3.Start()
         ElseIf e.ColumnIndex = 5 Then 'Delete an event and it's guest after the user confirms it
             Dim confirm As MsgBoxResult = MsgBox($"Are you sure you want to DELETE {selectedEvent} in the database??", MsgBoxStyle.YesNo)
             If confirm = MsgBoxResult.Yes Then
-                Dim id = home.allTabDataSet.Tables(2).AsEnumerable.Select(Function(eve) New With {
+                Dim id = login.allTabDataSet.Tables(2).AsEnumerable.Select(Function(eve) New With {
                                 .name = eve.Field(Of String)("name"),
                                 .guests_id = eve.Field(Of Integer)("guests_id")
                             }).Where(Function(eve) eve.name = selectedEvent).First
 
-                Dim query2 As String = $"DELETE FROM events WHERE name='{selectedEvent}'"
+                Dim query2 As String = $"DELETE FROM events WHERE name='{selectedEvent.Replace("'", "\'")}'"
                 Dim query3 As String = $"DELETE FROM guest WHERE guest_id={id.guests_id}"
 
-                home.Timer1.Enabled = False
+                login.Timer3.Stop()
                 Await Task.Run(Function() executeNonQuery($"{query2}; {query3}", remoteConnection))
-                home.refreshAllForms()
-                home.Timer1.Enabled = True
+                login.refreshAllForms()
+                login.Timer3.Start()
             End If
         End If
     End Sub
