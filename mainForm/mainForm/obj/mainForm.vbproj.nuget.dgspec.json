@@ -10,11 +10,11 @@
         "projectUniqueName": "C:\\Programming\\Capstone-Project\\mainForm\\mainForm\\mainForm.vbproj",
         "projectName": "mainForm",
         "projectPath": "C:\\Programming\\Capstone-Project\\mainForm\\mainForm\\mainForm.vbproj",
-        "packagesPath": "C:\\Users\\van_\\.nuget\\packages\\",
+        "packagesPath": "C:\\Users\\ADMIN\\.nuget\\packages\\",
         "outputPath": "C:\\Programming\\Capstone-Project\\mainForm\\mainForm\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\van_\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\ADMIN\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -64,7 +64,7 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.402\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.100\\RuntimeIdentifierGraph.json"
         }
       }
     }

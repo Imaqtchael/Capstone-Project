@@ -254,7 +254,7 @@ Partial Class userManagementAddOREditUser
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.BackColor = System.Drawing.Color.DeepSkyBlue
         Me.ClientSize = New System.Drawing.Size(999, 828)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.Panel1)

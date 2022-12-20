@@ -48,6 +48,7 @@ Partial Class guestManagementAddGuest
         '
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("Poppins", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point)
+        Me.Label1.ForeColor = System.Drawing.Color.White
         Me.Label1.Location = New System.Drawing.Point(97, 25)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(133, 36)
@@ -254,7 +255,7 @@ Partial Class guestManagementAddGuest
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.BackColor = System.Drawing.Color.DeepSkyBlue
         Me.ClientSize = New System.Drawing.Size(999, 828)
         Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.Label1)

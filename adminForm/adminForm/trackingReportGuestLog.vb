@@ -4,6 +4,7 @@ Imports MySql.Data.MySqlClient
 Public Class trackingReportGuestLog
     'Loading data on form load
     Private Async Sub trackingReportGuestLog_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        MessageBox.Show(trackingReport.selectedGuest)
         'Disable the home form
         home.Enabled = False
         Me.TopMost = True

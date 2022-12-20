@@ -1,8 +1,6 @@
 <?php
     include_once "includes/functions.php";
 
-    echo $_COOKIE['eventName'];
-
     if (isset($_COOKIE['eventName'])) {
         $isPaid = checkIfPaid($_COOKIE['eventName'], "php");
 

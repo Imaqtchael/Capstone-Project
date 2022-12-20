@@ -8,9 +8,11 @@
             exit();
         }
 
-        setcookie('eventName', $_POST['event_name'], time() + (86400 * 3), "/");
+        $replacedEventName = str_replace("'", "\'", $_POST['event_name']);
 
-        $sql = "SELECT ispaid FROM events WHERE name='{$_POST['event_name']}'";
+        setcookie('eventName', $replacedEventName, time() + (86400 * 3), "/");
+
+        $sql = "SELECT ispaid FROM events WHERE name='{$replacedEventName}'";
         $result = $connection->query($sql);
         $result = $result->fetch_array(MYSQLI_NUM);
 
@@ -41,10 +43,10 @@
         
         $time = date("g:i A", strtotime($_POST['date_time']));
 
-        $sql = "INSERT INTO events (name, date, time, type, booker) VALUES ('{$_POST['event_name']}', '$date', '$time', '$eventType', '$name')";
+        $sql = "INSERT INTO events (name, date, time, type, booker) VALUES ('{$replacedEventName}', '$date', '$time', '$eventType', '$name')";
         $result = $connection->query($sql);
 
-        $sql = "SELECT guests_id FROM events WHERE name='{$_POST['event_name']}'";
+        $sql = "SELECT guests_id FROM events WHERE name='{$replacedEventName}'";
         $result = $connection->query($sql);
         $result = $result->fetch_array(MYSQLI_NUM);
 

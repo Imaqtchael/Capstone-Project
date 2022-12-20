@@ -7,7 +7,7 @@ Public Class registerGuests
         home.Enabled = False
         Me.TopMost = True
 
-        Dim query As String = "SELECT name FROM events WHERE registered=0"
+        Dim query As String = "SELECT name FROM events WHERE registered<>1"
         Dim ds As DataSet = Await Task.Run(Function() getData(query))
 
         If ds.Tables(0).Rows.Count = 0 Then

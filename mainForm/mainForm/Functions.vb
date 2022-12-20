@@ -1,6 +1,6 @@
 ﻿Imports MySql.Data.MySqlClient
 Module Functions
-    Public str As String = "server=localhost; uid=root; pwd=; database=local_copy"
+    Public str As String = "server=localhost; uid=root; pwd=; database=local_copy_guest"
     Public connection As New MySqlConnection(str)
 
     Public Sub showThis(ByVal toShow As String, Optional ByVal name As String = "", Optional ByVal eventName As String = "", Optional ByVal counter As Integer = 0)

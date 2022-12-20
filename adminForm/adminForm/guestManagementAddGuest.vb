@@ -12,7 +12,6 @@ Public Class guestManagementAddGuest
 
         Button1.Enabled = True
         eventTable = login.allTabDataSet.Tables(1)
-
         If Not loadDone Then
             For i As Integer = 0 To eventTable.Rows.Count - 1
                 ComboBox1.Items.Add(eventTable.Rows(i)(1))

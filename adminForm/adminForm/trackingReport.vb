@@ -41,18 +41,18 @@
                                      New DataGridViewTextBoxColumn(),
                                      New DataGridViewTextBoxColumn()})
 
-            DataGridView1.Columns(3).Width = 150
+            'DataGridView1.Columns(3).Width = 150
 
-            DataGridView1.Columns.AddRange(New DataGridViewColumn(1) _
-                                        {New DataGridViewButtonColumn() With
-                                        {.FlatStyle = FlatStyle.Flat},
-                                         New DataGridViewButtonColumn() With
-                                        {.FlatStyle = FlatStyle.Flat}})
+            'DataGridView1.Columns.AddRange(New DataGridViewColumn(1) _
+            '                            {New DataGridViewButtonColumn() With
+            '                            {.FlatStyle = FlatStyle.Flat},
+            '                             New DataGridViewButtonColumn() With
+            '                            {.FlatStyle = FlatStyle.Flat}})
 
-            DataGridView1.Columns(4).Width = 150
-            DataGridView1.Columns(4).DefaultCellStyle.BackColor = Color.DodgerBlue
-            DataGridView1.Columns(5).Width = 150
-            DataGridView1.Columns(5).DefaultCellStyle.BackColor = Color.Red
+            'DataGridView1.Columns(4).Width = 150
+            'DataGridView1.Columns(4).DefaultCellStyle.BackColor = Color.DodgerBlue
+            'DataGridView1.Columns(5).Width = 150
+            'DataGridView1.Columns(5).DefaultCellStyle.BackColor = Color.Red
         End If
 
         loadDone = True
@@ -71,11 +71,6 @@
             ds = Await Task.Run(Function() getData(query))
         End While
 
-        'Creating another table that we will manipulate to contain
-        'the right number of column that we want
-        Dim realDataSet As New DataSet()
-        Dim realDataTable As New DataTable()
-        realDataSet.Tables.Add(realDataTable)
 
 
         'Displaying the number of 'IN' attendees
@@ -93,12 +88,10 @@
         'Looping for all the attendee's logs and putting their
         'data on the DataGridView1
         For i As Integer = 0 To ds.Tables(0).Rows.Count - 1
-            Dim tryrow As DataRow
-            tryrow = realDataSet.Tables(0).NewRow
 
-            tryrow(0) = ds.Tables(0).Rows(i)(0)
 
             Dim logs As String() = Split(ds.Tables(0).Rows(i)(1).ToString(), ", ")
+            Dim name As String = ds.Tables(0).Rows(i)(0)
             Dim firstTimeInDate As String = Split(logs(0), " ")(0)
             Dim lastTimeIn
             Dim lastTimeOut
@@ -111,13 +104,7 @@
                 lastTimeOut = ""
             End If
 
-            DataGridView1.Rows.Add(firstTimeInDate, lastTimeIn, lastTimeOut)
-
-            tryrow(1) = firstTimeInDate
-            tryrow(2) = lastTimeIn
-            tryrow(3) = lastTimeOut
-
-            realDataSet.Tables(0).Rows.Add(tryrow)
+            DataGridView1.Rows.Add(name, firstTimeInDate, lastTimeIn, lastTimeOut)
 
         Next
 

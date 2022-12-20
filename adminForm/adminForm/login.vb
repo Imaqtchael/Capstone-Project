@@ -40,7 +40,7 @@ Public Class login
     Private Async Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
         Dim dateNow = Now.ToString("MM/dd/yyyy")
 
-        Dim eventDataSet As DataSet = Await Task.Run(Function() getData($"SELECT guests_id, name, date, time FROM events WHERE date='{dateNow}' AND registered<>2"))
+        Dim eventDataSet As DataSet = Await Task.Run(Function() getData($"SELECT guests_id, name, date, time FROM events WHERE date='{dateNow}' AND registered<>2 AND ispaid=1"))
 
         If eventDataSet.Tables(0).Rows.Count = 0 Then
             Return
@@ -93,6 +93,10 @@ Public Class login
         refreshAllForms()
     End Sub
 
+    Public Sub Timer4_Tick(sender As Object, e As EventArgs) Handles Timer4.Tick
+        Timer4.Enabled = False
+    End Sub
+
     Sub apacheMySQLRun()
         Dim apacheRunning As Boolean = (Process.GetProcessesByName("httpd").Length > 0)
         Dim mysqlRunning As Boolean = (Process.GetProcessesByName("mysqld").Length > 0)
@@ -109,6 +113,10 @@ Public Class login
     End Sub
 
     Public Async Sub refreshAllForms()
+        If Timer4.Enabled Then
+            Return
+        End If
+
         Await Task.Run(Sub() updateRemoteDB())
         Await Task.Run(Sub() downloadRemoteDB("local_copy"))
         Await Task.Run(Sub() refreshLocalDB("local_copy"))
@@ -133,6 +141,8 @@ Public Class login
         If Not userManagement Is Nothing Then
             userManagement.userManagement_Load(Nothing, Nothing)
         End If
+
+        Timer4.Enabled = True
     End Sub
 
     'Login the admin if the credentials are correct, and check if they

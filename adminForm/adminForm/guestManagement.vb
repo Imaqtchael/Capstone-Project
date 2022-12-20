@@ -196,7 +196,7 @@
             Dim confirm As MsgBoxResult = MsgBox($"Are you sure you want to DELETE {selectedGuestName} for event {DataGridView1.Rows(e.RowIndex).Cells(1).Value} in the database??", MsgBoxStyle.YesNo)
 
             If confirm = MsgBoxResult.Yes Then
-                Dim query2 As String = $"DELETE FROM guest WHERE name='{selectedGuestName}' AND guest_id={selectedGuestEventID}"
+                Dim query2 As String = $"DELETE FROM guest WHERE name='{selectedGuestName}' AND guest_id={selectedGuestEventID} AND type='GUEST'"
                 login.Timer3.Stop()
                 Await Task.Run(Function() executeNonQuery(query2, remoteConnection))
                 login.refreshAllForms()

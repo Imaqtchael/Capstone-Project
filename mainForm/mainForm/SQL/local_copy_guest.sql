@@ -1,28 +1,5 @@
 
 
-CREATE TABLE `admin` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `username` varchar(50) NOT NULL,
-  `password` varchar(50) NOT NULL,
-  `fullname` varchar(50) NOT NULL,
-  `address` varchar(250) NOT NULL,
-  `contact` varchar(50) NOT NULL,
-  `email` varchar(50) NOT NULL,
-  `role` varchar(50) NOT NULL,
-  `status` varchar(50) NOT NULL DEFAULT 'ACTIVE',
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `username` (`fullname`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4;
-
-
-INSERT INTO admin VALUES
-("1","DEFAULT","default_admin_password","ADMIN ADMIN","ADDRESS","CONTACT NUMBER","email@email.com","EVENT MANAGER","ACTIVE"),
-("2","giovanni","0330","MIchael Justin Barcenas","Sub Urban Village","09366296799","imaqtchael@gmail.com","EVENT MANAGER","ACTIVE"),
-("13","buning","ningningbuningning","Janessa Mae","Tarlac City, Tarlac","09366296799","imaqtchael@gmail.com","EVENT MANAGER","ACTIVE");
-
-
-
-
 CREATE TABLE `events` (
   `guests_id` int(20) NOT NULL AUTO_INCREMENT,
   `registered` int(1) NOT NULL DEFAULT 0,

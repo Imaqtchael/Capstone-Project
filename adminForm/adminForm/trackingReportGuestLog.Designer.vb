@@ -37,6 +37,7 @@ Partial Class trackingReportGuestLog
         'Label1
         '
         Me.Label1.Font = New System.Drawing.Font("Poppins", 24.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
+        Me.Label1.ForeColor = System.Drawing.Color.White
         Me.Label1.Location = New System.Drawing.Point(3, 21)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(564, 70)
@@ -112,11 +113,11 @@ Partial Class trackingReportGuestLog
         '
         'Button2
         '
-        Me.Button2.BackColor = System.Drawing.Color.DeepSkyBlue
+        Me.Button2.BackColor = System.Drawing.Color.LightGray
         Me.Button2.FlatAppearance.BorderSize = 0
         Me.Button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Button2.Font = New System.Drawing.Font("Poppins", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-        Me.Button2.ForeColor = System.Drawing.Color.White
+        Me.Button2.ForeColor = System.Drawing.Color.Black
         Me.Button2.Location = New System.Drawing.Point(412, 789)
         Me.Button2.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.Button2.Name = "Button2"
@@ -129,7 +130,7 @@ Partial Class trackingReportGuestLog
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.BackColor = System.Drawing.Color.DeepSkyBlue
         Me.ClientSize = New System.Drawing.Size(571, 845)
         Me.Controls.Add(Me.Button2)
         Me.Controls.Add(Me.Panel1)

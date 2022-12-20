@@ -25,7 +25,6 @@ Partial Class login
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(login))
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.Label2 = New System.Windows.Forms.Label()
         Me.TextBox1 = New System.Windows.Forms.TextBox()
         Me.TextBox2 = New System.Windows.Forms.TextBox()
         Me.CheckBox1 = New System.Windows.Forms.CheckBox()
@@ -34,6 +33,7 @@ Partial Class login
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.Timer2 = New System.Windows.Forms.Timer(Me.components)
         Me.Timer3 = New System.Windows.Forms.Timer(Me.components)
+        Me.Timer4 = New System.Windows.Forms.Timer(Me.components)
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -46,16 +46,6 @@ Partial Class login
         Me.Label1.Size = New System.Drawing.Size(395, 60)
         Me.Label1.TabIndex = 0
         Me.Label1.Text = "Login to your account"
-        '
-        'Label2
-        '
-        Me.Label2.AutoSize = True
-        Me.Label2.Font = New System.Drawing.Font("Poppins", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-        Me.Label2.Location = New System.Drawing.Point(1024, 489)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(146, 26)
-        Me.Label2.TabIndex = 0
-        Me.Label2.Text = "Forgot Password?"
         '
         'TextBox1
         '
@@ -124,6 +114,10 @@ Partial Class login
         Me.Timer3.Enabled = True
         Me.Timer3.Interval = 20000
         '
+        'Timer4
+        '
+        Me.Timer4.Interval = 15000
+        '
         'login
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 20.0!)
@@ -135,7 +129,6 @@ Partial Class login
         Me.Controls.Add(Me.CheckBox1)
         Me.Controls.Add(Me.TextBox2)
         Me.Controls.Add(Me.TextBox1)
-        Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.Label1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.Name = "login"
@@ -146,7 +139,6 @@ Partial Class login
     End Sub
 
     Friend WithEvents Label1 As Label
-    Friend WithEvents Label2 As Label
     Friend WithEvents TextBox1 As TextBox
     Friend WithEvents TextBox2 As TextBox
     Friend WithEvents CheckBox1 As CheckBox
@@ -155,4 +147,5 @@ Partial Class login
     Friend WithEvents Timer1 As Timer
     Friend WithEvents Timer2 As Timer
     Friend WithEvents Timer3 As Timer
+    Friend WithEvents Timer4 As Timer
 End Class
