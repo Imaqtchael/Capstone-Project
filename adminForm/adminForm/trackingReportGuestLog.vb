@@ -15,9 +15,9 @@ Public Class trackingReportGuestLog
         Dim query As String = $"SELECT logs FROM guest WHERE name='{trackingReport.selectedGuest}'"
         Dim ds As DataSet = Await Task.Run(Function() getData(query))
 
-        While ds Is Nothing
-            ds = Await Task.Run(Function() getData(query))
-        End While
+        'While ds Is Nothing
+        '    ds = Await Task.Run(Function() getData(query))
+        'End While
 
         'Creating another Dataset 
         'Which we will manipulate to have the number of column that we want
@@ -88,7 +88,7 @@ Public Class trackingReportGuestLog
     Private Shared Sub SendMessage(ByVal hWnd As System.IntPtr, ByVal wMsg As Integer, ByVal wParam As Integer, ByVal lParam As Integer)
     End Sub
 
-    Private Sub Form1_MouseDown(sender As Object, e As MouseEventArgs) Handles MyBase.MouseDown, Label1.MouseDown
+    Private Sub Form1_MouseDown(sender As Object, e As MouseEventArgs) Handles MyBase.MouseDown, Label1.MouseDown, Label1.MouseDown
         ReleaseCapture()
         ReleaseCapture()
         SendMessage(Me.Handle, &H112&, &HF012&, 0)

@@ -71,7 +71,7 @@ Partial Class eventManagementEditORAddEvent
         Me.Panel1.Controls.Add(Me.Label3)
         Me.Panel1.Controls.Add(Me.Label12)
         Me.Panel1.Controls.Add(Me.Label2)
-        Me.Panel1.Location = New System.Drawing.Point(97, 65)
+        Me.Panel1.Location = New System.Drawing.Point(0, 47)
         Me.Panel1.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(591, 871)
@@ -110,7 +110,7 @@ Partial Class eventManagementEditORAddEvent
         Me.Panel2.Controls.Add(Me.TextBox2)
         Me.Panel2.Controls.Add(Me.Label4)
         Me.Panel2.Controls.Add(Me.TextBox3)
-        Me.Panel2.Location = New System.Drawing.Point(23, 366)
+        Me.Panel2.Location = New System.Drawing.Point(23, 365)
         Me.Panel2.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.Panel2.Name = "Panel2"
         Me.Panel2.Size = New System.Drawing.Size(543, 439)
@@ -233,7 +233,7 @@ Partial Class eventManagementEditORAddEvent
         '
         Me.ComboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.ComboBox1.FormattingEnabled = True
-        Me.ComboBox1.Items.AddRange(New Object() {"BIRTHDAY", "DEBUT", "WEDDING", "OTHERS: TYPE THE EVENT TYPE"})
+        Me.ComboBox1.Items.AddRange(New Object() {"BIRTHDAY", "VIP MEETING", "WEDDING"})
         Me.ComboBox1.Location = New System.Drawing.Point(23, 159)
         Me.ComboBox1.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.ComboBox1.Name = "ComboBox1"
@@ -327,7 +327,7 @@ Partial Class eventManagementEditORAddEvent
         '
         Me.Label2.AutoSize = True
         Me.Label2.Font = New System.Drawing.Font("Poppins", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-        Me.Label2.Location = New System.Drawing.Point(23, 6)
+        Me.Label2.Location = New System.Drawing.Point(23, 5)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(57, 26)
         Me.Label2.TabIndex = 0
@@ -337,8 +337,8 @@ Partial Class eventManagementEditORAddEvent
         '
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("Poppins", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point)
-        Me.Label1.ForeColor = System.Drawing.Color.White
-        Me.Label1.Location = New System.Drawing.Point(97, 27)
+        Me.Label1.ForeColor = System.Drawing.Color.Black
+        Me.Label1.Location = New System.Drawing.Point(233, 7)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(129, 36)
         Me.Label1.TabIndex = 2
@@ -349,7 +349,7 @@ Partial Class eventManagementEditORAddEvent
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.DeepSkyBlue
-        Me.ClientSize = New System.Drawing.Size(795, 949)
+        Me.ClientSize = New System.Drawing.Size(591, 918)
         Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.Label1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None

@@ -34,11 +34,11 @@ Public Class Form1
     Dim dateDS As DataSet
     Dim guestsID As String
     Private Async Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        apacheMySQLRun()
+        'apacheMySQLRun()
 
-        'Create a local copy of the data from remote database
-        Await Task.Run(Sub() downloadRemoteDB("local_copy_guest"))
-        Await Task.Run(Sub() refreshLocalDB("local_copy_guest"))
+        ''Create a local copy of the data from remote database
+        'Await Task.Run(Sub() downloadRemoteDB("local_copy_guest"))
+        'Await Task.Run(Sub() refreshLocalDB("local_copy_guest"))
 
         dateDS = Await Task.Run(Function() getData(dateQuery))
         If Not dateDS.Tables(0).Rows.Count > 0 Then
@@ -49,14 +49,14 @@ Public Class Form1
 
         Button1_Click(Nothing, Nothing)
         Timer2.Enabled = True
-        MessageBox.Show($"guest id is: {guestsID}")
+
         Dim query As String = $"SELECT * FROM guest WHERE guest_id={guestsID}"
         Dim dataset As DataSet = Await Task.Run(Function() getData(query))
         arr = (From myRow In dataset.Tables(0).AsEnumerable
                Select myRow.Field(Of String)("rfid")).ToArray
         attendees = (From myRow In dataset.Tables(0).AsEnumerable
                      Select myRow.Field(Of String)("name")).ToArray
-        MessageBox.Show(String.Join(" ", arr))
+        'MessageBox.Show(String.Join(" ", arr))
         Panel1.Select()
     End Sub
 
@@ -242,13 +242,15 @@ Public Class Form1
     End Sub
 
     Private Async Sub Timer2_Tick(sender As Object, e As EventArgs) Handles Timer2.Tick
-        Await Task.Run(Sub() updateRemoteDB())
-        Await Task.Run(Sub() downloadRemoteDB("local_copy_guest"))
-        Await Task.Run(Sub() refreshLocalDB("local_copy_guest"))
+        'Await Task.Run(Sub() updateRemoteDB())
+        'Await Task.Run(Sub() downloadRemoteDB("local_copy_guest"))
+        'Await Task.Run(Sub() refreshLocalDB("local_copy_guest"))
 
         'Getting all the attendees
         Dim query As String = $"SELECT * FROM guest WHERE guest_id={guestsID}"
+
         Dim dataset As DataSet = Await Task.Run(Function() getData(query))
+
         arr = (From myRow In dataset.Tables(0).AsEnumerable
                Select myRow.Field(Of String)("rfid")).ToArray
         attendees = (From myRow In dataset.Tables(0).AsEnumerable
@@ -256,10 +258,10 @@ Public Class Form1
         Panel1.Select()
     End Sub
 
-    Private Async Sub Form1_FormClosed(sender As Object, e As FormClosedEventArgs) Handles MyBase.FormClosed
-        Await Task.Run(Sub() updateRemoteDB())
-        Await Task.Run(Sub() deleteLocalDB())
-    End Sub
+    'Private Async Sub Form1_FormClosed(sender As Object, e As FormClosedEventArgs) Handles MyBase.FormClosed
+    '    Await Task.Run(Sub() updateRemoteDB())
+    '    Await Task.Run(Sub() deleteLocalDB())
+    'End Sub
 
     Private Sub Panel1_KeyPress(sender As Object, e As KeyPressEventArgs) Handles Panel1.KeyPress
         'If the rfid has now a 10 character check if it is in the list of attendees
@@ -287,7 +289,7 @@ Public Class Form1
                 'Get the log of the attendee
                 Dim Aadapter As MySqlDataAdapter
                 Dim Ads As New DataSet
-                Aadapter = New MySqlDataAdapter($"SELECT logs FROM guest WHERE name='{attendee}' AND guest_id={guestsID}", connection)
+                Aadapter = New MySqlDataAdapter($"SELECT logs FROM guest WHERE name='{attendee}' AND guest_id={guestsID}", remoteConnection)
                 Aadapter.Fill(Ads)
 
                 'A boolean to determine if we will INSERT OR UPDATE
@@ -301,9 +303,9 @@ Public Class Form1
 
                     updateLog = $"{log}, {time}"
 
-                    executeNonQuery($"UPDATE guest SET logs='{updateLog}', edited=1 WHERE name='{attendee}' AND guest_id={guestsID}")
+                    executeNonQuery($"UPDATE guest SET logs='{updateLog}' WHERE name='{attendee}' AND guest_id={guestsID}")
                 Else
-                    executeNonQuery($"UPDATE guest SET logs='{time}', edited=1 WHERE name='{attendee}' AND guest_id={guestsID}")
+                    executeNonQuery($"UPDATE guest SET logs='{time}' WHERE name='{attendee}' AND guest_id={guestsID}")
                 End If
                 Timer2.Start()
                 'Else show "you are not welcome"

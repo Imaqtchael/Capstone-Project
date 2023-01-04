@@ -12,11 +12,11 @@ Public Class guestManagementEditGuest
     Dim loadDone As Boolean = False
     Dim id As String
 
-    Private Sub guestManagementEditGuest_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Async Sub guestManagementEditGuest_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         home.Enabled = False
         Me.TopMost = True
 
-        ds = getData(query)
+        ds = Await Task.Run(Function() getData(query))
         id = ds.Tables(0).Rows(0)(6)
 
         If ds.Tables(0).Rows.Count < 1 Then
@@ -58,7 +58,7 @@ Public Class guestManagementEditGuest
         TextBox5.Text = eventsTable.Rows(ComboBox1.SelectedIndex)(2)
     End Sub
 
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+    Private Async Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         Dim emptyTextBoxes =
             From txt In Me.Panel1.Controls.OfType(Of TextBox)()
             Where txt.Text.Length = 0 And txt.Name <> TextBox7.Name
@@ -74,10 +74,10 @@ Public Class guestManagementEditGuest
             Return
         End If
 
-        Dim guestID As DataSet = getData($"SELECT guests_id FROM events WHERE name='{ComboBox1.Text}'")
+        Dim guestID As DataSet = Await Task.Run(Function() getData($"SELECT guests_id FROM events WHERE name='{ComboBox1.Text}'"))
 
-        Dim localquery = $"UPDATE guest SET guest_id={guestID.Tables(0).Rows(0)(0)}, rfid='{TextBox7.Text}', name='{TextBox1.Text}', address='{TextBox2.Text}', email='{TextBox4.Text}', number='{TextBox3.Text}', edited=1 WHERE id={id}"
-        executeNonQuery(localquery, localConnection)
+        Dim localquery = $"UPDATE guest SET guest_id={guestID.Tables(0).Rows(0)(0)}, rfid='{TextBox7.Text}', name='{TextBox1.Text}', address='{TextBox2.Text}', email='{TextBox4.Text}', number='{TextBox3.Text}' WHERE id={id}"
+        Await Task.Run(Function() executeNonQuery(localquery, remoteConnection))
         MessageBox.Show("Guest Information updated successfully!")
 
         home.Enabled = True
@@ -85,6 +85,15 @@ Public Class guestManagementEditGuest
     End Sub
 
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+        TextBox1.Clear()
+        TextBox2.Clear()
+        TextBox3.Clear()
+        TextBox4.Clear()
+        TextBox5.Clear()
+        TextBox7.Clear()
+
+        ComboBox1.Text = ""
+
         home.Enabled = True
         Me.Close()
     End Sub
@@ -107,7 +116,7 @@ Public Class guestManagementEditGuest
     Private Shared Sub SendMessage(ByVal hWnd As System.IntPtr, ByVal wMsg As Integer, ByVal wParam As Integer, ByVal lParam As Integer)
     End Sub
 
-    Private Sub Form1_MouseDown(sender As Object, e As MouseEventArgs) Handles MyBase.MouseDown
+    Private Sub Form1_MouseDown(sender As Object, e As MouseEventArgs) Handles MyBase.MouseDown, Label1.MouseDown
         ReleaseCapture()
         ReleaseCapture()
         SendMessage(Me.Handle, &H112&, &HF012&, 0)

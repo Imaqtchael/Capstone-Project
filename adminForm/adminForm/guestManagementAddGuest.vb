@@ -21,7 +21,9 @@ Public Class guestManagementAddGuest
         loadDone = True
     End Sub
 
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+    Private Async Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        Button1.Enabled = False
+
         Dim emptyTextBoxes =
             From txt In Me.Panel1.Controls.OfType(Of TextBox)()
             Where txt.Text.Length = 0 And txt.Name <> TextBox7.Name
@@ -40,8 +42,8 @@ Public Class guestManagementAddGuest
         Dim completed As Boolean = True
 
         If confirm = MsgBoxResult.Yes Then
-            Dim localQuery = $"INSERT INTO guest(guest_id, rfid, name, address, email, number, type, edited) VALUES({guestID}, '{TextBox7.Text}', '{TextBox1.Text}', '{TextBox2.Text}', '{TextBox4.Text}', '{TextBox3.Text}', 'GUEST', 2)"
-            completed = executeNonQuery(localQuery, localConnection)
+            Dim localQuery = $"INSERT INTO guest(guest_id, rfid, name, address, email, number, type) VALUES({guestID}, '{TextBox7.Text}', '{TextBox1.Text}', '{TextBox2.Text}', '{TextBox4.Text}', '{TextBox3.Text}', 'GUEST')"
+            completed = Await Task.Run(Function() executeNonQuery(localQuery, remoteConnection))
 
         Else
             Return
@@ -56,6 +58,7 @@ Public Class guestManagementAddGuest
         End If
 
         TextBox7.Clear()
+        Button1.Enabled = True
     End Sub
 
     Private Sub ComboBox1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ComboBox1.SelectedIndexChanged
@@ -66,6 +69,15 @@ Public Class guestManagementAddGuest
     End Sub
 
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+        TextBox1.Clear()
+        TextBox2.Clear()
+        TextBox3.Clear()
+        TextBox4.Clear()
+        TextBox5.Clear()
+        TextBox7.Clear()
+
+        ComboBox1.Text = ""
+
         home.Enabled = True
         Me.Close()
     End Sub
@@ -88,7 +100,7 @@ Public Class guestManagementAddGuest
     Private Shared Sub SendMessage(ByVal hWnd As System.IntPtr, ByVal wMsg As Integer, ByVal wParam As Integer, ByVal lParam As Integer)
     End Sub
 
-    Private Sub Form1_MouseDown(sender As Object, e As MouseEventArgs) Handles MyBase.MouseDown
+    Private Sub Form1_MouseDown(sender As Object, e As MouseEventArgs) Handles MyBase.MouseDown, Label1.MouseDown
         ReleaseCapture()
         ReleaseCapture()
         SendMessage(Me.Handle, &H112&, &HF012&, 0)

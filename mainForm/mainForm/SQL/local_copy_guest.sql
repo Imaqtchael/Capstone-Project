@@ -11,11 +11,12 @@ CREATE TABLE `events` (
   `booker` varchar(255) NOT NULL,
   PRIMARY KEY (`guests_id`),
   UNIQUE KEY `name` (`name`,`date`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
 
 
 INSERT INTO events VALUES
-("4","2","Janessa\'s Birthday","12/20/2022","10:00 AM","BIRTHDAY","1","Janessa Mae Corsino");
+("1","2","Jerico Birthday","12/24/2022","09:00 PM","BD","1","Christian delos reyes runas"),
+("2","0","Jennies Wedding","12/27/2022","10:00 AM","WEDDING","1","Jennie Kim");
 
 
 
@@ -31,14 +32,13 @@ CREATE TABLE `guest` (
   `number` varchar(255) NOT NULL,
   `type` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
 
 
 INSERT INTO guest VALUES
-("5","4","12/20/2022 5:44:50 PM, 12/20/2022 5:45:18 PM, 12/20/2022 5:45:19 PM","0007810685","Janessa Mae Corsino","Tarlac City, Tarlac","imaqtchael@gmail.com","09366296799","BOOKER"),
-("6","4","12/20/2022 5:44:52 PM, 12/20/2022 5:45:21 PM","0008100286","Niall Jeydon Corsino","Tarlac City, Tarlac","imaqtchael@gmail.com","09366296799","GUEST"),
-("7","4","12/20/2022 5:44:54 PM, 12/20/2022 5:45:22 PM","0007748236","Michael Justin Barcenas","Sub Urban Village","imaqtchael@gmail.com","09366296799","GUEST"),
-("8","4","12/20/2022 5:44:55 PM, 12/20/2022 5:45:24 PM, 12/20/2022 5:45:24 PM, 12/20/2022 5:45:25 PM, 12/20/2022 5:45:26 PM","0011159868","Janeth Corsino","Tarlac City, Tarlac","imaqtchael@gmail.com","09366296799","GUEST"),
-("9","4","12/20/2022 5:44:57 PM, 12/20/2022 5:45:28 PM","0008296445","Nicholas Corsino","Tarlac City, Tarlac","imaqtchael@gmail.com","09366296799","GUEST");
+("3","1","12/24/2022 6:59:29 PM","0007748236","Christian delos reyes runas","Sub Urban Village","cdelosreyes2793@gmail.com","09062619386","BOOKER"),
+("4","1","12/24/2022 6:59:20 PM, 12/24/2022 6:59:26 PM","0008100286","andrew wolf","Sub Urban Village","imaqtchael@gmail.com","09366296799","GUEST"),
+("5","1","12/24/2022 6:59:05 PM","0007810685","errol spence","Sub Urban Village","spence@gmail.com","09366296799","GUEST"),
+("7","2","","","Jennie Kim","Kasiglahan Village","imaqtchael@gmail.com","09366296799","BOOKER");
 
 

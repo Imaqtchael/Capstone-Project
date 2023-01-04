@@ -41,38 +41,41 @@ Partial Class login
         '
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("Poppins", 20.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-        Me.Label1.Location = New System.Drawing.Point(912, 172)
+        Me.Label1.Location = New System.Drawing.Point(798, 129)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(395, 60)
+        Me.Label1.Size = New System.Drawing.Size(309, 48)
         Me.Label1.TabIndex = 0
         Me.Label1.Text = "Login to your account"
         '
         'TextBox1
         '
         Me.TextBox1.Font = New System.Drawing.Font("Poppins", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-        Me.TextBox1.Location = New System.Drawing.Point(930, 255)
+        Me.TextBox1.Location = New System.Drawing.Point(814, 191)
+        Me.TextBox1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.TextBox1.Name = "TextBox1"
         Me.TextBox1.PlaceholderText = " Username"
-        Me.TextBox1.Size = New System.Drawing.Size(315, 37)
+        Me.TextBox1.Size = New System.Drawing.Size(276, 31)
         Me.TextBox1.TabIndex = 1
         '
         'TextBox2
         '
         Me.TextBox2.Font = New System.Drawing.Font("Poppins", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-        Me.TextBox2.Location = New System.Drawing.Point(930, 319)
+        Me.TextBox2.Location = New System.Drawing.Point(814, 239)
+        Me.TextBox2.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.TextBox2.Name = "TextBox2"
         Me.TextBox2.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
         Me.TextBox2.PlaceholderText = " Password"
-        Me.TextBox2.Size = New System.Drawing.Size(315, 37)
+        Me.TextBox2.Size = New System.Drawing.Size(276, 31)
         Me.TextBox2.TabIndex = 1
         '
         'CheckBox1
         '
         Me.CheckBox1.AutoSize = True
         Me.CheckBox1.Font = New System.Drawing.Font("Poppins", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-        Me.CheckBox1.Location = New System.Drawing.Point(930, 369)
+        Me.CheckBox1.Location = New System.Drawing.Point(814, 277)
+        Me.CheckBox1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.CheckBox1.Name = "CheckBox1"
-        Me.CheckBox1.Size = New System.Drawing.Size(144, 30)
+        Me.CheckBox1.Size = New System.Drawing.Size(115, 26)
         Me.CheckBox1.TabIndex = 2
         Me.CheckBox1.Text = "Remember me"
         Me.CheckBox1.UseVisualStyleBackColor = True
@@ -83,9 +86,10 @@ Partial Class login
         Me.Button1.Enabled = False
         Me.Button1.Font = New System.Drawing.Font("Poppins", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
         Me.Button1.ForeColor = System.Drawing.Color.White
-        Me.Button1.Location = New System.Drawing.Point(930, 435)
+        Me.Button1.Location = New System.Drawing.Point(814, 326)
+        Me.Button1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(315, 51)
+        Me.Button1.Size = New System.Drawing.Size(276, 38)
         Me.Button1.TabIndex = 3
         Me.Button1.Text = "Login"
         Me.Button1.UseVisualStyleBackColor = False
@@ -94,8 +98,9 @@ Partial Class login
         '
         Me.PictureBox1.Image = CType(resources.GetObject("PictureBox1.Image"), System.Drawing.Image)
         Me.PictureBox1.Location = New System.Drawing.Point(1, 1)
+        Me.PictureBox1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(786, 848)
+        Me.PictureBox1.Size = New System.Drawing.Size(688, 636)
         Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
         Me.PictureBox1.TabIndex = 4
         Me.PictureBox1.TabStop = False
@@ -103,7 +108,7 @@ Partial Class login
         'Timer1
         '
         Me.Timer1.Enabled = True
-        Me.Timer1.Interval = 60000
+        Me.Timer1.Interval = 15000
         '
         'Timer2
         '
@@ -120,10 +125,10 @@ Partial Class login
         '
         'login
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 20.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.White
-        Me.ClientSize = New System.Drawing.Size(1353, 848)
+        Me.ClientSize = New System.Drawing.Size(1184, 636)
         Me.Controls.Add(Me.PictureBox1)
         Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.CheckBox1)
@@ -131,6 +136,7 @@ Partial Class login
         Me.Controls.Add(Me.TextBox1)
         Me.Controls.Add(Me.Label1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
+        Me.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Name = "login"
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)

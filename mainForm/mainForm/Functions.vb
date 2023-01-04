@@ -1,7 +1,7 @@
 ﻿Imports MySql.Data.MySqlClient
 Module Functions
-    Public str As String = "server=localhost; uid=root; pwd=; database=local_copy_guest"
-    Public connection As New MySqlConnection(str)
+    Public remoteConnectionString As String = "server=191.101.230.103; uid=u608197321_van_; pwd=~C3qt^9kZ; database=u608197321_real_capstone"
+    Public remoteConnection As New MySqlConnection(remoteConnectionString)
 
     Public Sub showThis(ByVal toShow As String, Optional ByVal name As String = "", Optional ByVal eventName As String = "", Optional ByVal counter As Integer = 0)
         If toShow = "Welcome" Then
@@ -27,15 +27,15 @@ Module Functions
         Dim complete As Boolean = True
         Dim cmd As MySqlCommand
         Try
-            connection.Open()
-            cmd = connection.CreateCommand()
+            remoteConnection.Open()
+            cmd = remoteConnection.CreateCommand()
             cmd.CommandText = query
             cmd.ExecuteNonQuery()
         Catch ex As MySqlException
             MessageBox.Show(ex.Message())
             complete = False
         End Try
-        connection.Close()
+        remoteConnection.Close()
         Return complete
     End Function
 
@@ -46,12 +46,12 @@ Module Functions
                 Dim newConnection As MySqlConnection
                 Dim dataSet As New DataSet()
 
-                If connection.State = ConnectionState.Closed Then
-                    newConnection = connection.Clone()
+                If remoteConnection.State = ConnectionState.Closed Then
+                    newConnection = remoteConnection.Clone()
                     Dim adapter As New MySqlDataAdapter(query, newConnection)
                     adapter.Fill(dataSet)
                 Else
-                    Dim adapter As New MySqlDataAdapter(query, connection)
+                    Dim adapter As New MySqlDataAdapter(query, remoteConnection)
                     adapter.Fill(dataSet)
                 End If
 

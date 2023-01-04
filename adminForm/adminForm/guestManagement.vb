@@ -9,7 +9,7 @@
     Dim eventGuestsIDSL As String()
     Dim eventListsL As String()
 
-    Public Async Sub guestManagement_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Public Sub guestManagement_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         'Dim query As String = $"SELECT guests_id, name, date FROM events"
         'Dim ds As DataSet = home.allTabDataSet
         Dim guestsTable = login.allTabDataSet.Tables(1)

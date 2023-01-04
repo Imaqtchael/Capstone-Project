@@ -12,13 +12,13 @@ CREATE TABLE `admin` (
   `status` varchar(50) NOT NULL DEFAULT 'ACTIVE',
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`fullname`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4;
 
 
 INSERT INTO admin VALUES
-("1","DEFAULT","default_admin_password","ADMIN ADMIN","ADDRESS","CONTACT NUMBER","email@email.com","EVENT MANAGER","ACTIVE"),
+("1","DEFAULT","default_admin_password","ADMIN ADMIN","ADDRESS","CONTACT NUMBER","email@email.com","EVENT MANAGER","INACTIVE"),
 ("2","giovanni","0330","MIchael Justin Barcenas","Sub Urban Village","09366296799","imaqtchael@gmail.com","EVENT MANAGER","ACTIVE"),
-("13","buning","ningningbuningning","Janessa Mae","Tarlac City, Tarlac","09366296799","imaqtchael@gmail.com","EVENT MANAGER","ACTIVE");
+("20","Shan","1234","Sumalinog","San Isidro","09366296799","imaqtchael@gmail.com","STAFF","ACTIVE");
 
 
 
@@ -38,7 +38,8 @@ CREATE TABLE `events` (
 
 
 INSERT INTO events VALUES
-("4","2","Janessa\'s Birthday","12/20/2022","10:00 AM","BIRTHDAY","1","Janessa Mae Corsino");
+("1","1","Michael\'s Birthday","12/30/2022","7:00 PM","BIRTHDAY","1","Michael Justin Barcenas"),
+("3","0","Janessa\'s Birthday","12/31/2022","7:00 PM","WEDDING","0","Janessa Mae Corsino");
 
 
 
@@ -54,14 +55,13 @@ CREATE TABLE `guest` (
   `number` varchar(255) NOT NULL,
   `type` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
 
 
 INSERT INTO guest VALUES
-("5","4","12/20/2022 5:44:50 PM, 12/20/2022 5:45:18 PM, 12/20/2022 5:45:19 PM","0007810685","Janessa Mae Corsino","Tarlac City, Tarlac","imaqtchael@gmail.com","09366296799","BOOKER"),
-("6","4","12/20/2022 5:44:52 PM, 12/20/2022 5:45:21 PM","0008100286","Niall Jeydon Corsino","Tarlac City, Tarlac","imaqtchael@gmail.com","09366296799","GUEST"),
-("7","4","12/20/2022 5:44:54 PM, 12/20/2022 5:45:22 PM","0007748236","Michael Justin Barcenas","Sub Urban Village","imaqtchael@gmail.com","09366296799","GUEST"),
-("8","4","12/20/2022 5:44:55 PM, 12/20/2022 5:45:24 PM, 12/20/2022 5:45:24 PM, 12/20/2022 5:45:25 PM, 12/20/2022 5:45:26 PM","0011159868","Janeth Corsino","Tarlac City, Tarlac","imaqtchael@gmail.com","09366296799","GUEST"),
-("9","4","12/20/2022 5:44:57 PM, 12/20/2022 5:45:28 PM","0008296445","Nicholas Corsino","Tarlac City, Tarlac","imaqtchael@gmail.com","09366296799","GUEST");
+("1","1","","","Michael Justin Barcenas","Sub Urban Village","imaqtchael@gmail.com","09366296799","BOOKER"),
+("2","1","","","Michael Justin Barcenas","Sub Urban Village","imaqtchael@gmail.com","09366296799","BOOKER"),
+("3","3","","","Janessa Mae Corsino","Sub Urban Village","imaqtchael@gmail.com","09366296799","BOOKER"),
+("4","3","","","Janessa Mae Corsino","Sub Urban Village","imaqtchael@gmail.com","09366296799","BOOKER");
 
 

@@ -12,17 +12,20 @@ Public Class login
     'Checking if there are admin user that has previously logged in
     'and just continue to the home form
     Private Async Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        apacheMySQLRun()
 
-        'Create a local copy of the data from remote database
-        Await Task.Run(Sub() downloadRemoteDB("local_copy"))
-        Await Task.Run(Sub() refreshLocalDB("local_copy"))
+        'apacheMySQLRun()
 
-        Dim checkFirst = Await Task.Run(Function() getAllData())
-        While checkFirst Is Nothing
-            checkFirst = Await Task.Run(Function() getAllData())
-        End While
-        allTabDataSet = checkFirst
+        ''Create a local copy of the data from remote database
+        'Await Task.Run(Sub() downloadRemoteDB("local_copy"))
+        'Await Task.Run(Sub() refreshLocalDB("local_copy"))
+
+        'Dim checkFirst = Await Task.Run(Function() getAllData())
+        'While checkFirst Is Nothing
+        '    checkFirst = Await Task.Run(Function() getAllData())
+        'End While
+        'allTabDataSet = checkFirst
+
+        allTabDataSet = Await Task.Run(Function() getAllData())
 
         Button1.Enabled = True
 
@@ -36,11 +39,12 @@ Public Class login
         End If
     End Sub
 
-    'Check for event dates
+    'Check the current date, if there is an event in the current date
+    'send an sms message and email to the booker of the event
     Private Async Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
         Dim dateNow = Now.ToString("MM/dd/yyyy")
 
-        Dim eventDataSet As DataSet = Await Task.Run(Function() getData($"SELECT guests_id, name, date, time FROM events WHERE date='{dateNow}' AND registered<>2 AND ispaid=1"))
+        Dim eventDataSet As DataSet = Await Task.Run(Function() getData($"SELECT guests_id, name, date, time FROM events WHERE date='{dateNow}' AND registered=1 AND ispaid=1"))
 
         If eventDataSet.Tables(0).Rows.Count = 0 Then
             Return
@@ -57,27 +61,37 @@ Public Class login
 
         Dim guestDataSet As DataSet = Await Task.Run(Function() getData($"SELECT email, number, name FROM guest WHERE guest_id={guestsID}"))
 
-        Dim numbers As String = ""
+        'Dim numbers As String = ""
+
+        Dim smsEngine As New SMSCOMMS("COM13")
+        smsEngine.Open()
 
         Await Task.Run(Sub()
                            For i As Integer = 0 To guestDataSet.Tables(0).Rows.Count - 1
                                Dim receiverEmail As String = guestDataSet.Tables(0).Rows(i)(0)
                                Dim receiverNumber As String = guestDataSet.Tables(0).Rows(i)(1)
                                Dim name As String = guestDataSet.Tables(0).Rows(i)(2)
+                               Dim emailSubject As String = $"REMINDER FOR THE UPCOMING EVENT: {eventName}"
+                               Dim emailBody As String = $"<h1>Just a reminder for the upcoming {eventName} on {eventDate} {eventTime}</h1><br><h3>Don't forget to bring your RFID WRISTBAND. See you!</h3>"
 
-                               sendEmail(eventName, eventDate, eventTime, "mjbrcns51@gmail.com", "tkzoblulgmuleflh", receiverEmail)
-                               'smsEngine.Open()
-                               'smsEngine.SendSMS(eventName, eventDetails, receiverNumber)
-                               'Thread.Sleep(2000)
+                               sendEmail(emailSubject, emailBody, "van@event-venue.website", "@Capstone0330", receiverEmail, True)
 
-                               numbers += $"{receiverNumber},"
+
+                               smsEngine.SendSMS(eventName, eventDate, eventTime, receiverNumber)
+                               Thread.Sleep(8000)
+
+
+                               'Thread.Sleep(5000)
+                               'SendSMS("COM12", eventName, eventDate, eventTime, receiverNumber)
+
+                               'numbers += $"{receiverNumber},"
 
                            Next
                        End Sub)
-
-        numbers = numbers.Substring(0, numbers.Length - 1)
+        'numbers = numbers.Substring(0, numbers.Length - 1)
 
         'sendMessage($"Just a reminder for the upcoming {eventName} on {eventDate} {eventTime}. Don't forget to bring your RFID WRISTBAND. See you!", numbers)
+        smsEngine.Close()
 
         Await Task.Run(Sub() executeNonQuery($"UPDATE events SET registered=2 WHERE guests_id={guestsID}", remoteConnection))
     End Sub
@@ -113,19 +127,21 @@ Public Class login
     End Sub
 
     Public Async Sub refreshAllForms()
-        If Timer4.Enabled Then
-            Return
-        End If
+        'If Timer4.Enabled Then
+        '    Return
+        'End If
 
-        Await Task.Run(Sub() updateRemoteDB())
-        Await Task.Run(Sub() downloadRemoteDB("local_copy"))
-        Await Task.Run(Sub() refreshLocalDB("local_copy"))
+        'Await Task.Run(Sub() updateRemoteDB())
+        'Await Task.Run(Sub() downloadRemoteDB("local_copy"))
+        'Await Task.Run(Sub() refreshLocalDB("local_copy"))
 
-        Dim checkFirst = Await Task.Run(Function() getAllData())
-        While checkFirst Is Nothing
-            checkFirst = Await Task.Run(Function() getAllData())
-        End While
-        allTabDataSet = checkFirst
+        'Dim checkFirst = Await Task.Run(Function() getAllData())
+        'While checkFirst Is Nothing
+        '    checkFirst = Await Task.Run(Function() getAllData())
+        'End While
+        'allTabDataSet = checkFirst
+
+        allTabDataSet = Await Task.Run(Function() getAllData())
 
         If Not trackingReport Is Nothing Then
             trackingReport.trackingReport_Load(Nothing, Nothing)
@@ -142,36 +158,46 @@ Public Class login
             userManagement.userManagement_Load(Nothing, Nothing)
         End If
 
-        Timer4.Enabled = True
+        'Timer4.Enabled = True
     End Sub
 
     'Login the admin if the credentials are correct, and check if they
     'preferred to be remembered
     Private Async Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         Button1.Enabled = False
-        Dim ds As DataSet = Await Task.Run(Function() getData("SELECT username, password, role, fullname FROM admin"))
+        Dim ds As DataSet = Await Task.Run(Function() getData("SELECT username, password, role, fullname, status FROM admin"))
 
-        While ds Is Nothing
-            ds = Await Task.Run(Function() getData("SELECT username, password, role, fullname FROM admin"))
-        End While
+        'While ds Is Nothing
+        '    ds = Await Task.Run(Function() getData("SELECT username, password, role, fullname, status FROM admin"))
+        'End While
 
         For i As Integer = 0 To ds.Tables(0).Rows.Count - 1
             Dim username As String = ds.Tables(0).Rows(i)(0)
             Dim password As String = ds.Tables(0).Rows(i)(1)
+            Dim status As String = ds.Tables(0).Rows(i)(4)
             If TextBox1.Text = username And TextBox2.Text = password Then
+
+                If status = "INACTIVE" Then
+                    MessageBox.Show("This account is inactive")
+                    Button1.Enabled = True
+                    Return
+                End If
+
                 currentUser(1) = ds.Tables(0).Rows(i)(2)
                 currentUser(0) = ds.Tables(0).Rows(i)(3)
-                MessageBox.Show(currentUser(0))
+
                 If CheckBox1.Checked = True Then
                     My.Computer.FileSystem.WriteAllText(
                 "..\..\..\REMEMBERED.txt", $"{currentUser(0)}, {ds.Tables(0).Rows(i)(2)}", False)
                 End If
+
                 showHome()
+
                 Button1.Enabled = True
                 Return
             End If
         Next
-        MessageBox.Show($"Wrong username or password {ds.Tables(0).Rows.Count}")
+        MessageBox.Show($"Wrong username or password")
         Button1.Enabled = True
 
     End Sub
@@ -200,32 +226,9 @@ Public Class login
         End If
     End Sub
 
-    Sub sendEmail(ByVal eventName As String, ByVal eventDate As String, ByVal eventTime As String, ByVal sender As String, ByVal pass As String, ByVal receiver As String)
-        Try
-            Dim server As New SmtpClient
-            Dim mail As New System.Net.Mail.MailMessage()
-            server.UseDefaultCredentials = False
-            server.Credentials = New Net.NetworkCredential(sender, pass)
-            server.Port = 587
-            server.EnableSsl = True
-            server.Host = "smtp.gmail.com"
-
-            mail = New System.Net.Mail.MailMessage()
-            mail.From = New MailAddress(sender)
-            mail.To.Add(receiver)
-            mail.Subject = $"REMINDER FOR THE UPCOMING {eventName}"
-            mail.IsBodyHtml = False
-            mail.Body = $"Just a reminder for the upcoming {eventName} on {eventDate} {eventTime}. Don't forget to bring your RFID WRISTBAND. See you!"
-            server.Send(mail)
-
-        Catch ex As Exception
-            MessageBox.Show(ex.Message)
-        End Try
-    End Sub
-
     Sub sendMessage(ByVal message As String, ByVal numbers As String)
         ' Open a serial port connection to the GSM module
-        Using serialPort As New SerialPort("COM3", 9600, Parity.None, 8, StopBits.One)
+        Using serialPort As New SerialPort("COM11", 9600, Parity.None, 8, StopBits.One)
             serialPort.Open()
 
             ' Set the recipients for the SMS message
@@ -463,31 +466,33 @@ Public Class SMSCOMMS
             .PortName = COMMPORT
             .BaudRate = 9600
             .Parity = Parity.None
+            .ReadBufferSize = 1024
+            .WriteTimeout = 1024
+            .WriteBufferSize = 1024
             .DataBits = 8
             .StopBits = StopBits.One
-            .Handshake = Handshake.RequestToSend
+            .Handshake = Handshake.None
             .DtrEnable = True
             .RtsEnable = True
             .NewLine = vbCrLf
         End With
     End Sub
-    Public Function SendSMS(ByVal eventName As String, ByVal eventDetails As String(), ByVal receiver As String) As Boolean
+    Public Sub SendSMS(ByVal eventName As String, ByVal eventDate As String, ByVal eventTime As String, ByVal receiver As String)
         If SMSPort.IsOpen = True Then
             'sending AT commands
-            SMSPort.WriteLine("AT")
-            Thread.Sleep(100)
+            SMSPort.WriteLine("AT+CSCS=""GSM""" & vbCrLf)
+            Thread.Sleep(200)
             SMSPort.WriteLine("AT+CMGF=1" & vbCrLf) 'set command message format to text mode(1)
-            Thread.Sleep(100)
+            Thread.Sleep(200)
             SMSPort.WriteLine("AT+CSCA=""09170000130""" & vbCrLf) 'set service center address (which varies for service providers (idea, airtel))
-            Thread.Sleep(100)
+            Thread.Sleep(200)
             SMSPort.WriteLine($"AT+CMGS=""{receiver}""" & vbCrLf) ' enter the mobile number whom you want to send the SMS
             _ContSMS = False
-            Thread.Sleep(100)
-            SMSPort.WriteLine($"We are here to remind you for the upcoming {eventName} on {eventDetails(0)} {eventDetails(1)}. Don't forget to bring your RFID WRISTBAND. See you!" & vbCrLf & Chr(26)) 'SMS sending
-            Thread.Sleep(100)
-            SMSPort.Close()
+            Thread.Sleep(200)
+            SMSPort.WriteLine($"Just a reminder for the upcoming {eventName} on {eventDate} {eventTime}. Don't forget to bring your RFID WRISTBAND. See you!" & vbCrLf & Chr(26)) 'SMS sending
+            Thread.Sleep(200)
         End If
-    End Function
+    End Sub
 
     Public Sub Open()
         If Not (SMSPort.IsOpen = True) Then
@@ -501,3 +506,4 @@ Public Class SMSCOMMS
         End If
     End Sub
 End Class
+

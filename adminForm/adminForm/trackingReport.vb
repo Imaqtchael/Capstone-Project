@@ -67,9 +67,9 @@
         Dim query As String = $"SELECT name, logs FROM guest WHERE logs<>'' AND guest_id={guestsID}"
         Dim ds As DataSet = Await Task.Run(Function() getData(query))
 
-        While ds Is Nothing
-            ds = Await Task.Run(Function() getData(query))
-        End While
+        'While ds Is Nothing
+        '    ds = Await Task.Run(Function() getData(query))
+        'End While
 
 
 
@@ -153,7 +153,6 @@
 
         Dim guest = row.Cells(0).Value.ToString()
         selectedGuest = guest
-        home.Enabled = False
         trackingReportGuestLog.ShowDialog()
     End Sub
 

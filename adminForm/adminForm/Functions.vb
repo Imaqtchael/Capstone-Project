@@ -1,4 +1,5 @@
-﻿Imports System.Numerics
+﻿Imports System.Net.Mail
+Imports System.Numerics
 Imports MySql.Data.MySqlClient
 
 Module Functions
@@ -6,8 +7,8 @@ Module Functions
     Public remoteConnectionString As String = "server=191.101.230.103; uid=u608197321_van_; pwd=~C3qt^9kZ; database=u608197321_real_capstone"
     Public remoteConnection As New MySqlConnection(remoteConnectionString)
 
-    Public localConnectionString As String = "server=localhost; uid=root; pwd=; database=local_copy"
-    Public localConnection As New MySqlConnection(localConnectionString)
+    'Public localConnectionString As String = "server=localhost; uid=root; pwd=; database=local_copy"
+    'Public localConnection As New MySqlConnection(localConnectionString)
 
     'Assorted Variables
     'Get what is the current event
@@ -32,7 +33,7 @@ Module Functions
         Dim newConnection As MySqlConnection
 
         Try
-            If connection.State = ConnectionState.Open Then
+            If connection.State = ConnectionState.Closed Then
                 newConnection = connection.Clone()
                 newConnection.Open()
                 command = newConnection.CreateCommand()
@@ -67,12 +68,12 @@ Module Functions
                 Dim newConnection As MySqlConnection
                 Dim allDataSet As New DataSet()
 
-                If localConnection.State = ConnectionState.Closed Then
-                    newConnection = localConnection.Clone()
+                If remoteConnection.State = ConnectionState.Closed Then
+                    newConnection = remoteConnection.Clone()
                     Dim allDataAdapter As New MySqlDataAdapter(allQuery, newConnection)
                     allDataAdapter.Fill(allDataSet)
                 Else
-                    Dim allDataAdapter As New MySqlDataAdapter(allQuery, localConnection)
+                    Dim allDataAdapter As New MySqlDataAdapter(allQuery, remoteConnection)
                     allDataAdapter.Fill(allDataSet)
                 End If
 
@@ -94,12 +95,12 @@ Module Functions
                 Dim newConnection As MySqlConnection
                 Dim dataSet As New DataSet()
 
-                If localConnection.State = ConnectionState.Closed Then
-                    newConnection = localConnection.Clone()
+                If remoteConnection.State = ConnectionState.Closed Then
+                    newConnection = remoteConnection.Clone()
                     Dim adapter As New MySqlDataAdapter(query, newConnection)
                     adapter.Fill(dataSet)
                 Else
-                    Dim adapter As New MySqlDataAdapter(query, localConnection)
+                    Dim adapter As New MySqlDataAdapter(query, remoteConnection)
                     adapter.Fill(dataSet)
                 End If
 
@@ -110,6 +111,29 @@ Module Functions
             End Try
         End While
     End Function
+
+    Sub sendEmail(ByVal subject As String, ByVal body As String, ByVal sender As String, ByVal pass As String, ByVal receiver As String, ByVal isHTML As Boolean)
+        Try
+            Dim server As New SmtpClient
+            Dim mail As New System.Net.Mail.MailMessage()
+            server.UseDefaultCredentials = False
+            server.Credentials = New Net.NetworkCredential(sender, pass)
+            server.Port = 587
+            server.EnableSsl = True
+            server.Host = "smtp.hostinger.com"
+
+            mail = New System.Net.Mail.MailMessage()
+            mail.From = New MailAddress(sender)
+            mail.To.Add(receiver)
+            mail.Subject = subject
+            mail.Body = body
+            mail.IsBodyHtml = isHTML
+            server.Send(mail)
+
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
 
     'Home Functions
     Public Sub changeColor(ByVal tochange As Button, ByVal stay1 As Button, ByVal stay2 As Button, ByVal stay3 As Button)

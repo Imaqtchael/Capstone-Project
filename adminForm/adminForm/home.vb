@@ -5,7 +5,7 @@ Imports System.IO
 Imports System.Threading
 
 Public Class home
-    Private Async Sub home_Load(sender As Object, e As EventArgs) Handles MyBase.Load, Button5.Click
+    Private Sub home_Load(sender As Object, e As EventArgs) Handles MyBase.Load, Button5.Click
         Button1.Enabled = True
 
         If login.currentUser(1) = "EVENT MANAGER" Then

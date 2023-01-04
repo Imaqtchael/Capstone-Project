@@ -3,13 +3,15 @@ Imports System.Runtime.InteropServices
 
 Public Class userManagementAddOREditUser
     Dim ds As DataSet
-    Private Sub userManagementAddOREditUser_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Async Sub userManagementAddOREditUser_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         home.Enabled = False
         Me.TopMost = True
 
         If userManagement.editORAdd = "edit" Then
             Label1.Text = "EDIT USER"
-            ds = getData($"SELECT username, password, fullname, address, contact, email, role, id FROM admin WHERE fullname='{userManagement.selectedUser}'")
+            Dim selectedUser = userManagement.selectedUser
+
+            ds = Await Task.Run(Function() getData($"SELECT username, password, fullname, address, contact, email, role, id, status FROM admin WHERE fullname='{selectedUser}'"))
 
             TextBox1.Text = ds.Tables(0).Rows(0)(2)
             TextBox2.Text = ds.Tables(0).Rows(0)(0)
@@ -17,10 +19,12 @@ Public Class userManagementAddOREditUser
             TextBox4.Text = ds.Tables(0).Rows(0)(3)
             TextBox5.Text = ds.Tables(0).Rows(0)(4)
             ComboBox1.Text = ds.Tables(0).Rows(0)(6)
+            ComboBox2.Text = ds.Tables(0).Rows(0)(8)
             TextBox7.Text = ds.Tables(0).Rows(0)(5)
         End If
     End Sub
     Private Async Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        Button1.Enabled = False
         Dim emptyTextBoxes =
             From txt In Me.Panel1.Controls.OfType(Of TextBox)()
             Where txt.Text.Length = 0
@@ -32,11 +36,12 @@ Public Class userManagementAddOREditUser
         Button1.Enabled = False
         If userManagement.editORAdd = "edit" Then
             Dim selectedUserID As String = ds.Tables(0).Rows(0)(7)
-            Dim query2 As String = $"UPDATE admin SET fullname='{TextBox1.Text}', username='{TextBox2.Text}', password='{TextBox3.Text}', address='{TextBox4.Text}', contact='{TextBox5.Text}', email='{TextBox7.Text}', role='{ComboBox1.Text}', edited=1 WHERE id='{selectedUserID}'"
-            Dim userSuccess As Boolean = executeNonQuery(query2, localConnection)
+            Dim query2 As String = $"UPDATE admin SET fullname='{TextBox1.Text}', username='{TextBox2.Text}', password='{TextBox3.Text}', address='{TextBox4.Text}', contact='{TextBox5.Text}', email='{TextBox7.Text}', role='{ComboBox1.Text}', status='{ComboBox2.Text}' WHERE id='{selectedUserID}'"
+            Dim userSuccess As Boolean = Await Task.Run(Function() executeNonQuery(query2, remoteConnection))
 
 
             If userSuccess Then
+                MessageBox.Show("User info updated successfully!")
                 userManagement.editORAdd = ""
                 login.refreshAllForms()
                 Button1.Enabled = True
@@ -46,11 +51,12 @@ Public Class userManagementAddOREditUser
             Return
         End If
 
-        Dim query As String = $"INSERT INTO admin(username, password, fullname, address, contact, email, role, edited) VALUES('{TextBox2.Text}', '{TextBox3.Text}', '{TextBox1.Text}', '{TextBox4.Text}', '{TextBox5.Text}', '{TextBox7.Text}', '{ComboBox1.Text}', 2)"
-        Dim insertSuccess As Boolean = Await Task.Run(Function() executeNonQuery(query, localConnection))
+        Dim query As String = $"INSERT INTO admin(username, password, fullname, address, contact, email, role, status) VALUES('{TextBox2.Text}', '{TextBox3.Text}', '{TextBox1.Text}', '{TextBox4.Text}', '{TextBox5.Text}', '{TextBox7.Text}', '{ComboBox1.Text}', '{ComboBox2.Text}')"
+        Dim insertSuccess As Boolean = Await Task.Run(Function() executeNonQuery(query, remoteConnection))
 
 
         If insertSuccess Then
+            MessageBox.Show("User added successfully!")
             TextBox1.Clear()
             TextBox2.Clear()
             TextBox3.Clear()
@@ -65,6 +71,15 @@ Public Class userManagementAddOREditUser
     End Sub
 
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+        TextBox1.Clear()
+        TextBox2.Clear()
+        TextBox3.Clear()
+        TextBox4.Clear()
+        TextBox5.Clear()
+        TextBox7.Clear()
+
+        ComboBox1.Text = ""
+
         userManagement.editORAdd = ""
         Button1.Enabled = True
         home.Enabled = True
@@ -90,7 +105,7 @@ Public Class userManagementAddOREditUser
     Private Shared Sub SendMessage(ByVal hWnd As System.IntPtr, ByVal wMsg As Integer, ByVal wParam As Integer, ByVal lParam As Integer)
     End Sub
 
-    Private Sub Form1_MouseDown(sender As Object, e As MouseEventArgs) Handles MyBase.MouseDown, Panel1.MouseDown
+    Private Sub Form1_MouseDown(sender As Object, e As MouseEventArgs) Handles MyBase.MouseDown, Panel1.MouseDown, Label1.MouseDown
         ReleaseCapture()
         ReleaseCapture()
         SendMessage(Me.Handle, &H112&, &HF012&, 0)
