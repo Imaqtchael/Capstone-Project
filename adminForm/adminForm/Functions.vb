@@ -58,7 +58,7 @@ Module Functions
         Dim executed = False
         While Not executed
             Try
-                Dim trackingReportQuery = "SELECT name, guests_id, date FROM events WHERE date_format(str_to_date(date, '%m/%d/%Y'), '%Y/%m/%d')<=date_format(curdate(), '%Y/%m/%d') ORDER BY date DESC;"
+                Dim trackingReportQuery = "SET time_zone='+8:00'; SELECT name, guests_id, date FROM events WHERE date_format(str_to_date(date, '%m/%d/%Y'), '%Y/%m/%d')<=date_format(curdate(), '%Y/%m/%d') ORDER BY date DESC;"
                 Dim guestManagementQuery = "SELECT guests_id, name, date FROM events WHERE date_format(str_to_date(date, '%m/%d/%Y'), '%Y/%m/%d')>=date_format(curdate(), '%Y/%m/%d');"
                 Dim eventManagementQuery = "SELECT name, type, date, guests_id FROM events WHERE date_format(str_to_date(date, '%m/%d/%Y'), '%Y/%m/%d')>=date_format(curdate(), '%Y/%m/%d');"
                 Dim userManagementQuery = "SELECT fullname, role, status FROM admin;"

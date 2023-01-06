@@ -55,6 +55,7 @@ Public Class guestManagementAddGuest
             TextBox4.Clear()
             TextBox5.Clear()
             ComboBox1.Text = ""
+            MessageBox.Show("Guest added succesfully!")
         End If
 
         TextBox7.Clear()

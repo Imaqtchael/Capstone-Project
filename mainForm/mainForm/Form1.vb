@@ -362,13 +362,14 @@ Public Class Form1
     End Sub
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        MessageBox.Show("clicked")
         If currentText.Length <> 0 Then
-            currentText = Split(InputBox($"CHANGE EVENT TEXT TO: {Environment.NewLine}1. Event Text{Environment.NewLine}2. Event Name{Environment.NewLine}3. Event Date{Environment.NewLine}SEPARATED BY COMMA", "Change Event Texts", Join(currentText, ", ")), ", ")
+            currentText = Split(InputBox($"CHANGE EVENT TEXT TO: {Environment.NewLine}1. Event Text{Environment.NewLine}2. Event Name{Environment.NewLine}SEPARATED BY COMMA", "Change Event Texts", Join(currentText, ", ")), ", ")
         Else
-            currentText = Split(InputBox($"CHANGE EVENT TEXT TO: {Environment.NewLine}1. Event Text{Environment.NewLine}2. Event Name{Environment.NewLine}3. Event Date{Environment.NewLine}SEPARATED BY COMMA", "Change Event Texts"), ", ")
+            currentText = Split(InputBox($"CHANGE EVENT TEXT TO: {Environment.NewLine}1. Event Text{Environment.NewLine}2. Event Name{Environment.NewLine}SEPARATED BY COMMA", "Change Event Texts"), ", ")
         End If
 
-        If currentText.Length <> 4 Then
+        If currentText.Length <> 2 Then
             If currentText.Length = 1 And backUpCurrentText.Length <> 1 Then
                 currentText = backUpCurrentText
             End If
@@ -380,7 +381,7 @@ Public Class Form1
 
         Label5.Text = currentText(0)
         Label3.Text = currentText(1)
-        Label4.Text = $"{currentText(2)}, {currentText(3)}"
+        Label4.Text = Date.Now.ToString("MMMM dd, yyyy")
 
         Dim file As New OpenFileDialog
 
@@ -395,6 +396,13 @@ Public Class Form1
         End If
     End Sub
 
+    Private Sub Panel1_MouseClick(sender As Object, e As MouseEventArgs) Handles Panel1.MouseClick
+        Panel1.Select()
+    End Sub
+
+    Private Sub Button5_Click(sender As Object, e As EventArgs) Handles Button5.Click
+        Me.Close()
+    End Sub
 
     'Casting Shadow to the Form
     Private Const CS_DROPSHADOW As Integer = 131072

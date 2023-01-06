@@ -5,7 +5,7 @@ Imports System.IO
 Imports System.Threading
 
 Public Class home
-    Private Sub home_Load(sender As Object, e As EventArgs) Handles MyBase.Load, Button5.Click
+    Private Sub home_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Button1.Enabled = True
 
         If login.currentUser(1) = "EVENT MANAGER" Then
@@ -13,11 +13,11 @@ Public Class home
             Button3.Enabled = True
             Button4.Enabled = True
         End If
+
         'Show the trackingreport form and changing the 
         'trackingreport buttont to white on form load
-        showThis(sender, Panel1, trackingReport)
+        showThis(Button1, Panel1, trackingReport)
         changeColor(Button1, Button2, Button3, Button4)
-
     End Sub
 
 
@@ -66,10 +66,12 @@ Public Class home
         End If
         showThis(sender, Panel1, trackingReport)
         changeColor(Button1, Button2, Button3, Button4)
-        Me.Close()
     End Sub
 
-    'Download the remote database onto the local hard drive
+    Private Sub Button5_Click(sender As Object, e As EventArgs) Handles Button5.Click
+        login.Close()
+        Me.Close()
+    End Sub
 
 
     'Casting Shadow to the Form
@@ -90,7 +92,7 @@ Public Class home
     Private Shared Sub SendMessage(ByVal hWnd As System.IntPtr, ByVal wMsg As Integer, ByVal wParam As Integer, ByVal lParam As Integer)
     End Sub
 
-    Private Sub Form1_MouseDown(sender As Object, e As MouseEventArgs) Handles MyBase.MouseDown, Panel2.MouseDown, Button5.MouseDown, Button5.MouseDown
+    Private Sub Form1_MouseDown(sender As Object, e As MouseEventArgs) Handles MyBase.MouseDown, Panel2.MouseDown
         ReleaseCapture()
         ReleaseCapture()
         SendMessage(Me.Handle, &H112&, &HF012&, 0)

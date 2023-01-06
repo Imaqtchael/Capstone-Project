@@ -22,6 +22,7 @@ Partial Class registerGuests
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(registerGuests))
         Me.Label1 = New System.Windows.Forms.Label()
         Me.ComboBox1 = New System.Windows.Forms.ComboBox()
         Me.Button1 = New System.Windows.Forms.Button()
@@ -35,9 +36,9 @@ Partial Class registerGuests
         '
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("Poppins", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-        Me.Label1.Location = New System.Drawing.Point(219, 23)
+        Me.Label1.Location = New System.Drawing.Point(192, 17)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(186, 36)
+        Me.Label1.Size = New System.Drawing.Size(148, 28)
         Me.Label1.TabIndex = 0
         Me.Label1.Text = "Choose an Event "
         '
@@ -46,9 +47,10 @@ Partial Class registerGuests
         Me.ComboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.ComboBox1.Font = New System.Drawing.Font("Poppins", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
         Me.ComboBox1.FormattingEnabled = True
-        Me.ComboBox1.Location = New System.Drawing.Point(40, 79)
+        Me.ComboBox1.Location = New System.Drawing.Point(35, 59)
+        Me.ComboBox1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.ComboBox1.Name = "ComboBox1"
-        Me.ComboBox1.Size = New System.Drawing.Size(566, 44)
+        Me.ComboBox1.Size = New System.Drawing.Size(496, 36)
         Me.ComboBox1.TabIndex = 1
         '
         'Button1
@@ -58,9 +60,10 @@ Partial Class registerGuests
         Me.Button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Button1.Font = New System.Drawing.Font("Poppins", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
         Me.Button1.ForeColor = System.Drawing.Color.White
-        Me.Button1.Location = New System.Drawing.Point(479, 140)
+        Me.Button1.Location = New System.Drawing.Point(419, 105)
+        Me.Button1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(127, 44)
+        Me.Button1.Size = New System.Drawing.Size(111, 33)
         Me.Button1.TabIndex = 2
         Me.Button1.Text = "GO"
         Me.Button1.UseVisualStyleBackColor = False
@@ -68,19 +71,20 @@ Partial Class registerGuests
         'TextBox1
         '
         Me.TextBox1.Font = New System.Drawing.Font("Poppins", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-        Me.TextBox1.Location = New System.Drawing.Point(42, 253)
+        Me.TextBox1.Location = New System.Drawing.Point(37, 190)
+        Me.TextBox1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.TextBox1.Name = "TextBox1"
         Me.TextBox1.ReadOnly = True
-        Me.TextBox1.Size = New System.Drawing.Size(564, 37)
+        Me.TextBox1.Size = New System.Drawing.Size(494, 31)
         Me.TextBox1.TabIndex = 3
         '
         'Label2
         '
         Me.Label2.AutoSize = True
         Me.Label2.Font = New System.Drawing.Font("Poppins", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-        Me.Label2.Location = New System.Drawing.Point(42, 214)
+        Me.Label2.Location = New System.Drawing.Point(37, 160)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(76, 36)
+        Me.Label2.Size = New System.Drawing.Size(60, 28)
         Me.Label2.TabIndex = 0
         Me.Label2.Text = "Name"
         '
@@ -88,26 +92,27 @@ Partial Class registerGuests
         '
         Me.Label3.AutoSize = True
         Me.Label3.Font = New System.Drawing.Font("Poppins", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-        Me.Label3.Location = New System.Drawing.Point(42, 313)
+        Me.Label3.Location = New System.Drawing.Point(37, 235)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(100, 36)
+        Me.Label3.Size = New System.Drawing.Size(80, 28)
         Me.Label3.TabIndex = 0
         Me.Label3.Text = "RFID Tag"
         '
         'TextBox2
         '
         Me.TextBox2.Font = New System.Drawing.Font("Poppins", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-        Me.TextBox2.Location = New System.Drawing.Point(42, 352)
+        Me.TextBox2.Location = New System.Drawing.Point(37, 264)
+        Me.TextBox2.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.TextBox2.Name = "TextBox2"
-        Me.TextBox2.Size = New System.Drawing.Size(564, 37)
+        Me.TextBox2.Size = New System.Drawing.Size(494, 31)
         Me.TextBox2.TabIndex = 3
         '
         'registerGuests
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 20.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.White
-        Me.ClientSize = New System.Drawing.Size(640, 422)
+        Me.ClientSize = New System.Drawing.Size(560, 316)
         Me.Controls.Add(Me.TextBox2)
         Me.Controls.Add(Me.TextBox1)
         Me.Controls.Add(Me.Button1)
@@ -116,7 +121,11 @@ Partial Class registerGuests
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.Label1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
+        Me.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Name = "registerGuests"
+        Me.ShowIcon = False
+        Me.ShowInTaskbar = False
         Me.ResumeLayout(False)
         Me.PerformLayout()
 

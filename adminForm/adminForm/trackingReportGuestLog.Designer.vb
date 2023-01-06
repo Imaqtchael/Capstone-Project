@@ -24,6 +24,7 @@ Partial Class trackingReportGuestLog
     Private Sub InitializeComponent()
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(trackingReportGuestLog))
         Me.Label1 = New System.Windows.Forms.Label()
         Me.DataGridView1 = New System.Windows.Forms.DataGridView()
         Me.Panel1 = New System.Windows.Forms.Panel()
@@ -38,9 +39,9 @@ Partial Class trackingReportGuestLog
         '
         Me.Label1.Font = New System.Drawing.Font("Poppins", 24.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
         Me.Label1.ForeColor = System.Drawing.Color.Black
-        Me.Label1.Location = New System.Drawing.Point(3, 9)
+        Me.Label1.Location = New System.Drawing.Point(3, 7)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(565, 81)
+        Me.Label1.Size = New System.Drawing.Size(494, 61)
         Me.Label1.TabIndex = 0
         Me.Label1.Text = ":NAME:"
         Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -69,14 +70,15 @@ Partial Class trackingReportGuestLog
         DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
         DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
         Me.DataGridView1.DefaultCellStyle = DataGridViewCellStyle2
-        Me.DataGridView1.Location = New System.Drawing.Point(11, 47)
+        Me.DataGridView1.Location = New System.Drawing.Point(10, 35)
+        Me.DataGridView1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.DataGridView1.Name = "DataGridView1"
         Me.DataGridView1.ReadOnly = True
         Me.DataGridView1.RowHeadersVisible = False
         Me.DataGridView1.RowHeadersWidth = 51
         Me.DataGridView1.RowTemplate.Height = 29
         Me.DataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.DataGridView1.Size = New System.Drawing.Size(545, 619)
+        Me.DataGridView1.Size = New System.Drawing.Size(477, 464)
         Me.DataGridView1.TabIndex = 4
         '
         'Panel1
@@ -85,19 +87,18 @@ Partial Class trackingReportGuestLog
         Me.Panel1.Controls.Add(Me.DataGridView1)
         Me.Panel1.Controls.Add(Me.Label3)
         Me.Panel1.Controls.Add(Me.Label2)
-        Me.Panel1.Location = New System.Drawing.Point(3, 95)
-        Me.Panel1.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.Panel1.Location = New System.Drawing.Point(3, 71)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(565, 679)
+        Me.Panel1.Size = New System.Drawing.Size(494, 509)
         Me.Panel1.TabIndex = 5
         '
         'Label3
         '
         Me.Label3.AutoSize = True
         Me.Label3.Font = New System.Drawing.Font("Poppins", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-        Me.Label3.Location = New System.Drawing.Point(29, 7)
+        Me.Label3.Location = New System.Drawing.Point(25, 5)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(87, 36)
+        Me.Label3.Size = New System.Drawing.Size(69, 28)
         Me.Label3.TabIndex = 0
         Me.Label3.Text = "Time in"
         '
@@ -105,9 +106,9 @@ Partial Class trackingReportGuestLog
         '
         Me.Label2.AutoSize = True
         Me.Label2.Font = New System.Drawing.Font("Poppins", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-        Me.Label2.Location = New System.Drawing.Point(291, 7)
+        Me.Label2.Location = New System.Drawing.Point(255, 5)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(102, 36)
+        Me.Label2.Size = New System.Drawing.Size(81, 28)
         Me.Label2.TabIndex = 0
         Me.Label2.Text = "Time out"
         '
@@ -118,26 +119,26 @@ Partial Class trackingReportGuestLog
         Me.Button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Button2.Font = New System.Drawing.Font("Poppins", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
         Me.Button2.ForeColor = System.Drawing.Color.DodgerBlue
-        Me.Button2.Location = New System.Drawing.Point(411, 789)
-        Me.Button2.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.Button2.Location = New System.Drawing.Point(360, 592)
         Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(149, 43)
+        Me.Button2.Size = New System.Drawing.Size(130, 32)
         Me.Button2.TabIndex = 6
         Me.Button2.Text = "BACK TO HOME"
         Me.Button2.UseVisualStyleBackColor = False
         '
         'trackingReportGuestLog
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 20.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.White
-        Me.ClientSize = New System.Drawing.Size(571, 845)
+        Me.ClientSize = New System.Drawing.Size(500, 634)
         Me.Controls.Add(Me.Button2)
         Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.Label1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
-        Me.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "trackingReportGuestLog"
+        Me.ShowInTaskbar = False
         Me.Text = "guestLog"
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel1.ResumeLayout(False)

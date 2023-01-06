@@ -4,6 +4,8 @@
         home.Enabled = False
         Me.TopMost = True
 
+        setRFIDQuery = ""
+
         Dim query As String = "SELECT name FROM events WHERE registered=0 AND ispaid=1"
         Dim ds As DataSet = Await Task.Run(Function() getData(query))
 
@@ -39,7 +41,11 @@
 
         Dim updateRegisteredEvent As String = $"{setRFIDQuery}UPDATE events SET registered=1 WHERE name='{ComboBox1.Text.Replace("'", "\'")}'"
 
-        Await Task.Run(Function() executeNonQuery(updateRegisteredEvent, remoteConnection))
+        Dim updateSuccess = Await Task.Run(Function() executeNonQuery(updateRegisteredEvent, remoteConnection))
+
+        If updateSuccess Then
+            MessageBox.Show("Guest's RFID set successfully!")
+        End If
 
         registerGuests_Load(Nothing, Nothing)
     End Sub

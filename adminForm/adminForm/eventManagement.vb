@@ -127,7 +127,7 @@ Public Class eventManagement
                             }).Where(Function(eve) eve.name = selectedEvent).First
 
                 Dim query2 As String = $"DELETE FROM events WHERE name='{selectedEvent.Replace("'", "\'")}'"
-                Dim query3 As String = $"DELETE FROM guest WHERE guest_id={id.guests_id}"
+                Dim query3 As String = $"DELETE FROM guest WHERE guest_id={id.guests_id}; DELETE FROM temporary_guest_copy WHERE event_name='{selectedEvent.Replace("'", "\'")}'; DELETE FROM md5 WHERE event_name='{selectedEvent.Replace("'", "\'")}';"
 
                 login.Timer3.Stop()
                 Await Task.Run(Function() executeNonQuery($"{query2}; {query3}", remoteConnection))

@@ -16,6 +16,11 @@
 
     'Refresh the DataGridView1 for a given event
     Private Async Sub refreshDataGridView(ByVal indexOfEvent As Integer)
+        'Disable ComboBox1 to let the finish refreshing before letting the 
+        'user to pick another event to view. This will avoid double event info
+        'to be displayed in ComboBox1
+        ComboBox1.Enabled = False
+
         ComboBox1.Items.Clear()
 
         DataGridView1.Rows.Clear()
@@ -115,6 +120,8 @@
         If DataGridView1.Rows.Count - 1 >= selectedRow Then
             DataGridView1.Rows(selectedRow).Selected = True
         End If
+
+        ComboBox1.Enabled = True
     End Sub
 
     'Loading the data and putting them into DataGridView1

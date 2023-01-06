@@ -12,7 +12,8 @@ Public Class trackingReportGuestLog
         'Getting the selected guest by the admin from trackingreport form
         Label1.Text = trackingReport.selectedGuest
 
-        Dim query As String = $"SELECT logs FROM guest WHERE name='{trackingReport.selectedGuest}'"
+        Dim query As String = $"SELECT logs FROM guest WHERE name='{trackingReport.selectedGuest}' AND guest_id={trackingReport.guestsID}"
+
         Dim ds As DataSet = Await Task.Run(Function() getData(query))
 
         'While ds Is Nothing

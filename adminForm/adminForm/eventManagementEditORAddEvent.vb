@@ -1,4 +1,5 @@
 ﻿Imports System.Runtime.InteropServices
+Imports System.Text
 Imports MySql.Data.MySqlClient
 Imports Org.BouncyCastle.Tls
 
@@ -67,7 +68,7 @@ Public Class eventManagementEditORAddEvent
         loadDone = True
     End Sub
 
-    Private Async Sub DateTimePicker1_ValueChanged(sender As Object, e As EventArgs) Handles DateTimePicker1.ValueChanged
+    Private Sub DateTimePicker1_ValueChanged(sender As Object, e As EventArgs) Handles DateTimePicker1.ValueChanged
         'Check if selected date is available
         If eventManagement.editOrAddEvent = "edit" And dateChangeCounter = 0 Then
             dateChangeCounter += 1
@@ -112,9 +113,20 @@ Public Class eventManagementEditORAddEvent
 
         loadDone = False
 
+        Dim md5Provider = New System.Security.Cryptography.MD5CryptoServiceProvider()
+        Dim randomNumber As Integer = getRandom(0, TextBox1.Text.Length * 1000)
+        Dim computeHash = System.Text.Encoding.UTF8.GetBytes(randomNumber.ToString())
+        computeHash = md5Provider.ComputeHash(computeHash)
+        Dim stringBuilder = New System.Text.StringBuilder()
+        For Each var As Byte In computeHash
+            stringBuilder.Append(var.ToString("x2").ToLower())
+        Next
+
         'UPDATE Database if the user is only editing
         If eventManagement.editOrAddEvent = "edit" Then
-            Dim query As String = $"UPDATE events SET name='{TextBox1.Text.Replace("'", "\'")}', date='{DateTimePicker1.Value.ToString("MM/dd/yyyy")}', time='{TextBox7.Text}', type='{ComboBox1.Text}', booker='{TextBox3.Text}', ispaid={CheckBox1.Checked} WHERE guests_id={editEventGuestsID}; UPDATE guest SET rfid='{TextBox6.Text}', name='{TextBox3.Text}', address='{TextBox2.Text}', email='{TextBox5.Text}', number='{TextBox4.Text}' WHERE id={selectedBookerID}"
+            'Create and md5 hash for the event
+
+            Dim query As String = $"UPDATE events SET name='{TextBox1.Text.Replace("'", "\'")}', date='{DateTimePicker1.Value.ToString("MM/dd/yyyy")}', time='{TextBox7.Text}', type='{ComboBox1.Text}', booker='{TextBox3.Text}', ispaid={CheckBox1.Checked} WHERE guests_id={editEventGuestsID}; UPDATE guest SET rfid='{TextBox6.Text}', name='{TextBox3.Text}', address='{TextBox2.Text}', email='{TextBox5.Text}', number='{TextBox4.Text}' WHERE id={selectedBookerID}; INSERT INTO temporary_guest_copy(event_name, guest_json) VALUES('{TextBox1.Text.Replace("'", "\'")}', ''); INSERT INTO md5(hash, event_name) VALUES('{stringBuilder.ToString()}', '{TextBox1.Text.Replace("'", "\'")}')"
             Dim querySuccess As Boolean = Await Task.Run(Function() executeNonQuery(query, remoteConnection))
 
             'query = $"UPDATE guest SET rfid='{TextBox6.Text}', name='{TextBox3.Text}', address='{TextBox2.Text}', email='{TextBox5.Text}', number='{TextBox4.Text}', edited=1 WHERE id={selectedBookerID}"
@@ -126,11 +138,13 @@ Public Class eventManagementEditORAddEvent
                 If CheckBox1.Checked And Not beforePaid Then
                     Dim eventName As String = TextBox1.Text.Replace("'", "\'")
                     Dim emailSubject As String = $"Hello {TextBox3.Text}! Thank you for chossing us."
-                    Dim emailBody As String = $"<a href=""https://event-venue.website/guest.php?eventName={eventName}"">Click here</a> to register insert your guests."
+                    Dim emailBody As String = $"<div style='background-color: #252e42; width: 70%; padding: 10px 50px; border-radius: 5px'><center> <h1 style='color: white; background-color: #31394d; padding: 10px; border-radius: 5px'> Event Management Online Booking </h1></center> <p style='color: white; font-size: 18px;'>Dear our beloved guest, </p><p style='color: white; font-size: 14px;'>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p> <br> <br> <center> <a href='https://event-venue.website/guest.php?eventName={stringBuilder.ToString()}' style='text-decoration: none; padding: 10px; background-color: dodgerblue; color: white; border-radius: 5px;' onMouseOver='this.style.background=""blue""' onMouseOut='this.style.background=""dodgerblue""'>CLICK HERE</a> <br> <br> <p style='color: white;'>Have a great day!</p> </center></div>"
                     'Dim emailBody As String = $"You can visit <a href=""event-venue.website/guest.php?eventName={TextBox1.Text.Replace("'", "\'")}"">event-venue.website/guest.php</a> to insert your guest."
 
                     Await Task.Run(Sub() sendEmail(emailSubject, emailBody, "van@event-venue.website", "@Capstone0330", TextBox5.Text, True))
                 End If
+
+                MessageBox.Show("Event updated succesfully!")
 
                 clearAll()
                 eventManagement.editOrAddEvent = ""
@@ -138,6 +152,7 @@ Public Class eventManagementEditORAddEvent
                 dateChangeCounter = 0
                 Me.Close()
             End If
+
             Button1.Enabled = True
             Return
         End If
@@ -148,15 +163,25 @@ Public Class eventManagementEditORAddEvent
 
 
         'INSERT values into Database if the user is adding
-        Dim query1 = $"INSERT INTO events(name, date, time, type, booker, ispaid) VALUES('{TextBox1.Text.Replace("'", "\'")}', '{DateTimePicker1.Value.ToString("MM/dd/yyyy")}', '{TextBox7.Text}', '{ComboBox1.Text}', '{TextBox3.Text}', {CheckBox1.Checked}); INSERT INTO guest(guest_id, rfid, name, address, email, number, type) VALUES({ds.Tables(0).Rows(0)(0)}, '{TextBox6.Text}', '{TextBox3.Text}', '{TextBox2.Text}', '{TextBox5.Text}', '{TextBox4.Text}', 'BOOKER')"
+        Dim query1 = $"INSERT INTO events(name, date, time, type, booker, ispaid) VALUES('{TextBox1.Text.Replace("'", "\'")}', '{DateTimePicker1.Value.ToString("MM/dd/yyyy")}', '{TextBox7.Text}', '{ComboBox1.Text}', '{TextBox3.Text}', {CheckBox1.Checked}); INSERT INTO guest(guest_id, rfid, name, address, email, number, type) VALUES({ds.Tables(0).Rows(0)(0)}, '{TextBox6.Text}', '{TextBox3.Text}', '{TextBox2.Text}', '{TextBox5.Text}', '{TextBox4.Text}', 'BOOKER'); INSERT INTO temporary_guest_copy(event_name, guest_json) VALUES('{TextBox1.Text.Replace("'", "\'")}', ''); INSERT INTO md5(hash, event_name) VALUES('{stringBuilder.ToString()}', '{TextBox1.Text.Replace("'", "\'")}')"
         Dim querySuccess1 As Boolean = Await Task.Run(Function() executeNonQuery(query1, remoteConnection))
 
         'Dim query3 = $"INSERT INTO guest(guest_id, rfid, name, address, email, number, type, edited) VALUES({ds.Tables(0).Rows(0)(0)}, '{TextBox6.Text}', '{TextBox3.Text}', '{TextBox2.Text}', '{TextBox5.Text}', '{TextBox4.Text}', 'BOOKER', 2)"
         'Dim guestSuccess1 As Boolean = executeNonQuery(query3, localConnection)
 
         If querySuccess1 Then
+            Dim eventName As String = TextBox1.Text.Replace("'", "\'")
+            Dim emailSubject As String = $"Hello {TextBox3.Text}! Thank you for chossing us."
+            Dim emailBody As String = $"<div style='background-color: #252e42; width: 70%; padding: 10px 50px; border-radius: 5px'><center> <h1 style='color: white; background-color: #31394d; padding: 10px; border-radius: 5px'> Event Management Online Booking </h1></center> <p style='color: white; font-size: 18px;'>Dear our beloved guest, </p><p style='color: white; font-size: 14px;'>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p> <br> <br> <center> <a href='https://event-venue.website/guest.php?eventName={stringBuilder.ToString()}' style='text-decoration: none; padding: 10px; background-color: dodgerblue; color: white; border-radius: 5px;' onMouseOver='this.style.background=""blue""' onMouseOut='this.style.background=""dodgerblue""'>CLICK HERE</a> <br> <br> <p style='color: white;'>Have a great day!</p> </center></div>"
+            'Dim emailBody As String = $"You can visit <a href=""event-venue.website/guest.php?eventName={TextBox1.Text.Replace("'", "\'")}"">event-venue.website/guest.php</a> to insert your guest."
+
+            Await Task.Run(Sub() sendEmail(emailSubject, emailBody, "van@event-venue.website", "@Capstone0330", TextBox5.Text, True))
+
             clearAll()
+
+            MessageBox.Show("Event added succesfully!")
         End If
+
         Button1.Enabled = True
     End Sub
 
@@ -195,6 +220,11 @@ Public Class eventManagementEditORAddEvent
             CheckBox1.Checked = True
         End If
     End Sub
+
+    Public Function getRandom(ByVal Min As Integer, ByVal Max As Integer) As Integer
+        Static Generator As System.Random = New System.Random()
+        Return Generator.Next(Min, Max)
+    End Function
 
     'Casting Shadow to the Form
     Private Const CS_DROPSHADOW As Integer = 131072

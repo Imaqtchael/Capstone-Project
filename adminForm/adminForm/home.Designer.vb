@@ -46,10 +46,11 @@ Partial Class home
         Me.Button1.Font = New System.Drawing.Font("Poppins", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
         Me.Button1.ForeColor = System.Drawing.Color.DodgerBlue
         Me.Button1.Image = CType(resources.GetObject("Button1.Image"), System.Drawing.Image)
-        Me.Button1.Location = New System.Drawing.Point(109, 65)
+        Me.Button1.Location = New System.Drawing.Point(95, 49)
+        Me.Button1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Button1.Name = "Button1"
-        Me.Button1.Padding = New System.Windows.Forms.Padding(80, 0, 0, 0)
-        Me.Button1.Size = New System.Drawing.Size(343, 64)
+        Me.Button1.Padding = New System.Windows.Forms.Padding(70, 0, 0, 0)
+        Me.Button1.Size = New System.Drawing.Size(300, 48)
         Me.Button1.TabIndex = 0
         Me.Button1.Text = "Tracking Report"
         Me.Button1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
@@ -65,10 +66,11 @@ Partial Class home
         Me.Button2.Font = New System.Drawing.Font("Poppins", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
         Me.Button2.ForeColor = System.Drawing.Color.DodgerBlue
         Me.Button2.Image = CType(resources.GetObject("Button2.Image"), System.Drawing.Image)
-        Me.Button2.Location = New System.Drawing.Point(451, 65)
+        Me.Button2.Location = New System.Drawing.Point(395, 49)
+        Me.Button2.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Button2.Name = "Button2"
-        Me.Button2.Padding = New System.Windows.Forms.Padding(80, 0, 0, 0)
-        Me.Button2.Size = New System.Drawing.Size(343, 64)
+        Me.Button2.Padding = New System.Windows.Forms.Padding(70, 0, 0, 0)
+        Me.Button2.Size = New System.Drawing.Size(300, 48)
         Me.Button2.TabIndex = 0
         Me.Button2.Text = "Guest Management"
         Me.Button2.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
@@ -84,10 +86,11 @@ Partial Class home
         Me.Button3.Font = New System.Drawing.Font("Poppins", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
         Me.Button3.ForeColor = System.Drawing.Color.DodgerBlue
         Me.Button3.Image = CType(resources.GetObject("Button3.Image"), System.Drawing.Image)
-        Me.Button3.Location = New System.Drawing.Point(794, 65)
+        Me.Button3.Location = New System.Drawing.Point(695, 49)
+        Me.Button3.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Button3.Name = "Button3"
-        Me.Button3.Padding = New System.Windows.Forms.Padding(80, 0, 0, 0)
-        Me.Button3.Size = New System.Drawing.Size(343, 64)
+        Me.Button3.Padding = New System.Windows.Forms.Padding(70, 0, 0, 0)
+        Me.Button3.Size = New System.Drawing.Size(300, 48)
         Me.Button3.TabIndex = 0
         Me.Button3.Text = "Event Management"
         Me.Button3.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
@@ -103,10 +106,11 @@ Partial Class home
         Me.Button4.Font = New System.Drawing.Font("Poppins", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
         Me.Button4.ForeColor = System.Drawing.Color.DodgerBlue
         Me.Button4.Image = CType(resources.GetObject("Button4.Image"), System.Drawing.Image)
-        Me.Button4.Location = New System.Drawing.Point(1137, 65)
+        Me.Button4.Location = New System.Drawing.Point(995, 49)
+        Me.Button4.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Button4.Name = "Button4"
-        Me.Button4.Padding = New System.Windows.Forms.Padding(80, 0, 0, 0)
-        Me.Button4.Size = New System.Drawing.Size(343, 64)
+        Me.Button4.Padding = New System.Windows.Forms.Padding(70, 0, 0, 0)
+        Me.Button4.Size = New System.Drawing.Size(300, 48)
         Me.Button4.TabIndex = 0
         Me.Button4.Text = "User Management"
         Me.Button4.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
@@ -120,9 +124,10 @@ Partial Class home
         Me.Button5.Font = New System.Drawing.Font("Poppins", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
         Me.Button5.ForeColor = System.Drawing.Color.White
         Me.Button5.Image = CType(resources.GetObject("Button5.Image"), System.Drawing.Image)
-        Me.Button5.Location = New System.Drawing.Point(6, 4)
+        Me.Button5.Location = New System.Drawing.Point(1353, 3)
+        Me.Button5.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Button5.Name = "Button5"
-        Me.Button5.Size = New System.Drawing.Size(47, 47)
+        Me.Button5.Size = New System.Drawing.Size(41, 35)
         Me.Button5.TabIndex = 0
         Me.Button5.UseVisualStyleBackColor = False
         '
@@ -134,17 +139,19 @@ Partial Class home
         Me.Button6.Font = New System.Drawing.Font("Poppins", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
         Me.Button6.ForeColor = System.Drawing.Color.White
         Me.Button6.Image = CType(resources.GetObject("Button6.Image"), System.Drawing.Image)
-        Me.Button6.Location = New System.Drawing.Point(1550, 4)
+        Me.Button6.Location = New System.Drawing.Point(0, 3)
+        Me.Button6.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Button6.Name = "Button6"
-        Me.Button6.Size = New System.Drawing.Size(47, 47)
+        Me.Button6.Size = New System.Drawing.Size(41, 35)
         Me.Button6.TabIndex = 0
         Me.Button6.UseVisualStyleBackColor = False
         '
         'Panel1
         '
-        Me.Panel1.Location = New System.Drawing.Point(109, 121)
+        Me.Panel1.Location = New System.Drawing.Point(95, 91)
+        Me.Panel1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(1371, 747)
+        Me.Panel1.Size = New System.Drawing.Size(1200, 560)
         Me.Panel1.TabIndex = 1
         '
         'Panel2
@@ -154,8 +161,9 @@ Partial Class home
         Me.Panel2.Controls.Add(Me.Button5)
         Me.Panel2.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel2.Location = New System.Drawing.Point(0, 0)
+        Me.Panel2.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(1600, 53)
+        Me.Panel2.Size = New System.Drawing.Size(1400, 40)
         Me.Panel2.TabIndex = 2
         '
         'Timer1
@@ -165,10 +173,10 @@ Partial Class home
         '
         'home
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 20.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.ClientSize = New System.Drawing.Size(1600, 900)
+        Me.ClientSize = New System.Drawing.Size(1400, 675)
         Me.Controls.Add(Me.Panel2)
         Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.Button4)
@@ -176,6 +184,8 @@ Partial Class home
         Me.Controls.Add(Me.Button2)
         Me.Controls.Add(Me.Button1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
+        Me.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Name = "home"
         Me.Text = "home"
         Me.Panel2.ResumeLayout(False)

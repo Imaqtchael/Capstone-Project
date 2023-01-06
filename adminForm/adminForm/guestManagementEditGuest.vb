@@ -2,9 +2,6 @@
 Imports MySql.Data.MySqlClient
 
 Public Class guestManagementEditGuest
-    Dim query As String = $"SELECT guest_id, name, address, number, email, rfid, id FROM guest WHERE name='{guestManagement.selectedGuestName}' AND guest_id={guestManagement.selectedGuestEventID}"
-    Dim ds As New DataSet()
-
     Dim eventsTable As DataTable
 
     Dim guestID, eventDate As String
@@ -16,8 +13,11 @@ Public Class guestManagementEditGuest
         home.Enabled = False
         Me.TopMost = True
 
+        Dim query As String = $"SELECT guest_id, name, address, number, email, rfid, id FROM guest WHERE name='{guestManagement.selectedGuestName}' AND guest_id={guestManagement.selectedGuestEventID}"
+        Dim ds As New DataSet()
+
         ds = Await Task.Run(Function() getData(query))
-        id = ds.Tables(0).Rows(0)(6)
+        id = guestManagement.selectedGuestEventID
 
         If ds.Tables(0).Rows.Count < 1 Then
             Return
@@ -74,10 +74,12 @@ Public Class guestManagementEditGuest
             Return
         End If
 
-        Dim guestID As DataSet = Await Task.Run(Function() getData($"SELECT guests_id FROM events WHERE name='{ComboBox1.Text}'"))
+        Dim getQuery As String = $"SELECT guests_id FROM events WHERE name='{ComboBox1.Text.Replace("'", "\'")}'"
+        Dim guestID As DataSet = Await Task.Run(Function() getData(getQuery))
 
-        Dim localquery = $"UPDATE guest SET guest_id={guestID.Tables(0).Rows(0)(0)}, rfid='{TextBox7.Text}', name='{TextBox1.Text}', address='{TextBox2.Text}', email='{TextBox4.Text}', number='{TextBox3.Text}' WHERE id={id}"
-        Await Task.Run(Function() executeNonQuery(localquery, remoteConnection))
+        Dim remoteQuery = $"UPDATE guest SET guest_id={guestID.Tables(0).Rows(0)(0)}, rfid='{TextBox7.Text}', name='{TextBox1.Text}', address='{TextBox2.Text}', email='{TextBox4.Text}', number='{TextBox3.Text}' WHERE id={id}"
+        Await Task.Run(Function() executeNonQuery(remoteQuery, remoteConnection))
+
         MessageBox.Show("Guest Information updated successfully!")
 
         home.Enabled = True
