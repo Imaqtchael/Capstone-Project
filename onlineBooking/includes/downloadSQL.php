@@ -1,9 +1,9 @@
 <?php 
     //ENTER THE RELEVANT INFO BELOW
-    $mysqlUserName      = "root";
-    $mysqlPassword      = "";
+    $mysqlUserName      = "u608197321_van_";
+    $mysqlPassword      = "~C3qt^9kZ";
     $mysqlHostName      = "localhost";
-    $DbName             = "real_capstone";
+    $DbName             = "u608197321_real_capstone";
     $backup_name        = "mybackup.sql";
     $tables             = "Your tables";
 

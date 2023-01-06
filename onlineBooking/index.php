@@ -8,7 +8,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Homepage | Nicolas Resort Online Booking</title>
+    <title>Homepage | Event Management Online Booking</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="shortcut icon" href="pictures/Nicolas_Logo.jpg" type="image/x-icon">
     <link rel="stylesheet" href="css/index.css">
@@ -16,7 +16,6 @@
     <script src="https://code.jquery.com/jquery-3.6.1.js"></script>
     <script src="js/index.js"></script>
     <script src="js/jquery.min.js"></script>
-    <script src="js/moment.js"></script>
 </head>
 
 <body>
@@ -24,7 +23,7 @@
         <div class="logo">
             <a href="index.php"><span class="link"></span></a>
             <img src="pictures/Nicolas_Logo.jpg" alt="">
-            <span>Nicolas Resort Online Booking</span>
+            <span>Event Management Online Booking</span>
         </div>
 
         <!--<div class="search">
@@ -49,7 +48,7 @@
     <div class="background" id="vary">
         <center>
             <h1>
-                PUT SOME TEXT HERE SHEEEEEEEEEEEEESH
+                SAVOR THE FINER THINGS IN LIFE AT OUR RESORT
             </h1>
         </center>
         <div class="slides">
@@ -194,7 +193,7 @@
                                         <select name="type" id="course" required>
                                             <option hidden disabled selected value>-- Type of Event --</option>
                                             <option value="WEDDING">Wedding</option>
-                                            <option value="DEBUT">Debut</option>
+                                            <option value="VIP MEETING">VIP MEETING</option>
                                             <option value="BIRTHDAY">Birthday</option>
                                         </select>
                                     </center>
@@ -215,7 +214,7 @@
     <div class="check-text">
         <center>
             <p style="font-size: 25px; font-weight: 500;">We also accept walk-ins!</p>
-            <p style="font-size: 16px;">Come and visit our store so we can check your device, it's always
+            <p style="font-size: 16px;">Come and visit our store, it's always
                 <strong>free!</strong>
             </p>
         </center>
@@ -236,7 +235,7 @@
                 <span style="font-size: 18px;">CONTACT US</span>
                 <p><i class="fa fa-comments"></i> (+63) 9366296799</p>
                 <p><a href="https://www.imaqtchael@gmail.com" style="text-decoration: none; color: white;"><i
-                            class="fa fa-envelope"></i> nicolasresort@gmail.com</a></p>
+                            class="fa fa-envelope"></i> event_management@gmail.com</a></p>
                 <p><i class="fa fa-home"></i> Nicolas Resort Building, Phase 1a Sub-Urban Village Brgy. San Jose,
                     Rodriguez, Rizal, Philippines</p>
             </div>

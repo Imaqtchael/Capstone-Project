@@ -394,7 +394,7 @@ body {
 
 .search-events,
 .book-events {
-    height: 500px;
+    min-height: 100px;
     width: 85%;
     border-radius: 5px;
     display: flex;

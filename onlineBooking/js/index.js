@@ -7,7 +7,7 @@ $(document).ready(function() {
             counter = 1;
         }
     }, 5000);
-
+    /*
     jQuery.ajax({
         type: "POST",
         url: 'https://event-venue.website/includes/functions.php',
@@ -23,7 +23,7 @@ $(document).ready(function() {
                 window.location.href = "https://event-venue.website/redirect.php";
             }
         }
-    });
+    });*/
 
     jQuery.ajax({
         type: "POST",
@@ -43,8 +43,7 @@ $(document).ready(function() {
             }
 
             var dateNow = new Date();
-            var maxDate = String(parseInt(dateNow.getFullYear(), 10) + 1) + '/' + String(dateNow.getMonth() ).padStart(2, '0') + '/' + String(dateNow.getDate()).padStart(2, '0')
-
+            var maxDate = String(dateNow.getFullYear() + 1) + '/' + String(dateNow.getMonth() + 1).padStart(2, '0') + '/' + String(dateNow.getDate()).padStart(2, '0');
 
             $('#datetimepicker').datetimepicker({
                 minDate: 0,

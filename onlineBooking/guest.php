@@ -1,17 +1,15 @@
 <?php
     include_once "includes/functions.php";
 
-    if (isset($_COOKIE['eventName'])) {
-        $isPaid = checkIfPaid($_COOKIE['eventName'], "php");
-
-        if (!$isPaid == true) {
-            echo "<script>window.stop()</script>";
+    if (isset($_GET['eventName'])){
+        $isRegistered = eventRegistered( $_GET['eventName']);
+        //$event_name = str_replace("'", "\'", $_GET['eventName']);
+        setcookie('eventName', $_GET['eventName'], time() + (86400 * 3), "/");
+        if ($isRegistered == 1) {
+            echo "<script>alert('You already have submitted the guests for this event!')</script>";
+            echo "<script>window.location.href='https://event-venue.website/index.php'</script>";
         }
-    } else {
-        echo "<script>window.stop()</script>";
     }
-    
-
 ?>
 
 <!DOCTYPE html>
@@ -21,7 +19,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Guests | Nicolas Resort Online Booking</title>
+    <title>Add Guests | Event Management Online Booking</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="shortcut icon" href="pictures/Nicolas_Logo.jpg" type="image/x-icon">
     <link rel="stylesheet" href="css/guest.css">
@@ -35,7 +33,7 @@
         <div class="logo">
             <a href="index.php"><span class="link"></span></a>
             <img src="pictures/Nicolas_Logo.jpg" alt="">
-            <span>Nicolas Resort Online Booking</span>
+            <span>Event Management Online Booking</span>
         </div>
 
     </div>
@@ -101,7 +99,7 @@
                         <input type="radio" name="radio-btn" id="radio3">
                         <input type="radio" name="radio-btn" id="radio4">
                         <div class="slide first">
-                            <img src="pictures/index/basketball.jpg" alt="">
+                            <img src="pictures/index/christening.jpg" alt="">
                         </div>
                         <div class="slide">
                             <img src="pictures/index/birthday.jpg" alt="">
@@ -178,7 +176,7 @@
                 <span style="font-size: 18px;">CONTACT US</span>
                 <p><i class="fa fa-comments"></i> (+63) 9366296799</p>
                 <p><a href="https://www.imaqtchael@gmail.com" style="text-decoration: none; color: white;"><i
-                            class="fa fa-envelope"></i> nicolasresort@gmail.com</a></p>
+                            class="fa fa-envelope"></i> event_management@gmail.com</a></p>
                 <p><i class="fa fa-home"></i> Nicolas Resort Building, Phase 1a Sub-Urban Village Brgy. San Jose, Rodriguez, Rizal, Philippines</p>
             </div>
             <div class="follow">

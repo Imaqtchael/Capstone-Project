@@ -1,5 +1,6 @@
 var hasAdded = false;
 
+//Make all the table editable
 function ReEditTable() {
     //adding the editable table function
     var table = document.getElementById("events");
@@ -31,11 +32,13 @@ function ReEditTable() {
 
                 if (orig_text != current_text) {
                     //here you can add the data to the database
-
                     td.removeAttribute('data-clicked');
                     td.removeAttribute('data-text');
                     td.innerHTML = current_text;
                     td.style.cssText = 'padding: 12px 15px';
+                    var json = JSON.stringify(TableToJSON(document.getElementById("events")));
+
+                    DownloadJSON(json);
                 } else {
                     td.removeAttribute('data-clicked');
                     td.removeAttribute('data-text');
@@ -58,6 +61,7 @@ function ReEditTable() {
     }
 }
 
+//Convert the table values into JSON format
 function TableToJSON(table) {
     var data = [];
 
@@ -86,10 +90,15 @@ function TableToJSON(table) {
     return data;
 }
 
+//Put the JSON to the database
 function DownloadJSON(exportObj) {
     //var data_str = "data:text/json;charset=utf-8," + encodeURIComponent(exportObj);
-
-    localStorage.setItem('backup.json', exportObj);
+    jQuery.ajax({
+        type: "POST",
+        url: 'https://event-venue.website/includes/functions.php',
+        data: { functionname: 'insertTempData', arguments: exportObj }
+    });
+    //localStorage.setItem('backup.json', exportObj);
     //var downloadAnchorNode = document.createElement('a');
 
     //downloadAnchorNode.setAttribute("href", data_str);
@@ -101,20 +110,36 @@ function DownloadJSON(exportObj) {
     //downloadAnchorNode.remove();
 }
 
+
 function CheckForPreviousEntry() {
-    //localStorage.clear();
-    var backup = localStorage.getItem('backup.json');
+    //var backup = localStorage.getItem('backup.json');
 
-    console.log(JSON.parse(backup));
+    jQuery.ajax({
+        type: "POST",
+        url: 'https://event-venue.website/includes/functions.php',
+        dataType: 'json',
+        data: { functionname: 'getTempData' },
 
-    if (backup != null && Object.keys(JSON.parse(backup)).length > 0) {
-        JSONToTable(JSON.parse(backup));
-        //ReEditTable();
-    } else {
-        return false;
-    }
+        success: function(obj) {
+            if (obj.result != null && Object.keys(JSON.parse(obj.result)).length > 0) {
+
+                JSONToTable(JSON.parse(obj.result));
+                ReEditTable();
+            } else {
+                return false;
+            }
+        }
+    });
+
+    //if (backup != null && Object.keys(JSON.parse(backup)).length > 0) {
+    //    JSONToTable(JSON.parse(backup));
+    //ReEditTable();
+    //} else {
+    //    return false;
+    //}
 }
 
+//Convert JSON into table values
 function JSONToTable(json) {
     json.forEach(function(obj) {
         $("#events tbody").append("<tr class='row'><td>" + obj.name + "</td><td>" + obj.address + "</td><td>" + obj.email + "</td><td>" + obj.number + "</td><td isButton='delete'><input class='delete-btn' type='submit' value='DELETE'></input></td></tr>");
@@ -137,6 +162,8 @@ $(document).ready(function() {
             document.getElementById('submit-btn').style.cssText = 'display: none;'
             hasAdded = false;
         }
+
+        ReEditTable();
 
         var json = JSON.stringify(TableToJSON(document.getElementById("events")));
 
@@ -194,11 +221,16 @@ $(document).ready(function() {
             type: "POST",
             url: 'https://event-venue.website/includes/functions.php',
             dataType: 'text',
-            data: { functionname: 'insertData', arguments: localStorage.getItem('backup.json') },
+            data: { functionname: 'insertData' },
 
             success: function(obj, textstatus) {
                 if (obj == "Guest submission success!") {
-                    localStorage.removeItem('backup.json');
+                    jQuery.ajax({
+                        type: "POST",
+                        url: 'https://event-venue.website/includes/functions.php',
+                        dataType: 'text',
+                        data: { functionname: 'removeTempData' }
+                    });
                     window.location.href = "https://event-venue.website/index.php";
                 }
                 alert(obj);

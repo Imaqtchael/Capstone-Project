@@ -1,60 +1,83 @@
 <?php
-    if (isset($_POST['book'])) {
-        # Check if the user is reloading the page
-        $connection = new mysqli("191.101.230.103", "u608197321_van_", "~C3qt^9kZ", "u608197321_real_capstone");
+use PHPMailer\PHPMailer\PHPMailer;
 
-        if ($connection -> connect_errno) {
-            echo "<script>alert('Network error')</script>";
-            exit();
-        }
+require_once "PHPMailer/PHPMailer.php";
+require_once "PHPMailer/SMTP.php";
+require_once "PHPMailer/Exception.php";
 
-        $replacedEventName = str_replace("'", "\'", $_POST['event_name']);
+if (isset($_POST['book'])) {
+    # Check if the user is reloading the page
+    $connection = new mysqli("localhost", "u608197321_van_", "~C3qt^9kZ", "u608197321_real_capstone");
+    #$connection = new mysqli("localhost", "root", "", "local_copy");
 
-        setcookie('eventName', $replacedEventName, time() + (86400 * 3), "/");
+    if ($connection->connect_errno) {
+        echo "<script>alert('Network error')</script>";
+        exit();
+    }
 
-        $sql = "SELECT ispaid FROM events WHERE name='{$replacedEventName}'";
-        $result = $connection->query($sql);
-        $result = $result->fetch_array(MYSQLI_NUM);
+    $event_name = str_replace("'", "\'", $_POST['event_name']);
 
-        $isPaid = $result;
+    setcookie('eventName', $event_name, time() + (86400 * 3), "/");
 
-        if ($isPaid == 1) {
-            return;
-        }
+    $sql = "SELECT ispaid FROM events WHERE name='{$event_name}'";
+    $result = $connection->query($sql);
 
-        #might wanna destroy these as the one you just want to be saved is the name
-        #of the event. that in itself is enough to enter the data to the database.
+    #might wanna destroy these as the one you just want to be saved is the name
+    #of the event. that in itself is enough to enter the data to the database.
 
-        #check for empty middle name 
+    #check for empty middle name 
+
+    if (!$result->num_rows > 0) {
+
         $name = "";
         if ($_POST['mname'] == "") {
             $name = "{$_POST['fname']} {$_POST['lname']}";
         } else {
             $name = "{$_POST['fname']} {$_POST['lname']} {$_POST['mname']}";
         }
-        
+
         $address = $_POST['address'];
         $email = $_POST['email'];
         $number = $_POST['no'];
         $eventType = $_POST['type'];
-        
+
         $dateTime = explode(" ", $_POST['date_time']);
         $date = date("m/d/Y", strtotime($_POST['date_time']));
-        
+
         $time = date("g:i A", strtotime($_POST['date_time']));
 
-        $sql = "INSERT INTO events (name, date, time, type, booker) VALUES ('{$replacedEventName}', '$date', '$time', '$eventType', '$name')";
+        $sql = "INSERT INTO events (name, date, time, type, booker) VALUES ('{$event_name}', '$date', '$time', '$eventType', '$name')";
         $result = $connection->query($sql);
 
-        $sql = "SELECT guests_id FROM events WHERE name='{$replacedEventName}'";
+        $sql = "SELECT guests_id FROM events WHERE name='{$event_name}'";
         $result = $connection->query($sql);
         $result = $result->fetch_array(MYSQLI_NUM);
 
         $guests_id = $result[0];
 
-        $sql = "INSERT INTO guest (guest_id, name, address, email, number, type) VALUES ($guests_id, '$name', '$address', '$email', '$number', 'BOOKER')";
-        $result = $connection->query($sql);
+        $sql = "INSERT INTO guest (guest_id, rfid, name, address, email, number, type) VALUES ($guests_id, '', '$name', '$address', '$email', '$number', 'BOOKER'); INSERT INTO temporary_guest_copy (event_name, guest_json) VALUES ('{$event_name}', '')";
+        $result = $connection->multi_query($sql);
+    
+        $mail = new PHPMailer();
+        $mail->isSMTP();
+        $mail->Host = "smtp.hostinger.com";
+        $mail->SMTPAuth = true;
+        $mail->Username = "van@event-venue.website";
+        $mail->Password = "@Capstone0330";
+        $mail->Port = 465;
+        $mail->SMTPSecure = "ssl";
+
+        //Recipients
+        $mail->isHTML(true);
+        $mail->setFrom("van@event-venue.website", "van");
+        $mail->addAddress($email);
+
+        //Set email format to HTML
+        $mail->Subject = 'no reply';
+        $mail->Body = "<div style='width: 70%; padding: 10px'><center> <h1 style='color: white; background-color: #31394d; padding: 10px; border-radius: 5px'> Event Management Online Booking </h1> <p style='color: black; font-size: 14px'>Hello our beloved guest! We are expecting your payment for you booked event, here is our bank accounts. Thank you for choosing us!</p><img src='https://event-venue.website/pictures/email/bankAccounts.png' style='size: 100%'></center></div>";
+        $mail->send();
     }
+}
 ?>
 
 <!DOCTYPE html>
@@ -78,7 +101,7 @@
         <div class="logo">
             <a href="index.php"><span class="link"></span></a>
             <img src="pictures/Nicolas_Logo.jpg" alt="">
-            <span>Nicolas Resort Online Booking</span>
+            <span>Event Management Online Booking</span>
         </div>
 
     </div>
@@ -90,11 +113,11 @@
     <div class="center">
         <div class="search-text">
             Waiting for your payment
-        <span></span>
-        <span></span>
-        <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
         </div>
-        
+
     </div>
 
     <div class="center-search">
@@ -111,16 +134,17 @@
                 <div class="event-form">
                     <div id="freshmen" class="container">
                         <form method="post" enctype="multipart/form-data" action="redirect.php">
+                            <br>
                             <div class="user-details">
 
                                 <div class="input-box">
-                                    <span class="details">Number</span>
-                                    <input type="text" name="fname" placeholder="Enter your first name" readonly>
+                                    <span class="details">Account Number</span>
+                                    <input type="text" name="fname" placeholder="09XX-XXX-XXXX" readonly>
                                 </div>
 
                                 <div class="input-box">
-                                    <span class="details">Name</span>
-                                    <input type="text" name="lname" placeholder="Enter your last name" readonly>
+                                    <span class="details">Account Name</span>
+                                    <input type="text" name="lname" placeholder="Juan Dela Cruz" readonly>
                                 </div>
                             </div>
                         </form>
@@ -146,33 +170,13 @@
                             <div class="user-details">
 
                                 <div class="input-box">
-                                    <span class="details">Number</span>
-                                    <input type="text" name="fname" placeholder="Enter your first name" readonly>
+                                    <span class="details">Account Number</span>
+                                    <input type="text" name="fname" placeholder="09XX-XXX-XXXX" readonly>
                                 </div>
 
                                 <div class="input-box">
-                                    <span class="details">Name</span>
-                                    <input type="text" name="lname" placeholder="Enter your last name" readonly>
-                                </div>
-
-                                <div class="input-box">
-                                    <span class="details">Middle Name [Leave blank if n/a]</span>
-                                    <input type="text" name="mname" placeholder="Enter your middle name">
-                                </div>
-
-                                <div class="input-box">
-                                    <span class="details">E-Mail</span>
-                                    <input type="text" name="email" placeholder="Enter your email" readonly>
-                                </div>
-
-                                <div class="input-box">
-                                    <span class="details">Number</span>
-                                    <input type="text" name="no" placeholder="Enter your number" readonly>
-                                </div>
-
-                                <div class="input-box">
-                                    <span class="details">Address</span>
-                                    <input type="input" name="address" placeholder="Enter your address" readonly>
+                                    <span class="details">Account Name</span>
+                                    <input type="text" name="lname" placeholder="Juan Dela Cruz" readonly>
                                 </div>
                             </div>
                         </form>
@@ -194,39 +198,22 @@
                 </div>
                 <div class="event-form">
                     <div id="freshmen" class="container">
+                        <br>
                         <form method="post" enctype="multipart/form-data" action="redirect.php">
+
                             <div class="user-details">
 
                                 <div class="input-box">
-                                    <span class="details">Number</span>
-                                    <input type="text" name="fname" placeholder="Enter your first name" readonly>
+                                    <span class="details">Account Number</span>
+                                    <input type="text" name="fname" placeholder="XXXX-XXXX-XXXX" readonly>
                                 </div>
 
                                 <div class="input-box">
-                                    <span class="details">Name</span>
-                                    <input type="text" name="lname" placeholder="Enter your last name" readonly>
-                                </div>
-
-                                <div class="input-box">
-                                    <span class="details">Middle Name [Leave blank if n/a]</span>
-                                    <input type="text" name="mname" placeholder="Enter your middle name">
-                                </div>
-
-                                <div class="input-box">
-                                    <span class="details">E-Mail</span>
-                                    <input type="text" name="email" placeholder="Enter your email" readonly>
-                                </div>
-
-                                <div class="input-box">
-                                    <span class="details">Number</span>
-                                    <input type="text" name="no" placeholder="Enter your number" readonly>
-                                </div>
-
-                                <div class="input-box">
-                                    <span class="details">Address</span>
-                                    <input type="input" name="address" placeholder="Enter your address" readonly>
+                                    <span class="details">Account Name</span>
+                                    <input type="text" name="lname" placeholder="Juan Dela Cruz" readonly>
                                 </div>
                             </div>
+
                         </form>
                     </div>
                 </div>
@@ -246,39 +233,21 @@
                 </div>
                 <div class="event-form">
                     <div id="freshmen" class="container">
+                        <br>
                         <form method="post" enctype="multipart/form-data" action="redirect.php">
                             <div class="user-details">
 
                                 <div class="input-box">
-                                    <span class="details">Number</span>
-                                    <input type="text" name="fname" placeholder="Enter your first name" readonly>
+                                    <span class="details">Account Number</span>
+                                    <input type="text" name="fname" placeholder="XXXX-XXXX-XXXX" readonly>
                                 </div>
 
                                 <div class="input-box">
-                                    <span class="details">Name</span>
-                                    <input type="text" name="lname" placeholder="Enter your last name" readonly>
-                                </div>
-
-                                <div class="input-box">
-                                    <span class="details">Middle Name [Leave blank if n/a]</span>
-                                    <input type="text" name="mname" placeholder="Enter your middle name">
-                                </div>
-
-                                <div class="input-box">
-                                    <span class="details">E-Mail</span>
-                                    <input type="text" name="email" placeholder="Enter your email" readonly>
-                                </div>
-
-                                <div class="input-box">
-                                    <span class="details">Number</span>
-                                    <input type="text" name="no" placeholder="Enter your number" readonly>
-                                </div>
-
-                                <div class="input-box">
-                                    <span class="details">Address</span>
-                                    <input type="input" name="address" placeholder="Enter your address" readonly>
+                                    <span class="details">Account Name</span>
+                                    <input type="text" name="lname" placeholder="Juan Dela Cruz" readonly>
                                 </div>
                             </div>
+
                         </form>
                     </div>
                 </div>
@@ -299,7 +268,7 @@
                 <span style="font-size: 18px;">CONTACT US</span>
                 <p><i class="fa fa-comments"></i> (+63) 9366296799</p>
                 <p><a href="https://www.imaqtchael@gmail.com" style="text-decoration: none; color: white;"><i
-                            class="fa fa-envelope"></i> nicolasresort@gmail.com</a></p>
+                            class="fa fa-envelope"></i> event_managemet@gmail.com</a></p>
                 <p><i class="fa fa-home"></i> Nicolas Resort Building, Phase 1a Sub-Urban Village Brgy. San Jose,
                     Rodriguez, Rizal, Philippines</p>
             </div>

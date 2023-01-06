@@ -89,9 +89,9 @@ $(document).ready(function() {
             dataType: 'json',
             data: { functionname: "checkIfPaid", arguments: 'js' },
 
-            success: function(obj, textstatus) {
+            success: function(obj) {
                 if (obj.result == "true") {
-                    window.location.href = "https://event-venue.website/guest.php";
+                    window.location.href = "https://event-venue.website/guest.php?eventName=" + obj.name;
                 }
             }
         });
