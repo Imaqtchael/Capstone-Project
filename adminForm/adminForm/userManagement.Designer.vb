@@ -24,11 +24,11 @@ Partial Class userManagement
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(userManagement))
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.Panel1 = New System.Windows.Forms.Panel()
-        Me.Button2 = New System.Windows.Forms.Button()
+        Me.AddUserButton = New System.Windows.Forms.Button()
         Me.Panel4 = New System.Windows.Forms.Panel()
-        Me.DataGridView1 = New System.Windows.Forms.DataGridView()
+        Me.UsersDataGridView = New System.Windows.Forms.DataGridView()
         Me.Label11 = New System.Windows.Forms.Label()
         Me.Label10 = New System.Windows.Forms.Label()
         Me.Label9 = New System.Windows.Forms.Label()
@@ -36,38 +36,38 @@ Partial Class userManagement
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.Panel1.SuspendLayout()
         Me.Panel4.SuspendLayout()
-        CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.UsersDataGridView, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'Panel1
         '
         Me.Panel1.BackColor = System.Drawing.Color.White
-        Me.Panel1.Controls.Add(Me.Button2)
+        Me.Panel1.Controls.Add(Me.AddUserButton)
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel1.Location = New System.Drawing.Point(0, 0)
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(1371, 80)
         Me.Panel1.TabIndex = 7
         '
-        'Button2
+        'AddUserButton
         '
-        Me.Button2.BackColor = System.Drawing.Color.BlueViolet
-        Me.Button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Button2.ForeColor = System.Drawing.Color.White
-        Me.Button2.Image = CType(resources.GetObject("Button2.Image"), System.Drawing.Image)
-        Me.Button2.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.Button2.Location = New System.Drawing.Point(1198, 13)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Padding = New System.Windows.Forms.Padding(8, 0, 0, 0)
-        Me.Button2.Size = New System.Drawing.Size(160, 53)
-        Me.Button2.TabIndex = 5
-        Me.Button2.Text = "ADD USER"
-        Me.Button2.UseVisualStyleBackColor = False
+        Me.AddUserButton.BackColor = System.Drawing.Color.BlueViolet
+        Me.AddUserButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.AddUserButton.ForeColor = System.Drawing.Color.White
+        Me.AddUserButton.Image = CType(resources.GetObject("AddUserButton.Image"), System.Drawing.Image)
+        Me.AddUserButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.AddUserButton.Location = New System.Drawing.Point(1198, 13)
+        Me.AddUserButton.Name = "AddUserButton"
+        Me.AddUserButton.Padding = New System.Windows.Forms.Padding(8, 0, 0, 0)
+        Me.AddUserButton.Size = New System.Drawing.Size(160, 53)
+        Me.AddUserButton.TabIndex = 5
+        Me.AddUserButton.Text = "ADD USER"
+        Me.AddUserButton.UseVisualStyleBackColor = False
         '
         'Panel4
         '
         Me.Panel4.BackColor = System.Drawing.Color.White
-        Me.Panel4.Controls.Add(Me.DataGridView1)
+        Me.Panel4.Controls.Add(Me.UsersDataGridView)
         Me.Panel4.Controls.Add(Me.Label11)
         Me.Panel4.Controls.Add(Me.Label10)
         Me.Panel4.Controls.Add(Me.Label9)
@@ -79,39 +79,39 @@ Partial Class userManagement
         Me.Panel4.Size = New System.Drawing.Size(1371, 641)
         Me.Panel4.TabIndex = 8
         '
-        'DataGridView1
+        'UsersDataGridView
         '
-        Me.DataGridView1.AllowUserToAddRows = False
-        Me.DataGridView1.AllowUserToDeleteRows = False
-        Me.DataGridView1.AllowUserToResizeColumns = False
-        Me.DataGridView1.AllowUserToResizeRows = False
-        Me.DataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
-        Me.DataGridView1.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells
-        Me.DataGridView1.BackgroundColor = System.Drawing.Color.White
-        Me.DataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.DataGridView1.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None
-        Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DataGridView1.ColumnHeadersVisible = False
-        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopLeft
-        DataGridViewCellStyle1.BackColor = System.Drawing.Color.LightGray
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("Poppins", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle1.Padding = New System.Windows.Forms.Padding(5, 0, 0, 0)
-        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.SkyBlue
-        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.DataGridView1.DefaultCellStyle = DataGridViewCellStyle1
-        Me.DataGridView1.Location = New System.Drawing.Point(14, 69)
-        Me.DataGridView1.MultiSelect = False
-        Me.DataGridView1.Name = "DataGridView1"
-        Me.DataGridView1.ReadOnly = True
-        Me.DataGridView1.RowHeadersVisible = False
-        Me.DataGridView1.RowHeadersWidth = 51
-        Me.DataGridView1.RowTemplate.DividerHeight = 1
-        Me.DataGridView1.RowTemplate.Height = 29
-        Me.DataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.DataGridView1.Size = New System.Drawing.Size(1344, 557)
-        Me.DataGridView1.TabIndex = 3
+        Me.UsersDataGridView.AllowUserToAddRows = False
+        Me.UsersDataGridView.AllowUserToDeleteRows = False
+        Me.UsersDataGridView.AllowUserToResizeColumns = False
+        Me.UsersDataGridView.AllowUserToResizeRows = False
+        Me.UsersDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
+        Me.UsersDataGridView.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells
+        Me.UsersDataGridView.BackgroundColor = System.Drawing.Color.White
+        Me.UsersDataGridView.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.UsersDataGridView.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None
+        Me.UsersDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.UsersDataGridView.ColumnHeadersVisible = False
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopLeft
+        DataGridViewCellStyle2.BackColor = System.Drawing.Color.LightGray
+        DataGridViewCellStyle2.Font = New System.Drawing.Font("Poppins", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
+        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle2.Padding = New System.Windows.Forms.Padding(5, 0, 0, 0)
+        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.SkyBlue
+        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.UsersDataGridView.DefaultCellStyle = DataGridViewCellStyle2
+        Me.UsersDataGridView.Location = New System.Drawing.Point(14, 69)
+        Me.UsersDataGridView.MultiSelect = False
+        Me.UsersDataGridView.Name = "UsersDataGridView"
+        Me.UsersDataGridView.ReadOnly = True
+        Me.UsersDataGridView.RowHeadersVisible = False
+        Me.UsersDataGridView.RowHeadersWidth = 51
+        Me.UsersDataGridView.RowTemplate.DividerHeight = 1
+        Me.UsersDataGridView.RowTemplate.Height = 29
+        Me.UsersDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.UsersDataGridView.Size = New System.Drawing.Size(1344, 557)
+        Me.UsersDataGridView.TabIndex = 3
         '
         'Label11
         '
@@ -171,15 +171,15 @@ Partial Class userManagement
         Me.Panel1.ResumeLayout(False)
         Me.Panel4.ResumeLayout(False)
         Me.Panel4.PerformLayout()
-        CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.UsersDataGridView, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
 
     Friend WithEvents Panel1 As Panel
-    Friend WithEvents Button2 As Button
+    Friend WithEvents AddUserButton As Button
     Friend WithEvents Panel4 As Panel
-    Friend WithEvents DataGridView1 As DataGridView
+    Friend WithEvents UsersDataGridView As DataGridView
     Friend WithEvents Label11 As Label
     Friend WithEvents Label10 As Label
     Friend WithEvents Label9 As Label

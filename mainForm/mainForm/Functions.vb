@@ -40,28 +40,22 @@ Module Functions
     End Function
 
     Public Function getData(ByVal query As String) As DataSet
-        Dim executed = False
-        While Not executed
-            Try
-                Dim newConnection As MySqlConnection
-                Dim dataSet As New DataSet()
+        Try
+            Dim newConnection As MySqlConnection
+            Dim dataSet As New DataSet()
 
-                If remoteConnection.State = ConnectionState.Closed Then
-                    newConnection = remoteConnection.Clone()
-                    Dim adapter As New MySqlDataAdapter(query, newConnection)
-                    adapter.Fill(dataSet)
-                Else
-                    Dim adapter As New MySqlDataAdapter(query, remoteConnection)
-                    adapter.Fill(dataSet)
-                End If
+            If remoteConnection.State = ConnectionState.Open Then
+                newConnection = remoteConnection.Clone()
+                Dim adapter As New MySqlDataAdapter(query, newConnection)
+                adapter.Fill(dataSet)
+            Else
+                Dim adapter As New MySqlDataAdapter(query, remoteConnection)
+                adapter.Fill(dataSet)
+            End If
 
-                executed = True
-                Return dataSet
-            Catch ex As Exception
-                MessageBox.Show(ex.Message())
-            End Try
-
-        End While
-
+            Return dataSet
+        Catch ex As Exception
+            MessageBox.Show(ex.Message())
+        End Try
     End Function
 End Module

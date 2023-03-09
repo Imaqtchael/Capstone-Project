@@ -25,21 +25,21 @@ Partial Class Form1
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Form1))
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
+        Me.WelcomeTimer = New System.Windows.Forms.Timer(Me.components)
         Me.ImageList1 = New System.Windows.Forms.ImageList(Me.components)
-        Me.Label2 = New System.Windows.Forms.Label()
-        Me.Timer2 = New System.Windows.Forms.Timer(Me.components)
+        Me.WelcomeLabel = New System.Windows.Forms.Label()
+        Me.RefreshTimer = New System.Windows.Forms.Timer(Me.components)
         Me.Panel1 = New System.Windows.Forms.Panel()
-        Me.Label5 = New System.Windows.Forms.Label()
-        Me.Label4 = New System.Windows.Forms.Label()
-        Me.Label3 = New System.Windows.Forms.Label()
+        Me.EventIntroLabel = New System.Windows.Forms.Label()
+        Me.DateLabel = New System.Windows.Forms.Label()
+        Me.EventLabel = New System.Windows.Forms.Label()
         Me.Panel2 = New System.Windows.Forms.Panel()
         Me.Panel3 = New System.Windows.Forms.Panel()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.Label8 = New System.Windows.Forms.Label()
-        Me.Button1 = New System.Windows.Forms.Button()
-        Me.Button5 = New System.Windows.Forms.Button()
+        Me.SettingsButton = New System.Windows.Forms.Button()
+        Me.CloseButton = New System.Windows.Forms.Button()
         Me.Panel1.SuspendLayout()
         Me.Panel3.SuspendLayout()
         Me.SuspendLayout()
@@ -52,16 +52,16 @@ Partial Class Form1
         Me.Label1.BackColor = System.Drawing.Color.Transparent
         Me.Label1.Font = New System.Drawing.Font("Cooper Black", 72.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
         Me.Label1.ForeColor = System.Drawing.Color.Black
-        Me.Label1.Location = New System.Drawing.Point(3, 94)
+        Me.Label1.Location = New System.Drawing.Point(3, 125)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(701, 118)
+        Me.Label1.Size = New System.Drawing.Size(801, 157)
         Me.Label1.TabIndex = 0
         Me.Label1.Text = "WELCOME"
         Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
-        'Timer1
+        'WelcomeTimer
         '
-        Me.Timer1.Interval = 10
+        Me.WelcomeTimer.Interval = 10
         '
         'ImageList1
         '
@@ -69,79 +69,77 @@ Partial Class Form1
         Me.ImageList1.ImageSize = New System.Drawing.Size(16, 16)
         Me.ImageList1.TransparentColor = System.Drawing.Color.Transparent
         '
-        'Label2
+        'WelcomeLabel
         '
-        Me.Label2.AllowDrop = True
-        Me.Label2.BackColor = System.Drawing.Color.Transparent
-        Me.Label2.Font = New System.Drawing.Font("Poppins", 25.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-        Me.Label2.ForeColor = System.Drawing.Color.White
-        Me.Label2.Location = New System.Drawing.Point(721, 360)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(409, 154)
-        Me.Label2.TabIndex = 1
-        Me.Label2.Text = ":TEXT2:"
-        Me.Label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.WelcomeLabel.AllowDrop = True
+        Me.WelcomeLabel.BackColor = System.Drawing.Color.Transparent
+        Me.WelcomeLabel.Font = New System.Drawing.Font("Poppins", 25.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
+        Me.WelcomeLabel.ForeColor = System.Drawing.Color.White
+        Me.WelcomeLabel.Location = New System.Drawing.Point(824, 480)
+        Me.WelcomeLabel.Name = "WelcomeLabel"
+        Me.WelcomeLabel.Size = New System.Drawing.Size(467, 258)
+        Me.WelcomeLabel.TabIndex = 1
+        Me.WelcomeLabel.Text = ":TEXT2:"
+        Me.WelcomeLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
-        'Timer2
+        'RefreshTimer
         '
-        Me.Timer2.Interval = 10000
+        Me.RefreshTimer.Interval = 10000
         '
         'Panel1
         '
         Me.Panel1.BackgroundImage = CType(resources.GetObject("Panel1.BackgroundImage"), System.Drawing.Image)
         Me.Panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
         Me.Panel1.Controls.Add(Me.Label1)
-        Me.Panel1.Controls.Add(Me.Label5)
-        Me.Panel1.Controls.Add(Me.Label4)
-        Me.Panel1.Controls.Add(Me.Label3)
+        Me.Panel1.Controls.Add(Me.EventIntroLabel)
+        Me.Panel1.Controls.Add(Me.DateLabel)
+        Me.Panel1.Controls.Add(Me.EventLabel)
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Left
         Me.Panel1.Location = New System.Drawing.Point(0, 0)
-        Me.Panel1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(706, 601)
+        Me.Panel1.Size = New System.Drawing.Size(807, 801)
         Me.Panel1.TabIndex = 2
         '
-        'Label5
+        'EventIntroLabel
         '
-        Me.Label5.BackColor = System.Drawing.Color.Transparent
-        Me.Label5.Font = New System.Drawing.Font("Poppins", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-        Me.Label5.Location = New System.Drawing.Point(8, 230)
-        Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(690, 50)
-        Me.Label5.TabIndex = 1
-        Me.Label5.Text = ":EVENTTEXT:"
-        Me.Label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.EventIntroLabel.BackColor = System.Drawing.Color.Transparent
+        Me.EventIntroLabel.Font = New System.Drawing.Font("Poppins", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
+        Me.EventIntroLabel.Location = New System.Drawing.Point(9, 307)
+        Me.EventIntroLabel.Name = "EventIntroLabel"
+        Me.EventIntroLabel.Size = New System.Drawing.Size(789, 67)
+        Me.EventIntroLabel.TabIndex = 1
+        Me.EventIntroLabel.Text = ":EVENTTEXT:"
+        Me.EventIntroLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
-        'Label4
+        'DateLabel
         '
-        Me.Label4.BackColor = System.Drawing.Color.Transparent
-        Me.Label4.Font = New System.Drawing.Font("Poppins", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-        Me.Label4.Location = New System.Drawing.Point(10, 398)
-        Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(690, 70)
-        Me.Label4.TabIndex = 1
-        Me.Label4.Text = ":DATE:"
-        Me.Label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.DateLabel.BackColor = System.Drawing.Color.Transparent
+        Me.DateLabel.Font = New System.Drawing.Font("Poppins", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
+        Me.DateLabel.Location = New System.Drawing.Point(11, 531)
+        Me.DateLabel.Name = "DateLabel"
+        Me.DateLabel.Size = New System.Drawing.Size(789, 93)
+        Me.DateLabel.TabIndex = 1
+        Me.DateLabel.Text = ":DATE:"
+        Me.DateLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
-        'Label3
+        'EventLabel
         '
-        Me.Label3.BackColor = System.Drawing.Color.Transparent
-        Me.Label3.Font = New System.Drawing.Font("Freestyle Script", 48.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-        Me.Label3.Location = New System.Drawing.Point(3, 280)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(704, 125)
-        Me.Label3.TabIndex = 1
-        Me.Label3.Text = ":TEXT2:"
-        Me.Label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.EventLabel.BackColor = System.Drawing.Color.Transparent
+        Me.EventLabel.Font = New System.Drawing.Font("Freestyle Script", 48.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
+        Me.EventLabel.Location = New System.Drawing.Point(3, 373)
+        Me.EventLabel.Name = "EventLabel"
+        Me.EventLabel.Size = New System.Drawing.Size(805, 167)
+        Me.EventLabel.TabIndex = 1
+        Me.EventLabel.Text = ":TEXT2:"
+        Me.EventLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'Panel2
         '
         Me.Panel2.BackgroundImage = CType(resources.GetObject("Panel2.BackgroundImage"), System.Drawing.Image)
         Me.Panel2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.Panel2.Location = New System.Drawing.Point(72, 10)
-        Me.Panel2.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.Panel2.Location = New System.Drawing.Point(82, 13)
         Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(278, 201)
+        Me.Panel2.Size = New System.Drawing.Size(318, 268)
         Me.Panel2.TabIndex = 3
         '
         'Panel3
@@ -149,10 +147,9 @@ Partial Class Form1
         Me.Panel3.Controls.Add(Me.Label7)
         Me.Panel3.Controls.Add(Me.Label6)
         Me.Panel3.Controls.Add(Me.Panel2)
-        Me.Panel3.Location = New System.Drawing.Point(721, 28)
-        Me.Panel3.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.Panel3.Location = New System.Drawing.Point(824, 37)
         Me.Panel3.Name = "Panel3"
-        Me.Panel3.Size = New System.Drawing.Size(409, 337)
+        Me.Panel3.Size = New System.Drawing.Size(467, 449)
         Me.Panel3.TabIndex = 4
         '
         'Label7
@@ -160,9 +157,9 @@ Partial Class Form1
         Me.Label7.AutoSize = True
         Me.Label7.Font = New System.Drawing.Font("Poppins", 25.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
         Me.Label7.ForeColor = System.Drawing.Color.White
-        Me.Label7.Location = New System.Drawing.Point(37, 262)
+        Me.Label7.Location = New System.Drawing.Point(42, 349)
         Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(308, 62)
+        Me.Label7.Size = New System.Drawing.Size(374, 76)
         Me.Label7.TabIndex = 4
         Me.Label7.Text = "RFID WRISTBAND"
         '
@@ -171,9 +168,9 @@ Partial Class Form1
         Me.Label6.AutoSize = True
         Me.Label6.Font = New System.Drawing.Font("Poppins", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
         Me.Label6.ForeColor = System.Drawing.Color.White
-        Me.Label6.Location = New System.Drawing.Point(122, 223)
+        Me.Label6.Location = New System.Drawing.Point(139, 297)
         Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(137, 42)
+        Me.Label6.Size = New System.Drawing.Size(172, 53)
         Me.Label6.TabIndex = 4
         Me.Label6.Text = "Scan your"
         '
@@ -182,55 +179,52 @@ Partial Class Form1
         Me.Label8.AutoSize = True
         Me.Label8.Font = New System.Drawing.Font("Malgun Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
         Me.Label8.ForeColor = System.Drawing.Color.White
-        Me.Label8.Location = New System.Drawing.Point(859, 571)
+        Me.Label8.Location = New System.Drawing.Point(982, 761)
         Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(117, 21)
+        Me.Label8.Size = New System.Drawing.Size(128, 28)
         Me.Label8.TabIndex = 4
-        Me.Label8.Text = "Nicolas Resort"
+        Me.Label8.Text = "Event Venue"
         '
-        'Button1
+        'SettingsButton
         '
-        Me.Button1.BackColor = System.Drawing.Color.White
-        Me.Button1.FlatAppearance.BorderSize = 0
-        Me.Button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Button1.Image = CType(resources.GetObject("Button1.Image"), System.Drawing.Image)
-        Me.Button1.Location = New System.Drawing.Point(1102, 569)
-        Me.Button1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(31, 26)
-        Me.Button1.TabIndex = 5
-        Me.Button1.UseVisualStyleBackColor = False
+        Me.SettingsButton.BackColor = System.Drawing.Color.White
+        Me.SettingsButton.FlatAppearance.BorderSize = 0
+        Me.SettingsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.SettingsButton.Image = CType(resources.GetObject("SettingsButton.Image"), System.Drawing.Image)
+        Me.SettingsButton.Location = New System.Drawing.Point(1259, 759)
+        Me.SettingsButton.Name = "SettingsButton"
+        Me.SettingsButton.Size = New System.Drawing.Size(35, 35)
+        Me.SettingsButton.TabIndex = 5
+        Me.SettingsButton.UseVisualStyleBackColor = False
         '
-        'Button5
+        'CloseButton
         '
-        Me.Button5.BackColor = System.Drawing.Color.DodgerBlue
-        Me.Button5.FlatAppearance.BorderSize = 0
-        Me.Button5.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Button5.Font = New System.Drawing.Font("Poppins", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-        Me.Button5.ForeColor = System.Drawing.Color.White
-        Me.Button5.Image = CType(resources.GetObject("Button5.Image"), System.Drawing.Image)
-        Me.Button5.Location = New System.Drawing.Point(1111, 0)
-        Me.Button5.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.Button5.Name = "Button5"
-        Me.Button5.Size = New System.Drawing.Size(27, 24)
-        Me.Button5.TabIndex = 6
-        Me.Button5.UseVisualStyleBackColor = False
+        Me.CloseButton.BackColor = System.Drawing.Color.DodgerBlue
+        Me.CloseButton.FlatAppearance.BorderSize = 0
+        Me.CloseButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.CloseButton.Font = New System.Drawing.Font("Poppins", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
+        Me.CloseButton.ForeColor = System.Drawing.Color.White
+        Me.CloseButton.Image = CType(resources.GetObject("CloseButton.Image"), System.Drawing.Image)
+        Me.CloseButton.Location = New System.Drawing.Point(1270, 0)
+        Me.CloseButton.Name = "CloseButton"
+        Me.CloseButton.Size = New System.Drawing.Size(31, 32)
+        Me.CloseButton.TabIndex = 6
+        Me.CloseButton.UseVisualStyleBackColor = False
         '
         'Form1
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.DodgerBlue
-        Me.ClientSize = New System.Drawing.Size(1140, 601)
-        Me.Controls.Add(Me.Button5)
-        Me.Controls.Add(Me.Button1)
+        Me.ClientSize = New System.Drawing.Size(1303, 801)
+        Me.Controls.Add(Me.CloseButton)
+        Me.Controls.Add(Me.SettingsButton)
         Me.Controls.Add(Me.Panel3)
         Me.Controls.Add(Me.Label8)
         Me.Controls.Add(Me.Panel1)
-        Me.Controls.Add(Me.Label2)
+        Me.Controls.Add(Me.WelcomeLabel)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
-        Me.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Name = "Form1"
         Me.Text = "68"
         Me.Panel1.ResumeLayout(False)
@@ -242,19 +236,19 @@ Partial Class Form1
     End Sub
 
     Friend WithEvents Label1 As Label
-    Friend WithEvents Timer1 As Timer
+    Friend WithEvents WelcomeTimer As Timer
     Friend WithEvents ImageList1 As ImageList
-    Friend WithEvents Label2 As Label
-    Friend WithEvents Timer2 As Timer
+    Friend WithEvents WelcomeLabel As Label
+    Friend WithEvents RefreshTimer As Timer
     Friend WithEvents Panel1 As Panel
-    Friend WithEvents Label5 As Label
-    Friend WithEvents Label4 As Label
-    Friend WithEvents Label3 As Label
+    Friend WithEvents EventIntroLabel As Label
+    Friend WithEvents DateLabel As Label
+    Friend WithEvents EventLabel As Label
     Friend WithEvents Panel2 As Panel
     Friend WithEvents Panel3 As Panel
     Friend WithEvents Label7 As Label
     Friend WithEvents Label6 As Label
     Friend WithEvents Label8 As Label
-    Friend WithEvents Button1 As Button
-    Friend WithEvents Button5 As Button
+    Friend WithEvents SettingsButton As Button
+    Friend WithEvents CloseButton As Button
 End Class

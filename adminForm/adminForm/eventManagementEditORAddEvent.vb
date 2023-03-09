@@ -1,120 +1,61 @@
 ﻿Imports System.Runtime.InteropServices
 Imports System.Text
-Imports MySql.Data.MySqlClient
-Imports Org.BouncyCastle.Tls
 
 Public Class eventManagementEditORAddEvent
-    Dim editEventGuestsID As String
-    Dim selectedBookerID As String
-    Dim loadDone As Boolean = False
+    Public selectedEventGuestsID As String
+    Public selectedBookerID As String
 
-    Dim beforePaid As Boolean = False
+    Public beforePaid As Boolean = False
 
-    Dim dateChangeCounter As Integer = 0
+    Public transactionType As String
 
-    Dim eventBackupName As String
+    Public Function getRandom(ByVal Min As Integer, ByVal Max As Integer) As Integer
+        Static Generator As System.Random = New System.Random()
+        Return Generator.Next(Min, Max)
+    End Function
 
-    Private Async Sub eventManagementEditORAddGuest_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        'Disable the home so uses will not be able to click it
-        home.Enabled = False
-        Me.TopMost = True
+    Private Sub EventDateTimePicker_CloseUp(sender As Object, e As EventArgs) Handles EventDateTimePicker.CloseUp
+        Dim selectedDate As String = EventDateTimePicker.Value.ToString("MM/dd/yyyy")
 
-        'Convert the minDate of DateTimePicker to short date so that it will
-        'not include the current time
-        DateTimePicker1.MinDate = Now.ToString("d")
+        Dim checkDate As IEnumerable(Of MyEvent)
 
-        'Default event is not paid
-        CheckBox1.Checked = True
-        'Adding values on form_load to the textboxes if the user is editing
-        If eventManagement.editOrAddEvent = "edit" Then
-            Label1.Text = "EDIT EVENT"
-
-            Dim query As String = $"SELECT name, date, type, booker, guests_id, time, ispaid FROM events WHERE name='{eventManagement.editEvent.Replace("'", "\'")}'"
-            Dim ds As DataSet = Await Task.Run(Function() getData(query))
-
-            Dim eventGuestsID = ds.Tables(0).Rows(0)(4)
-
-            Dim query1 As String = $"SELECT rfid, name, address, email, number, id FROM guest WHERE name='{ds.Tables(0).Rows(0)(3)}' AND guest_id={eventGuestsID}"
-            Dim ds1 As DataSet = Await Task.Run(Function() getData(query1))
-
-            'MessageBox.Show(Convert.ToDateTime(ds.Tables(0).Rows(0)(1) + " 08:00 AM").ToString("MM/dd/yyyy h:mm tt"))
-
-            eventBackupName = ds.Tables(0).Rows(0)(0)
-
-            TextBox1.Text = ds.Tables(0).Rows(0)(0)
-            DateTimePicker1.Value = Convert.ToDateTime(ds.Tables(0).Rows(0)(1)).ToString("M/d/yyyy")
-            ComboBox1.Text = ds.Tables(0).Rows(0)(2)
-
-            If ds.Tables(0).Rows(0)(6) = True Then
-                CheckBox1.Checked = True
-                beforePaid = True
-            Else
-                CheckBox2.Checked = True
-            End If
-
-            TextBox3.Text = ds1.Tables(0).Rows(0)(1)
-            TextBox2.Text = ds1.Tables(0).Rows(0)(2)
-            TextBox4.Text = ds1.Tables(0).Rows(0)(4)
-            TextBox5.Text = ds1.Tables(0).Rows(0)(3)
-            TextBox6.Text = ds1.Tables(0).Rows(0)(0)
-            TextBox7.Text = ds.Tables(0).Rows(0)(5)
-
-            editEventGuestsID = ds.Tables(0).Rows(0)(4)
-            selectedBookerID = ds1.Tables(0).Rows(0)(5)
-
-            Button1.BackColor = Color.DodgerBlue
-            Button1.Enabled = True
-        End If
-        loadDone = True
-    End Sub
-
-    Private Sub DateTimePicker1_ValueChanged(sender As Object, e As EventArgs) Handles DateTimePicker1.ValueChanged
-        'Check if selected date is available
-        If eventManagement.editOrAddEvent = "edit" And dateChangeCounter = 0 Then
-            dateChangeCounter += 1
-            Return
-        End If
-
-        Dim selectedDate As String = DateTimePicker1.Value.ToString("MM/dd/yyyy")
-
-        Dim equalDate = login.allTabDataSet.Tables(2).AsEnumerable.Select(Function(eventDate) New With {
-                                .date = eventDate.Field(Of String)("date"),
-                                .name = eventDate.Field(Of String)("name")
-                            }).Where(Function(eventDate) eventDate.date = selectedDate And Not eventDate.name = eventBackupName)
-
-        If equalDate.Count > 0 Then
-            If loadDone Then
-                MessageBox.Show("There is already an event booked for that date! Please pick another date...")
-                Button1.BackColor = Color.Red
-                Button1.Enabled = False
-            End If
+        If selectedEventGuestsID = "" Then
+            checkDate = login.eventCollection.Where(Function(currentEvent) currentEvent.Date = selectedDate)
         Else
-            Button1.BackColor = Color.DodgerBlue
-            Button1.Enabled = True
+            checkDate = login.eventCollection.Where(Function(currentEvent) currentEvent.Date = selectedDate And currentEvent.GuestsID <> Integer.Parse(selectedEventGuestsID))
+        End If
+
+        If checkDate.Any Then
+            MessageBox.Show("There is already an event booked for that date! Please pick another date...")
+            SaveButton.BackColor = Color.Red
+            SaveButton.Enabled = False
+        Else
+            SaveButton.BackColor = Color.DodgerBlue
+            SaveButton.Enabled = True
         End If
     End Sub
 
-    Private Async Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
-        Button1.Enabled = False
-        'Check for empty textboxes excluding RFID
+    Private Async Sub SaveButton_Click(sender As Object, e As EventArgs) Handles SaveButton.Click
+        SaveButton.Enabled = False
+
         Dim emptyTextBoxes =
             From txt In Me.Panel1.Controls.OfType(Of TextBox)()
-            Where txt.Text.Length = 0 And txt.Name <> TextBox6.Name
+            Where txt.Text.Length = 0 And txt.Name <> RFIDTextBox.Name
             Select txt.Name
         If emptyTextBoxes.Any Then
             MessageBox.Show("Please fill up all the fields")
+            SaveButton.Enabled = True
             Return
         End If
 
-        If TextBox6.Text.Length > 0 And TextBox6.Text.Length <> 10 Then
+        If RFIDTextBox.Text.Length > 0 And RFIDTextBox.Text.Length <> 10 Then
             MessageBox.Show("Invalid RFID")
+            SaveButton.Enabled = True
             Return
         End If
-
-        loadDone = False
 
         Dim md5Provider = New System.Security.Cryptography.MD5CryptoServiceProvider()
-        Dim randomNumber As Integer = getRandom(0, TextBox1.Text.Length * 1000)
+        Dim randomNumber As Integer = getRandom(0, EventNameTextBox.Text.Length * 1000)
         Dim computeHash = System.Text.Encoding.UTF8.GetBytes(randomNumber.ToString())
         computeHash = md5Provider.ComputeHash(computeHash)
         Dim stringBuilder = New System.Text.StringBuilder()
@@ -123,108 +64,105 @@ Public Class eventManagementEditORAddEvent
         Next
 
         'UPDATE Database if the user is only editing
-        If eventManagement.editOrAddEvent = "edit" Then
+        If transactionType = "EDIT" Then
             'Create and md5 hash for the event
+            If Not haveInternetConnection() Then
+                MessageBox.Show("Internet not detected!")
+                Return
+            End If
+            Dim updateQuery As String = $"UPDATE events SET name='{EventNameTextBox.Text.Replace("'", "\'")}', date='{EventDateTimePicker.Value.ToString("MM/dd/yyyy")}', time='{TimeTextBox.Text}', type='{TypeComboBox.Text}', booker='{BookerNameTextBox.Text}', ispaid={PaidCheckBox.Checked} WHERE guests_id={selectedEventGuestsID}; UPDATE guest SET rfid='{RFIDTextBox.Text}', name='{BookerNameTextBox.Text}', address='{AddressTextBox.Text}', email='{EmailTextBox.Text}', number='{BookerContactTextBox.Text}' WHERE id={selectedBookerID}; INSERT INTO md5(hash, event_name) VALUES('{stringBuilder.ToString()}', '{EventNameTextBox.Text.Replace("'", "\'")}')"
+            Dim updateSuccess As Boolean = Await Task.Run(Function() executeNonQuery(updateQuery, remoteConnection))
 
-            Dim query As String = $"UPDATE events SET name='{TextBox1.Text.Replace("'", "\'")}', date='{DateTimePicker1.Value.ToString("MM/dd/yyyy")}', time='{TextBox7.Text}', type='{ComboBox1.Text}', booker='{TextBox3.Text}', ispaid={CheckBox1.Checked} WHERE guests_id={editEventGuestsID}; UPDATE guest SET rfid='{TextBox6.Text}', name='{TextBox3.Text}', address='{TextBox2.Text}', email='{TextBox5.Text}', number='{TextBox4.Text}' WHERE id={selectedBookerID}; INSERT INTO temporary_guest_copy(event_name, guest_json) VALUES('{TextBox1.Text.Replace("'", "\'")}', ''); INSERT INTO md5(hash, event_name) VALUES('{stringBuilder.ToString()}', '{TextBox1.Text.Replace("'", "\'")}')"
-            Dim querySuccess As Boolean = Await Task.Run(Function() executeNonQuery(query, remoteConnection))
 
-            'query = $"UPDATE guest SET rfid='{TextBox6.Text}', name='{TextBox3.Text}', address='{TextBox2.Text}', email='{TextBox5.Text}', number='{TextBox4.Text}', edited=1 WHERE id={selectedBookerID}"
-            'Dim guestSuccess As Boolean = executeNonQuery(query, remoteConnection)
-
-            If querySuccess Then
+            If updateSuccess Then
                 'Send an email to the event booker for newly paid events
                 'where they can send the payment
-                If CheckBox1.Checked And Not beforePaid Then
-                    Dim eventName As String = TextBox1.Text.Replace("'", "\'")
-                    Dim emailSubject As String = $"Hello {TextBox3.Text}! Thank you for chossing us."
+                If PaidCheckBox.Checked And Not beforePaid Then
+                    Dim eventName As String = EventNameTextBox.Text.Replace("'", "\'")
+                    Dim emailSubject As String = $"Hello {BookerNameTextBox.Text}! Thank you for chossing us."
                     Dim emailBody As String = $"<div style='background-color: #252e42; width: 70%; padding: 10px 50px; border-radius: 5px'><center> <h1 style='color: white; background-color: #31394d; padding: 10px; border-radius: 5px'> Event Management Online Booking </h1></center> <p style='color: white; font-size: 18px;'>Dear our beloved guest, </p><p style='color: white; font-size: 14px;'>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p> <br> <br> <center> <a href='https://event-venue.website/guest.php?eventName={stringBuilder.ToString()}' style='text-decoration: none; padding: 10px; background-color: dodgerblue; color: white; border-radius: 5px;' onMouseOver='this.style.background=""blue""' onMouseOut='this.style.background=""dodgerblue""'>CLICK HERE</a> <br> <br> <p style='color: white;'>Have a great day!</p> </center></div>"
                     'Dim emailBody As String = $"You can visit <a href=""event-venue.website/guest.php?eventName={TextBox1.Text.Replace("'", "\'")}"">event-venue.website/guest.php</a> to insert your guest."
 
-                    Await Task.Run(Sub() sendEmail(emailSubject, emailBody, "van@event-venue.website", "@Capstone0330", TextBox5.Text, True))
+                    Await Task.Run(Sub() sendEmail(emailSubject, emailBody, "management@event-venue.website", "@Capstone0330", EmailTextBox.Text, True))
                 End If
 
                 MessageBox.Show("Event updated succesfully!")
 
+                transactionType = ""
                 clearAll()
-                eventManagement.editOrAddEvent = ""
-                home.Enabled = True
-                dateChangeCounter = 0
+                login.refreshAllForms()
+                SaveButton.Enabled = True
                 Me.Close()
             End If
 
-            Button1.Enabled = True
-            Return
+        Else
+            If Not haveInternetConnection() Then
+                MessageBox.Show("Internet not detected!")
+                Return
+            End If
+            'Get the highest available value for event guests_id
+            Dim query2 As String = $"SELECT `AUTO_INCREMENT` FROM  INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'u608197321_real_capstone' AND TABLE_NAME = 'events';"
+            Dim ds As DataSet = Await Task.Run(Function() getData(query2))
+
+
+            'INSERT values into Database if the user is adding
+            Dim insertQuery = $"INSERT INTO events(name, date, time, type, booker, ispaid) VALUES('{EventNameTextBox.Text.Replace("'", "\'")}', '{EventDateTimePicker.Value.ToString("MM/dd/yyyy")}', '{TimeTextBox.Text}', '{TypeComboBox.Text}', '{BookerNameTextBox.Text}', {PaidCheckBox.Checked}); INSERT INTO guest(guest_id, rfid, name, address, email, number, type) VALUES({ds.Tables(0).Rows(0)(0)}, '{RFIDTextBox.Text}', '{BookerNameTextBox.Text}', '{AddressTextBox.Text}', '{EmailTextBox.Text}', '{BookerContactTextBox.Text}', 'BOOKER'); INSERT INTO temporary_guest_copy(event_name, guest_json) VALUES('{EventNameTextBox.Text.Replace("'", "\'")}', ''); INSERT INTO md5(hash, event_name) VALUES('{stringBuilder.ToString()}', '{EventNameTextBox.Text.Replace("'", "\'")}')"
+            Dim insertSuccess As Boolean = Await Task.Run(Function() executeNonQuery(insertQuery, remoteConnection))
+
+            'Dim query3 = $"INSERT INTO guest(guest_id, rfid, name, address, email, number, type, edited) VALUES({ds.Tables(0).Rows(0)(0)}, '{TextBox6.Text}', '{TextBox3.Text}', '{TextBox2.Text}', '{TextBox5.Text}', '{TextBox4.Text}', 'BOOKER', 2)"
+            'Dim guestSuccess1 As Boolean = executeNonQuery(query3, localConnection)
+
+            If insertSuccess Then
+                Dim eventName As String = EventNameTextBox.Text.Replace("'", "\'")
+                Dim emailSubject As String = $"Hello {BookerNameTextBox.Text}! Thank you for chossing us."
+                Dim emailBody As String = $"<div style='background-color: #252e42; width: 70%; padding: 10px 50px; border-radius: 5px'><center> <h1 style='color: white; background-color: #31394d; padding: 10px; border-radius: 5px'> Event Management Online Booking </h1></center> <p style='color: white; font-size: 18px;'>Dear our beloved guest, </p><p style='color: white; font-size: 14px;'>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p> <br> <br> <center> <a href='https://event-venue.website/guest.php?eventName={stringBuilder.ToString()}' style='text-decoration: none; padding: 10px; background-color: dodgerblue; color: white; border-radius: 5px;' onMouseOver='this.style.background=""blue""' onMouseOut='this.style.background=""dodgerblue""'>CLICK HERE</a> <br> <br> <p style='color: white;'>Have a great day!</p> </center></div>"
+                'Dim emailBody As String = $"You can visit <a href=""event-venue.website/guest.php?eventName={TextBox1.Text.Replace("'", "\'")}"">event-venue.website/guest.php</a> to insert your guest."
+
+                Await Task.Run(Sub() sendEmail(emailSubject, emailBody, "management@event-venue.website", "@Capstone0330", EmailTextBox.Text, True))
+
+                MessageBox.Show("Event added succesfully!")
+
+                transactionType = ""
+                clearAll()
+                login.refreshAllForms()
+                SaveButton.Enabled = True
+            End If
         End If
-
-        'Get the highest available value for event guests_id
-        Dim query2 As String = $"SELECT `AUTO_INCREMENT` FROM  INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'u608197321_real_capstone' AND TABLE_NAME = 'events';"
-        Dim ds As DataSet = Await Task.Run(Function() getData(query2))
-
-
-        'INSERT values into Database if the user is adding
-        Dim query1 = $"INSERT INTO events(name, date, time, type, booker, ispaid) VALUES('{TextBox1.Text.Replace("'", "\'")}', '{DateTimePicker1.Value.ToString("MM/dd/yyyy")}', '{TextBox7.Text}', '{ComboBox1.Text}', '{TextBox3.Text}', {CheckBox1.Checked}); INSERT INTO guest(guest_id, rfid, name, address, email, number, type) VALUES({ds.Tables(0).Rows(0)(0)}, '{TextBox6.Text}', '{TextBox3.Text}', '{TextBox2.Text}', '{TextBox5.Text}', '{TextBox4.Text}', 'BOOKER'); INSERT INTO temporary_guest_copy(event_name, guest_json) VALUES('{TextBox1.Text.Replace("'", "\'")}', ''); INSERT INTO md5(hash, event_name) VALUES('{stringBuilder.ToString()}', '{TextBox1.Text.Replace("'", "\'")}')"
-        Dim querySuccess1 As Boolean = Await Task.Run(Function() executeNonQuery(query1, remoteConnection))
-
-        'Dim query3 = $"INSERT INTO guest(guest_id, rfid, name, address, email, number, type, edited) VALUES({ds.Tables(0).Rows(0)(0)}, '{TextBox6.Text}', '{TextBox3.Text}', '{TextBox2.Text}', '{TextBox5.Text}', '{TextBox4.Text}', 'BOOKER', 2)"
-        'Dim guestSuccess1 As Boolean = executeNonQuery(query3, localConnection)
-
-        If querySuccess1 Then
-            Dim eventName As String = TextBox1.Text.Replace("'", "\'")
-            Dim emailSubject As String = $"Hello {TextBox3.Text}! Thank you for chossing us."
-            Dim emailBody As String = $"<div style='background-color: #252e42; width: 70%; padding: 10px 50px; border-radius: 5px'><center> <h1 style='color: white; background-color: #31394d; padding: 10px; border-radius: 5px'> Event Management Online Booking </h1></center> <p style='color: white; font-size: 18px;'>Dear our beloved guest, </p><p style='color: white; font-size: 14px;'>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p> <br> <br> <center> <a href='https://event-venue.website/guest.php?eventName={stringBuilder.ToString()}' style='text-decoration: none; padding: 10px; background-color: dodgerblue; color: white; border-radius: 5px;' onMouseOver='this.style.background=""blue""' onMouseOut='this.style.background=""dodgerblue""'>CLICK HERE</a> <br> <br> <p style='color: white;'>Have a great day!</p> </center></div>"
-            'Dim emailBody As String = $"You can visit <a href=""event-venue.website/guest.php?eventName={TextBox1.Text.Replace("'", "\'")}"">event-venue.website/guest.php</a> to insert your guest."
-
-            Await Task.Run(Sub() sendEmail(emailSubject, emailBody, "van@event-venue.website", "@Capstone0330", TextBox5.Text, True))
-
-            clearAll()
-
-            MessageBox.Show("Event added succesfully!")
-        End If
-
-        Button1.Enabled = True
     End Sub
 
     'Clear the editOrAddEvent property of eventManagement.
     'Refreshes eventManagement and guesManagement forms.
     'Close the form.
-    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
-        TextBox1.Clear()
-        TextBox2.Clear()
-        TextBox3.Clear()
-        TextBox4.Clear()
-        TextBox5.Clear()
-        TextBox6.Clear()
-        TextBox7.Clear()
+    Private Sub ExitButton_Click(sender As Object, e As EventArgs) Handles ExitButton.Click
+        EventNameTextBox.Clear()
+        AddressTextBox.Clear()
+        BookerNameTextBox.Clear()
+        BookerContactTextBox.Clear()
+        EmailTextBox.Clear()
+        RFIDTextBox.Clear()
+        TimeTextBox.Clear()
 
-        ComboBox1.Text = ""
+        TypeComboBox.Text = ""
 
-        eventManagement.editOrAddEvent = ""
-        home.Enabled = True
-        dateChangeCounter = 0
+        transactionType = ""
         Me.Close()
     End Sub
 
-    Private Sub CheckBox1_CheckedChanged(sender As Object, e As EventArgs) Handles CheckBox1.CheckedChanged
-        If CheckBox1.Checked = True Then
-            CheckBox2.Checked = False
+    Private Sub PaidCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles PaidCheckBox.CheckedChanged
+        If PaidCheckBox.Checked = True Then
+            NotPaidCheckBox.Checked = False
         Else
-            CheckBox2.Checked = True
+            NotPaidCheckBox.Checked = True
         End If
     End Sub
 
-    Private Sub CheckBox2_CheckedChanged(sender As Object, e As EventArgs) Handles CheckBox2.CheckedChanged
-        If CheckBox2.Checked = True Then
-            CheckBox1.Checked = False
+    Private Sub NotPaidCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles NotPaidCheckBox.CheckedChanged
+        If NotPaidCheckBox.Checked = True Then
+            PaidCheckBox.Checked = False
         Else
-            CheckBox1.Checked = True
+            PaidCheckBox.Checked = True
         End If
     End Sub
-
-    Public Function getRandom(ByVal Min As Integer, ByVal Max As Integer) As Integer
-        Static Generator As System.Random = New System.Random()
-        Return Generator.Next(Min, Max)
-    End Function
 
     'Casting Shadow to the Form
     Private Const CS_DROPSHADOW As Integer = 131072
@@ -244,10 +182,13 @@ Public Class eventManagementEditORAddEvent
     Private Shared Sub SendMessage(ByVal hWnd As System.IntPtr, ByVal wMsg As Integer, ByVal wParam As Integer, ByVal lParam As Integer)
     End Sub
 
-    Private Sub Form1_MouseDown(sender As Object, e As MouseEventArgs) Handles MyBase.MouseDown, Label1.MouseDown
+    Private Sub Form1_MouseDown(sender As Object, e As MouseEventArgs) Handles MyBase.MouseDown, EditOrAddLabel.MouseDown
         ReleaseCapture()
         ReleaseCapture()
         SendMessage(Me.Handle, &H112&, &HF012&, 0)
     End Sub
 
+    Private Sub eventManagementEditORAddEvent_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Me.CenterToScreen()
+    End Sub
 End Class

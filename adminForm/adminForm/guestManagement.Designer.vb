@@ -24,12 +24,11 @@ Partial Class guestManagement
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(guestManagement))
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Me.Button1 = New System.Windows.Forms.Button()
-        Me.TextBox1 = New System.Windows.Forms.TextBox()
+        Me.GuestSearchTextBox = New System.Windows.Forms.TextBox()
         Me.Panel1 = New System.Windows.Forms.Panel()
-        Me.Button2 = New System.Windows.Forms.Button()
+        Me.AddGuestButton = New System.Windows.Forms.Button()
         Me.Panel4 = New System.Windows.Forms.Panel()
-        Me.DataGridView1 = New System.Windows.Forms.DataGridView()
+        Me.GuestsDataGridView = New System.Windows.Forms.DataGridView()
         Me.Label11 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Label10 = New System.Windows.Forms.Label()
@@ -37,66 +36,50 @@ Partial Class guestManagement
         Me.Label8 = New System.Windows.Forms.Label()
         Me.Panel1.SuspendLayout()
         Me.Panel4.SuspendLayout()
-        CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.GuestsDataGridView, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
-        'Button1
+        'GuestSearchTextBox
         '
-        Me.Button1.BackColor = System.Drawing.Color.LightGray
-        Me.Button1.FlatAppearance.BorderSize = 0
-        Me.Button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Button1.Font = New System.Drawing.Font("Poppins", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-        Me.Button1.ForeColor = System.Drawing.Color.Black
-        Me.Button1.Image = CType(resources.GetObject("Button1.Image"), System.Drawing.Image)
-        Me.Button1.Location = New System.Drawing.Point(328, 23)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(46, 30)
-        Me.Button1.TabIndex = 4
-        Me.Button1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
-        Me.Button1.UseVisualStyleBackColor = False
-        '
-        'TextBox1
-        '
-        Me.TextBox1.BackColor = System.Drawing.Color.LightGray
-        Me.TextBox1.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.TextBox1.Font = New System.Drawing.Font("Poppins", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-        Me.TextBox1.Location = New System.Drawing.Point(14, 23)
-        Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.PlaceholderText = "Search Event"
-        Me.TextBox1.Size = New System.Drawing.Size(314, 30)
-        Me.TextBox1.TabIndex = 3
+        Me.GuestSearchTextBox.BackColor = System.Drawing.Color.LightGray
+        Me.GuestSearchTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.GuestSearchTextBox.Font = New System.Drawing.Font("Poppins", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
+        Me.GuestSearchTextBox.Location = New System.Drawing.Point(14, 23)
+        Me.GuestSearchTextBox.Name = "GuestSearchTextBox"
+        Me.GuestSearchTextBox.PlaceholderText = "Search Event"
+        Me.GuestSearchTextBox.Size = New System.Drawing.Size(314, 30)
+        Me.GuestSearchTextBox.TabIndex = 3
         '
         'Panel1
         '
         Me.Panel1.BackColor = System.Drawing.Color.White
-        Me.Panel1.Controls.Add(Me.Button2)
-        Me.Panel1.Controls.Add(Me.TextBox1)
-        Me.Panel1.Controls.Add(Me.Button1)
+        Me.Panel1.Controls.Add(Me.AddGuestButton)
+        Me.Panel1.Controls.Add(Me.GuestSearchTextBox)
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel1.Location = New System.Drawing.Point(0, 0)
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(1371, 80)
         Me.Panel1.TabIndex = 5
         '
-        'Button2
+        'AddGuestButton
         '
-        Me.Button2.BackColor = System.Drawing.Color.BlueViolet
-        Me.Button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Button2.ForeColor = System.Drawing.Color.White
-        Me.Button2.Image = CType(resources.GetObject("Button2.Image"), System.Drawing.Image)
-        Me.Button2.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.Button2.Location = New System.Drawing.Point(1198, 13)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Padding = New System.Windows.Forms.Padding(8, 0, 0, 0)
-        Me.Button2.Size = New System.Drawing.Size(160, 53)
-        Me.Button2.TabIndex = 5
-        Me.Button2.Text = "ADD GUEST"
-        Me.Button2.UseVisualStyleBackColor = False
+        Me.AddGuestButton.BackColor = System.Drawing.Color.BlueViolet
+        Me.AddGuestButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.AddGuestButton.ForeColor = System.Drawing.Color.White
+        Me.AddGuestButton.Image = CType(resources.GetObject("AddGuestButton.Image"), System.Drawing.Image)
+        Me.AddGuestButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.AddGuestButton.Location = New System.Drawing.Point(1198, 13)
+        Me.AddGuestButton.Name = "AddGuestButton"
+        Me.AddGuestButton.Padding = New System.Windows.Forms.Padding(8, 0, 0, 0)
+        Me.AddGuestButton.Size = New System.Drawing.Size(160, 53)
+        Me.AddGuestButton.TabIndex = 5
+        Me.AddGuestButton.Text = "ADD GUEST"
+        Me.AddGuestButton.UseVisualStyleBackColor = False
         '
         'Panel4
         '
         Me.Panel4.BackColor = System.Drawing.Color.White
-        Me.Panel4.Controls.Add(Me.DataGridView1)
+        Me.Panel4.Controls.Add(Me.GuestsDataGridView)
         Me.Panel4.Controls.Add(Me.Label11)
         Me.Panel4.Controls.Add(Me.Label1)
         Me.Panel4.Controls.Add(Me.Label10)
@@ -109,19 +92,19 @@ Partial Class guestManagement
         Me.Panel4.Size = New System.Drawing.Size(1371, 641)
         Me.Panel4.TabIndex = 7
         '
-        'DataGridView1
+        'GuestsDataGridView
         '
-        Me.DataGridView1.AllowUserToAddRows = False
-        Me.DataGridView1.AllowUserToDeleteRows = False
-        Me.DataGridView1.AllowUserToResizeColumns = False
-        Me.DataGridView1.AllowUserToResizeRows = False
-        Me.DataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
-        Me.DataGridView1.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells
-        Me.DataGridView1.BackgroundColor = System.Drawing.Color.White
-        Me.DataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.DataGridView1.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None
-        Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DataGridView1.ColumnHeadersVisible = False
+        Me.GuestsDataGridView.AllowUserToAddRows = False
+        Me.GuestsDataGridView.AllowUserToDeleteRows = False
+        Me.GuestsDataGridView.AllowUserToResizeColumns = False
+        Me.GuestsDataGridView.AllowUserToResizeRows = False
+        Me.GuestsDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
+        Me.GuestsDataGridView.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells
+        Me.GuestsDataGridView.BackgroundColor = System.Drawing.Color.White
+        Me.GuestsDataGridView.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.GuestsDataGridView.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None
+        Me.GuestsDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.GuestsDataGridView.ColumnHeadersVisible = False
         DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopLeft
         DataGridViewCellStyle1.BackColor = System.Drawing.Color.LightGray
         DataGridViewCellStyle1.Font = New System.Drawing.Font("Poppins", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
@@ -130,18 +113,18 @@ Partial Class guestManagement
         DataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.LightSkyBlue
         DataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.White
         DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.DataGridView1.DefaultCellStyle = DataGridViewCellStyle1
-        Me.DataGridView1.Location = New System.Drawing.Point(14, 69)
-        Me.DataGridView1.MultiSelect = False
-        Me.DataGridView1.Name = "DataGridView1"
-        Me.DataGridView1.ReadOnly = True
-        Me.DataGridView1.RowHeadersVisible = False
-        Me.DataGridView1.RowHeadersWidth = 51
-        Me.DataGridView1.RowTemplate.DividerHeight = 1
-        Me.DataGridView1.RowTemplate.Height = 29
-        Me.DataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.DataGridView1.Size = New System.Drawing.Size(1344, 557)
-        Me.DataGridView1.TabIndex = 3
+        Me.GuestsDataGridView.DefaultCellStyle = DataGridViewCellStyle1
+        Me.GuestsDataGridView.Location = New System.Drawing.Point(14, 69)
+        Me.GuestsDataGridView.MultiSelect = False
+        Me.GuestsDataGridView.Name = "GuestsDataGridView"
+        Me.GuestsDataGridView.ReadOnly = True
+        Me.GuestsDataGridView.RowHeadersVisible = False
+        Me.GuestsDataGridView.RowHeadersWidth = 51
+        Me.GuestsDataGridView.RowTemplate.DividerHeight = 1
+        Me.GuestsDataGridView.RowTemplate.Height = 29
+        Me.GuestsDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.GuestsDataGridView.Size = New System.Drawing.Size(1344, 557)
+        Me.GuestsDataGridView.TabIndex = 3
         '
         'Label11
         '
@@ -208,17 +191,15 @@ Partial Class guestManagement
         Me.Panel1.PerformLayout()
         Me.Panel4.ResumeLayout(False)
         Me.Panel4.PerformLayout()
-        CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.GuestsDataGridView, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
-
-    Friend WithEvents Button1 As Button
-    Friend WithEvents TextBox1 As TextBox
+    Friend WithEvents GuestSearchTextBox As TextBox
     Friend WithEvents Panel1 As Panel
-    Friend WithEvents Button2 As Button
+    Friend WithEvents AddGuestButton As Button
     Friend WithEvents Panel4 As Panel
-    Friend WithEvents DataGridView1 As DataGridView
+    Friend WithEvents GuestsDataGridView As DataGridView
     Friend WithEvents Label11 As Label
     Friend WithEvents Label10 As Label
     Friend WithEvents Label9 As Label

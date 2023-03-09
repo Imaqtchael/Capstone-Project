@@ -1,6 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
+    <Compile Update="analyticsReport.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="eventManagement.vb">
       <SubType>Form</SubType>
     </Compile>
@@ -13,6 +16,9 @@
     <Compile Update="guestManagementEditGuest.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="login.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="registerGuests.vb">
       <SubType>Form</SubType>
     </Compile>
@@ -20,9 +26,6 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="guestManagement.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Update="login.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="home.vb">

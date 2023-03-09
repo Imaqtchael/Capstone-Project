@@ -1,102 +1,65 @@
-﻿Public Class trackingReport
-    'Creating a string that will be used in guestLog form
-    Public selectedGuest As String
+﻿Imports System.Globalization
+Imports System.Windows.Forms.Design
 
+Public Class trackingReport
     Public eventName As String
-    Public guestsID As String
+    Public guestsID As Integer
     Dim eventDate As String
 
-    Dim selectedRow As Integer = 0
-
     Dim selectedEventIndex As Integer = 0
-
-    Public eventsTable As DataTable
 
     Dim loadDone As Boolean = False
 
     'Refresh the DataGridView1 for a given event
-    Private Async Sub refreshDataGridView(ByVal indexOfEvent As Integer)
-        'Disable ComboBox1 to let the finish refreshing before letting the 
-        'user to pick another event to view. This will avoid double event info
-        'to be displayed in ComboBox1
-        ComboBox1.Enabled = False
+    Private Sub refreshDataGridView(ByVal eventIndex As Integer)
+        EventsComboBox.Enabled = False
+        EventsComboBox.Items.Clear()
 
-        ComboBox1.Items.Clear()
+        TrackingDataGridView.Rows.Clear()
+        DateLabel.Text = ""
+        GuestInLabel.Text = ""
+        GuestOutLabel.Text = ""
+        EventsComboBox.Text = ""
 
-        DataGridView1.Rows.Clear()
-        Label2.Text = ""
-        Label5.Text = ""
-        Label7.Text = ""
-        ComboBox1.Text = ""
+        Dim dateNow As String = Date.Now.ToString("MM/dd/yyyy")
 
-        Dim eventsTable As DataTable = login.allTabDataSet.Tables(0)
+        Dim eventCollection As IEnumerable(Of MyEvent) = login.eventCollection.Where(Function(currentEvent) Date.ParseExact(currentEvent.Date, "MM/dd/yyyy", CultureInfo.InvariantCulture) <= Date.ParseExact(dateNow, "MM/dd/yyyy", CultureInfo.InvariantCulture) And currentEvent.Registered = 2)
 
-        If eventsTable.Rows.Count > 0 Then
-            eventName = eventsTable.Rows(indexOfEvent)(0).ToString()
-            guestsID = eventsTable.Rows(indexOfEvent)(1).ToString()
-            eventDate = eventsTable.Rows(indexOfEvent)(2).ToString()
-        Else
+        If eventCollection.Count = 0 Then
             Return
         End If
 
+        eventName = eventCollection(eventIndex).Name
+        guestsID = eventCollection(eventIndex).GuestsID
+        eventDate = eventCollection(eventIndex).Date
+
+        For i As Integer = 0 To eventCollection.Count - 1
+            EventsComboBox.Items.Add(eventCollection(i).Name)
+        Next
+
+        Dim guestCollection As IEnumerable(Of MyGuest) = login.guestCollection.Where(Function(guest) guest.Logs.Length <> 0 And guest.GuestID = guestsID)
+        Dim guestCount As Integer = guestCollection.Where(Function(guest) guest.GuestID = guestsID).Count
+
+        EventsComboBox.Text = eventName
+        DateLabel.Text = eventDate
+        GuestInLabel.Text = guestCollection.Count
+        GuestOutLabel.Text = guestCount
+
         If Not loadDone Then
-            DataGridView1.Columns.AddRange(New DataGridViewColumn(3) _
+            TrackingDataGridView.Columns.AddRange(New DataGridViewColumn(3) _
                                     {New DataGridViewTextBoxColumn(),
                                      New DataGridViewTextBoxColumn(),
                                      New DataGridViewTextBoxColumn(),
                                      New DataGridViewTextBoxColumn()})
-
-            'DataGridView1.Columns(3).Width = 150
-
-            'DataGridView1.Columns.AddRange(New DataGridViewColumn(1) _
-            '                            {New DataGridViewButtonColumn() With
-            '                            {.FlatStyle = FlatStyle.Flat},
-            '                             New DataGridViewButtonColumn() With
-            '                            {.FlatStyle = FlatStyle.Flat}})
-
-            'DataGridView1.Columns(4).Width = 150
-            'DataGridView1.Columns(4).DefaultCellStyle.BackColor = Color.DodgerBlue
-            'DataGridView1.Columns(5).Width = 150
-            'DataGridView1.Columns(5).DefaultCellStyle.BackColor = Color.Red
+            loadDone = True
         End If
 
-        loadDone = True
+        TrackingDataGridView.Rows.Clear()
 
-        For i As Integer = 0 To eventsTable.Rows.Count - 1
-            ComboBox1.Items.Add(eventsTable.Rows(i)(0))
-        Next
+        For i As Integer = 0 To guestCollection.Count - 1
 
-        ComboBox1.Text = eventName
-        Label2.Text = eventDate
-
-        Dim query As String = $"SELECT name, logs FROM guest WHERE logs<>'' AND guest_id={guestsID}"
-        Dim ds As DataSet = Await Task.Run(Function() getData(query))
-
-        'While ds Is Nothing
-        '    ds = Await Task.Run(Function() getData(query))
-        'End While
-
-
-
-        'Displaying the number of 'IN' attendees
-        Label5.Text = ds.Tables(0).Rows.Count
-
-        'Getting the total number of attendes
-        Dim query1 As String = $"SELECT name FROM guest WHERE guest_id={guestsID}"
-        Dim ds1 As DataSet = Await Task.Run(Function() getData(query1))
-
-        Label7.Text = ds1.Tables(0).Rows.Count
-
-        'Creating 4 columns for our realDataTable
-        'addColumns(4, realDataTable)
-
-        'Looping for all the attendee's logs and putting their
-        'data on the DataGridView1
-        For i As Integer = 0 To ds.Tables(0).Rows.Count - 1
-
-
-            Dim logs As String() = Split(ds.Tables(0).Rows(i)(1).ToString(), ", ")
-            Dim name As String = ds.Tables(0).Rows(i)(0)
+            Dim logs As String() = Split(guestCollection(i).Logs, ", ")
+            Dim name As String = guestCollection(i).Name
             Dim firstTimeInDate As String = Split(logs(0), " ")(0)
             Dim lastTimeIn
             Dim lastTimeOut
@@ -108,66 +71,76 @@
                 lastTimeIn = $"{Split(logs(logs.Length - 1), " ")(1)} {Split(logs(logs.Length - 1), " ")(2)}"
                 lastTimeOut = ""
             End If
-
-            DataGridView1.Rows.Add(name, firstTimeInDate, lastTimeIn, lastTimeOut)
-
+            TrackingDataGridView.Rows.Add(name, firstTimeInDate, lastTimeIn, lastTimeOut)
         Next
-
-        'DataGridView1.DataSource = realDataSet.Tables(0)
-
-        'Reselect the previous row selection of the user 
-        DataGridView1.ClearSelection()
-        If DataGridView1.Rows.Count - 1 >= selectedRow Then
-            DataGridView1.Rows(selectedRow).Selected = True
-        End If
-
-        ComboBox1.Enabled = True
+        EventsComboBox.Enabled = True
     End Sub
 
-    'Loading the data and putting them into DataGridView1
     Public Sub trackingReport_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         refreshDataGridView(selectedEventIndex)
     End Sub
 
-    Private Sub TextBox1_KeyPress(sender As Object, e As KeyPressEventArgs) Handles TextBox1.KeyPress
-        login.Timer3.Stop()
-        If e.KeyChar = Convert.ToChar(Keys.Back) Then
-            TextBox1.Clear()
-        End If
+    Private Sub GuestSearchTextBox_KeyPress(sender As Object, e As KeyPressEventArgs) Handles GuestSearchTextBox.KeyPress
+        If GuestSearchTextBox.Text.Length > 0 Then
+            Dim searchingFor As String = GuestSearchTextBox.Text.ToLower()
+            'Dim currentCurrencyManager As CurrencyManager = CType(BindingContext(TrackingDataGridView.DataSource), CurrencyManager)
+            'currentCurrencyManager.SuspendBinding()
+            For Each row As DataGridViewRow In TrackingDataGridView.Rows
+                If row.Visible = False Then
+                    row.Visible = True
+                End If
 
-        If TextBox1.Text.Length = 0 Then
-            refreshDataGridView(selectedEventIndex)
-            login.Timer3.Start()
-            Return
+                If Not row.Cells(0).Value.ToString.ToLower.Contains(searchingFor) Then
+                    row.Visible = False
+                End If
+            Next
+            'currentCurrencyManager.ResumeBinding()
+        Else
+            'Dim currentCurrencyManager As CurrencyManager = CType(BindingContext(TrackingDataGridView.DataSource), CurrencyManager)
+            'currentCurrencyManager.SuspendBinding()
+            For Each row As DataGridViewRow In TrackingDataGridView.Rows
+                If row.Visible = False Then
+                    row.Visible = True
+                End If
+            Next
+            'currentCurrencyManager.ResumeBinding()
         End If
-
-        For i As Integer = 0 To DataGridView1.Rows.Count - 1
-            If Not DataGridView1.Rows(i).Cells(0).Value.ToString().ToUpper.Contains(TextBox1.Text.ToUpper) Then
-                DataGridView1.Rows.RemoveAt(i)
-            End If
-        Next
     End Sub
 
-    Private Sub ComboBox1_SelectionChangeCommitted(sender As Object, e As EventArgs) Handles ComboBox1.SelectionChangeCommitted
-        selectedEventIndex = ComboBox1.SelectedIndex
-        TextBox1.Clear()
+    Private Sub EventsComboBox_SelectionChangeCommitted(sender As Object, e As EventArgs) Handles EventsComboBox.SelectionChangeCommitted
+        selectedEventIndex = EventsComboBox.SelectedIndex
+        GuestSearchTextBox.Clear()
         refreshDataGridView(selectedEventIndex)
     End Sub
 
-    'A sub for CellDoubleClick where we will show all of the logs of the selected guest
-    Private Sub DataGridView1_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView1.CellDoubleClick
-        Dim row As DataGridViewRow = DataGridView1.CurrentRow
+    Private Sub TrackingDataGridView_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles TrackingDataGridView.CellDoubleClick
+        Dim row As DataGridViewRow = TrackingDataGridView.CurrentRow
+        Dim guestName = row.Cells(0).Value.ToString()
+        Dim selectedGuest As MyGuest = login.guestCollection.Where(Function(guest) guest.Name = guestName And guest.GuestID = guestsID).First()
+        Dim selectedGuestLogs As String() = Split(selectedGuest.Logs, ", ")
 
-        Dim guest = row.Cells(0).Value.ToString()
-        selectedGuest = guest
-        trackingReportGuestLog.ShowDialog()
-    End Sub
+        Dim realDataTable As New DataTable()
+        addColumns(2, realDataTable)
 
-    Private Sub DataGridView1_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView1.CellContentClick
-        selectedRow = e.RowIndex
-    End Sub
+        For i As Integer = 0 To selectedGuestLogs.Length - 1 Step 2
+            Dim tryrow As DataRow
+            tryrow = realDataTable.NewRow
 
-    Private Sub ComboBox1_MouseDown(sender As Object, e As MouseEventArgs) Handles ComboBox1.MouseDown
-        ComboBox1.DroppedDown = True
+            tryrow(0) = selectedGuestLogs(i)
+
+            Try
+                tryrow(1) = selectedGuestLogs(i + 1)
+            Catch ex As Exception
+
+            End Try
+
+            realDataTable.Rows.Add(tryrow)
+        Next
+
+        With trackingReportGuestLog
+            .NameLabel.Text = guestName
+            .LogsDataGridView.DataSource = realDataTable
+            .ShowDialog()
+        End With
     End Sub
 End Class

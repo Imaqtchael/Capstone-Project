@@ -98,7 +98,7 @@ function DownloadJSON(exportObj) {
         url: 'https://event-venue.website/includes/functions.php',
         data: { functionname: 'insertTempData', arguments: exportObj }
     });
-    //localStorage.setItem('backup.json', exportObj);
+    localStorage.setItem('backup.json', exportObj);
     //var downloadAnchorNode = document.createElement('a');
 
     //downloadAnchorNode.setAttribute("href", data_str);

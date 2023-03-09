@@ -1,102 +1,83 @@
 ﻿Imports System.Runtime.InteropServices
-Imports MySql.Data.MySqlClient
 
 Public Class guestManagementEditGuest
-    Dim eventsTable As DataTable
+    Public guestID As String
+    Public guestEventId As String
+    Dim eventCollection As IEnumerable(Of MyEvent)
 
-    Dim guestID, eventDate As String
+    Public Sub RefreshComboBox()
+        Me.CenterToScreen()
 
-    Dim loadDone As Boolean = False
-    Dim id As String
+        eventCollection = login.eventCollection.Where(Function(currentEvent) Convert.ToDateTime(currentEvent.Date) >= Date.Now.Date)
 
-    Private Async Sub guestManagementEditGuest_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        home.Enabled = False
-        Me.TopMost = True
-
-        Dim query As String = $"SELECT guest_id, name, address, number, email, rfid, id FROM guest WHERE name='{guestManagement.selectedGuestName}' AND guest_id={guestManagement.selectedGuestEventID}"
-        Dim ds As New DataSet()
-
-        ds = Await Task.Run(Function() getData(query))
-        id = guestManagement.selectedGuestEventID
-
-        If ds.Tables(0).Rows.Count < 1 Then
+        Dim guestEvent As MyEvent = login.eventCollection.Where(Function(currentEvent) currentEvent.GuestsID = Integer.Parse(guestManagement.selectedGuestEventID)).First()
+        If Convert.ToDateTime(guestEvent.Date) < Date.Now Then
+            EventComboBox.Enabled = False
+            EventComboBox.Items.Add(guestEvent.Name)
+            EventComboBox.Text = guestEvent.Name
+            DateTextBox.Text = guestEvent.Date
             Return
         End If
 
-        eventsTable = login.allTabDataSet.Tables(1)
+        EventComboBox.Items.Clear()
 
-        'Dim guestID As String = ds.Tables(0).Rows(0)(0)
-
-        'Dim query1 As String = $"SELECT name, date FROM events WHERE guests_id='{guestID}'"
-        'Dim ds1 As DataSet = getData(query1)
-
-        Dim guestEvent = eventsTable.AsEnumerable.Select(Function(eve) New With {
-                                .name = eve.Field(Of String)("name"),
-                                .date = eve.Field(Of String)("date"),
-                                .guests_id = eve.Field(Of Integer)("guests_id")
-                            }).Where(Function(eve) eve.guests_id = guestManagement.selectedGuestEventID)
-
-        TextBox1.Text = ds.Tables(0).Rows(0)(1)
-        TextBox2.Text = ds.Tables(0).Rows(0)(2)
-        TextBox3.Text = ds.Tables(0).Rows(0)(3)
-        TextBox4.Text = ds.Tables(0).Rows(0)(4)
-        TextBox5.Text = guestEvent(0).date
-        TextBox7.Text = ds.Tables(0).Rows(0)(5)
-
-        For i As Integer = 0 To eventsTable.Rows.Count - 1
-            ComboBox1.Items.Add(eventsTable.Rows(i)(1))
+        For i As Integer = 0 To eventCollection.Count - 1
+            EventComboBox.Items.Add(eventCollection(i).Name)
         Next
-
-        ComboBox1.Text = guestEvent(0).name
-        loadDone = True
+        EventComboBox.Text = guestEvent.Name
+        DateTextBox.Text = guestEvent.Date
     End Sub
 
-    Private Sub ComboBox1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ComboBox1.SelectedIndexChanged
-        If sender.Text.Length = 0 Or Not loadDone Then
-            Return
-        End If
-        TextBox5.Text = eventsTable.Rows(ComboBox1.SelectedIndex)(2)
+    Private Sub guestManagementEditGuest_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        RefreshComboBox()
     End Sub
 
-    Private Async Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+    Private Async Sub SaveButton_Click(sender As Object, e As EventArgs) Handles SaveButton.Click
+        SaveButton.Enabled = False
         Dim emptyTextBoxes =
             From txt In Me.Panel1.Controls.OfType(Of TextBox)()
-            Where txt.Text.Length = 0 And txt.Name <> TextBox7.Name
+            Where txt.Text.Length = 0 And txt.Name <> RFIDTextBox.Name
             Select txt.Name
 
         If emptyTextBoxes.Any Then
             MessageBox.Show("Please fill up all the fields")
+            SaveButton.Enabled = True
             Return
         End If
 
-        If TextBox7.Text.Length > 0 And TextBox7.Text.Length <> 10 Then
+        If RFIDTextBox.Text.Length > 0 And RFIDTextBox.Text.Length <> 10 Then
             MessageBox.Show("Invalid RFID")
+            SaveButton.Enabled = True
             Return
         End If
 
-        Dim getQuery As String = $"SELECT guests_id FROM events WHERE name='{ComboBox1.Text.Replace("'", "\'")}'"
-        Dim guestID As DataSet = Await Task.Run(Function() getData(getQuery))
+        If Not haveInternetConnection() Then
+            MessageBox.Show("Internet not detected!")
+            Return
+        End If
 
-        Dim remoteQuery = $"UPDATE guest SET guest_id={guestID.Tables(0).Rows(0)(0)}, rfid='{TextBox7.Text}', name='{TextBox1.Text}', address='{TextBox2.Text}', email='{TextBox4.Text}', number='{TextBox3.Text}' WHERE id={id}"
-        Await Task.Run(Function() executeNonQuery(remoteQuery, remoteConnection))
+        Dim updateQuery = $"UPDATE guest SET guest_id={guestEventId}, rfid='{RFIDTextBox.Text}', name='{NameTextBox.Text}', address='{AddressTextBox.Text}', email='{EmailTextBox.Text}', number='{ContactTextBox.Text}' WHERE id={guestID}"
+        Dim updateSuccess = Await Task.Run(Function() executeNonQuery(updateQuery, remoteConnection))
 
-        MessageBox.Show("Guest Information updated successfully!")
+        If updateSuccess Then
+            MessageBox.Show("Guest Information updated successfully!")
 
-        home.Enabled = True
-        Me.Close()
+            SaveButton.Enabled = True
+            login.refreshAllForms()
+            Me.Close()
+        End If
     End Sub
 
-    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
-        TextBox1.Clear()
-        TextBox2.Clear()
-        TextBox3.Clear()
-        TextBox4.Clear()
-        TextBox5.Clear()
-        TextBox7.Clear()
+    Private Sub ExitButton_Click(sender As Object, e As EventArgs) Handles ExitButton.Click
+        NameTextBox.Clear()
+        AddressTextBox.Clear()
+        ContactTextBox.Clear()
+        EmailTextBox.Clear()
+        DateTextBox.Clear()
+        RFIDTextBox.Clear()
 
-        ComboBox1.Text = ""
+        EventComboBox.Text = ""
 
-        home.Enabled = True
         Me.Close()
     End Sub
 
@@ -122,5 +103,22 @@ Public Class guestManagementEditGuest
         ReleaseCapture()
         ReleaseCapture()
         SendMessage(Me.Handle, &H112&, &HF012&, 0)
+    End Sub
+
+    Private Sub RFIDTextBox_KeyDown(sender As Object, e As KeyEventArgs) Handles RFIDTextBox.KeyDown
+        If e.KeyCode = Keys.Enter Then
+            Dim rfid As String = RFIDTextBox.Text
+            Dim sameRFIDCount = login.guestCollection.Where(Function(guest) guest.RFID = rfid)
+
+            If sameRFIDCount.Any Then
+                RFIDTextBox.Text = ""
+                MessageBox.Show("RFID is has already been used!")
+            End If
+        End If
+    End Sub
+
+    Private Sub EventComboBox_SelectionChangeCommitted(sender As Object, e As EventArgs) Handles EventComboBox.SelectionChangeCommitted
+        DateTextBox.Text = eventCollection(EventComboBox.SelectedIndex).Date
+        guestEventId = eventCollection(EventComboBox.SelectedIndex).GuestsID.ToString()
     End Sub
 End Class

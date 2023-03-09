@@ -3,73 +3,74 @@ Imports MySql.Data.MySqlClient
 
 Public Class trackingReportGuestLog
     'Loading data on form load
-    Private Async Sub trackingReportGuestLog_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        MessageBox.Show(trackingReport.selectedGuest)
-        'Disable the home form
-        home.Enabled = False
-        Me.TopMost = True
-
-        'Getting the selected guest by the admin from trackingreport form
-        Label1.Text = trackingReport.selectedGuest
-
-        Dim query As String = $"SELECT logs FROM guest WHERE name='{trackingReport.selectedGuest}' AND guest_id={trackingReport.guestsID}"
-
-        Dim ds As DataSet = Await Task.Run(Function() getData(query))
-
-        'While ds Is Nothing
-        '    ds = Await Task.Run(Function() getData(query))
-        'End While
-
-        'Creating another Dataset 
-        'Which we will manipulate to have the number of column that we want
-        Dim realDataSet As New DataSet()
-        Dim realDataTable As New DataTable()
-
-        realDataSet.Tables.Add(realDataTable)
-
-        Dim logs As String() = Split(ds.Tables(0).Rows(0)(0).ToString(), ", ")
-
-        'Adding two columns because we want Time in and Time out
-        addColumns(2, realDataTable)
-
-        'Initially did this to fix the bug for the odd number of logs
-        'Realized later that a try/catch on the for loop does it better
-
-        'Dim fixer As Boolean = ds.Tables(0).Rows.Count Mod 2
+    'Public Sub addColumns(ByVal numberOfColumns As Integer, ByVal dataTable As DataTable)
+    '    Dim column As DataColumn
+    '    For i As Integer = 0 To numberOfColumns - 1
+    '        column = New DataColumn()
+    '        column.DataType = System.Type.GetType("System.String")
+    '        column.ColumnName = $"{i}"
+    '        dataTable.Columns.Add(column)
+    '    Next
+    'End Sub
+    'Private Async Sub trackingReportGuestLog_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
 
-        For i As Integer = 0 To logs.Length - 1 Step 2
-            Dim tryrow As DataRow
-            tryrow = realDataSet.Tables(0).NewRow
+    '    'Getting the selected guest by the admin from trackingreport form
+    '    NameLabel.Text = trackingReport.selectedGuest
 
-            tryrow(0) = logs(i)
+    '    Dim query As String = $"SELECT logs FROM guest WHERE name='{trackingReport.selectedGuest}' AND guest_id={trackingReport.guestsID}"
 
-            Try
-                tryrow(1) = logs(i + 1)
-            Catch ex As Exception
+    '    Dim ds As DataSet = Await Task.Run(Function() getData(query))
 
-            End Try
+    '    'While ds Is Nothing
+    '    '    ds = Await Task.Run(Function() getData(query))
+    '    'End While
 
-            realDataSet.Tables(0).Rows.Add(tryrow)
-        Next
+    '    'Creating another Dataset 
+    '    'Which we will manipulate to have the number of column that we want
+    '    Dim realDataSet As New DataSet()
+    '    Dim realDataTable As New DataTable()
 
-        'If fixer Then
-        '    Dim tryrow As DataRow
-        '    tryrow = realDataSet.Tables(0).NewRow
+    '    realDataSet.Tables.Add(realDataTable)
 
-        '    tryrow(0) = logs(logs.Length - 1)
+    '    Dim logs As String() = Split(ds.Tables(0).Rows(0)(0).ToString(), ", ")
 
-        '    realDataSet.Tables(0).Rows.Add(tryrow)
-        'End If
+    '    'Adding two columns because we want Time in and Time out
+    '    addColumns(2, realDataTable)
 
-        DataGridView1.DataSource = realDataSet.Tables(0)
+    '    'Initially did this to fix the bug for the odd number of logs
+    '    'Realized later that a try/catch on the for loop does it better
 
-    End Sub
+    '    'Dim fixer As Boolean = ds.Tables(0).Rows.Count Mod 2
 
-    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
-        home.Enabled = True
-        Me.Close()
-    End Sub
+
+    '    For i As Integer = 0 To logs.Length - 1 Step 2
+    '        Dim tryrow As DataRow
+    '        tryrow = realDataSet.Tables(0).NewRow
+
+    '        tryrow(0) = logs(i)
+
+    '        Try
+    '            tryrow(1) = logs(i + 1)
+    '        Catch ex As Exception
+
+    '        End Try
+
+    '        realDataSet.Tables(0).Rows.Add(tryrow)
+    '    Next
+
+    '    'If fixer Then
+    '    '    Dim tryrow As DataRow
+    '    '    tryrow = realDataSet.Tables(0).NewRow
+
+    '    '    tryrow(0) = logs(logs.Length - 1)
+
+    '    '    realDataSet.Tables(0).Rows.Add(tryrow)
+    '    'End If
+
+    '    LogsDataGridView.DataSource = realDataSet.Tables(0)
+
+    'End Sub
 
     'Casting Shadow to the Form
     Private Const CS_DROPSHADOW As Integer = 131072
@@ -89,9 +90,17 @@ Public Class trackingReportGuestLog
     Private Shared Sub SendMessage(ByVal hWnd As System.IntPtr, ByVal wMsg As Integer, ByVal wParam As Integer, ByVal lParam As Integer)
     End Sub
 
-    Private Sub Form1_MouseDown(sender As Object, e As MouseEventArgs) Handles MyBase.MouseDown, Label1.MouseDown, Label1.MouseDown
+    Private Sub Form1_MouseDown(sender As Object, e As MouseEventArgs) Handles MyBase.MouseDown, NameLabel.MouseDown, NameLabel.MouseDown
         ReleaseCapture()
         ReleaseCapture()
         SendMessage(Me.Handle, &H112&, &HF012&, 0)
+    End Sub
+
+    Private Sub BackButton_Click(sender As Object, e As EventArgs) Handles BackButton.Click
+        Me.Close()
+    End Sub
+
+    Private Sub trackingReportGuestLog_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Me.CenterToScreen()
     End Sub
 End Class

@@ -25,119 +25,110 @@ Partial Class login
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(login))
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.TextBox1 = New System.Windows.Forms.TextBox()
-        Me.TextBox2 = New System.Windows.Forms.TextBox()
-        Me.CheckBox1 = New System.Windows.Forms.CheckBox()
-        Me.Button1 = New System.Windows.Forms.Button()
+        Me.UsernameTextBox = New System.Windows.Forms.TextBox()
+        Me.PasswordTextBox = New System.Windows.Forms.TextBox()
+        Me.RememberMeCheckBox = New System.Windows.Forms.CheckBox()
+        Me.LoginButton = New System.Windows.Forms.Button()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
-        Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
-        Me.Timer2 = New System.Windows.Forms.Timer(Me.components)
-        Me.Timer3 = New System.Windows.Forms.Timer(Me.components)
-        Me.Timer4 = New System.Windows.Forms.Timer(Me.components)
+        Me.CheckTimer = New System.Windows.Forms.Timer(Me.components)
+        Me.StopCheckTimer = New System.Windows.Forms.Timer(Me.components)
+        Me.RefreshTimer = New System.Windows.Forms.Timer(Me.components)
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'Label1
         '
-        Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("Poppins", 20.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-        Me.Label1.Location = New System.Drawing.Point(12, 186)
+        Me.Label1.Location = New System.Drawing.Point(14, 248)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(309, 48)
+        Me.Label1.Size = New System.Drawing.Size(356, 127)
         Me.Label1.TabIndex = 0
         Me.Label1.Text = "Login to your account"
+        Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
-        'TextBox1
+        'UsernameTextBox
         '
-        Me.TextBox1.Font = New System.Drawing.Font("Poppins", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-        Me.TextBox1.Location = New System.Drawing.Point(26, 263)
-        Me.TextBox1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.PlaceholderText = " Username"
-        Me.TextBox1.Size = New System.Drawing.Size(276, 31)
-        Me.TextBox1.TabIndex = 1
+        Me.UsernameTextBox.Font = New System.Drawing.Font("Poppins", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
+        Me.UsernameTextBox.Location = New System.Drawing.Point(30, 405)
+        Me.UsernameTextBox.Name = "UsernameTextBox"
+        Me.UsernameTextBox.PlaceholderText = " Username"
+        Me.UsernameTextBox.Size = New System.Drawing.Size(315, 37)
+        Me.UsernameTextBox.TabIndex = 1
         '
-        'TextBox2
+        'PasswordTextBox
         '
-        Me.TextBox2.Font = New System.Drawing.Font("Poppins", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-        Me.TextBox2.Location = New System.Drawing.Point(26, 323)
-        Me.TextBox2.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.TextBox2.Name = "TextBox2"
-        Me.TextBox2.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
-        Me.TextBox2.PlaceholderText = " Password"
-        Me.TextBox2.Size = New System.Drawing.Size(276, 31)
-        Me.TextBox2.TabIndex = 1
+        Me.PasswordTextBox.Font = New System.Drawing.Font("Poppins", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
+        Me.PasswordTextBox.Location = New System.Drawing.Point(30, 485)
+        Me.PasswordTextBox.Name = "PasswordTextBox"
+        Me.PasswordTextBox.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
+        Me.PasswordTextBox.PlaceholderText = " Password"
+        Me.PasswordTextBox.Size = New System.Drawing.Size(315, 37)
+        Me.PasswordTextBox.TabIndex = 1
         '
-        'CheckBox1
+        'RememberMeCheckBox
         '
-        Me.CheckBox1.AutoSize = True
-        Me.CheckBox1.Font = New System.Drawing.Font("Poppins", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-        Me.CheckBox1.Location = New System.Drawing.Point(26, 361)
-        Me.CheckBox1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.CheckBox1.Name = "CheckBox1"
-        Me.CheckBox1.Size = New System.Drawing.Size(115, 26)
-        Me.CheckBox1.TabIndex = 2
-        Me.CheckBox1.Text = "Remember me"
-        Me.CheckBox1.UseVisualStyleBackColor = True
+        Me.RememberMeCheckBox.AutoSize = True
+        Me.RememberMeCheckBox.Font = New System.Drawing.Font("Poppins", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
+        Me.RememberMeCheckBox.Location = New System.Drawing.Point(30, 535)
+        Me.RememberMeCheckBox.Name = "RememberMeCheckBox"
+        Me.RememberMeCheckBox.Size = New System.Drawing.Size(144, 30)
+        Me.RememberMeCheckBox.TabIndex = 2
+        Me.RememberMeCheckBox.Text = "Remember me"
+        Me.RememberMeCheckBox.UseVisualStyleBackColor = True
         '
-        'Button1
+        'LoginButton
         '
-        Me.Button1.BackColor = System.Drawing.Color.BlueViolet
-        Me.Button1.Enabled = False
-        Me.Button1.Font = New System.Drawing.Font("Poppins", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-        Me.Button1.ForeColor = System.Drawing.Color.White
-        Me.Button1.Location = New System.Drawing.Point(26, 438)
-        Me.Button1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(276, 38)
-        Me.Button1.TabIndex = 3
-        Me.Button1.Text = "Login"
-        Me.Button1.UseVisualStyleBackColor = False
+        Me.LoginButton.BackColor = System.Drawing.Color.BlueViolet
+        Me.LoginButton.Enabled = False
+        Me.LoginButton.FlatAppearance.BorderSize = 0
+        Me.LoginButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.LoginButton.Font = New System.Drawing.Font("Poppins", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
+        Me.LoginButton.ForeColor = System.Drawing.Color.White
+        Me.LoginButton.Location = New System.Drawing.Point(30, 604)
+        Me.LoginButton.Name = "LoginButton"
+        Me.LoginButton.Size = New System.Drawing.Size(315, 51)
+        Me.LoginButton.TabIndex = 3
+        Me.LoginButton.Text = "Login"
+        Me.LoginButton.UseVisualStyleBackColor = False
         '
         'PictureBox1
         '
         Me.PictureBox1.Image = CType(resources.GetObject("PictureBox1.Image"), System.Drawing.Image)
-        Me.PictureBox1.Location = New System.Drawing.Point(71, 11)
-        Me.PictureBox1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.PictureBox1.Location = New System.Drawing.Point(81, 15)
         Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(179, 147)
+        Me.PictureBox1.Size = New System.Drawing.Size(205, 196)
         Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
         Me.PictureBox1.TabIndex = 4
         Me.PictureBox1.TabStop = False
         '
-        'Timer1
+        'CheckTimer
         '
-        Me.Timer1.Enabled = True
-        Me.Timer1.Interval = 15000
+        Me.CheckTimer.Enabled = True
+        Me.CheckTimer.Interval = 15000
         '
-        'Timer2
+        'StopCheckTimer
         '
-        Me.Timer2.Interval = 86300000
+        Me.StopCheckTimer.Interval = 86300000
         '
-        'Timer3
+        'RefreshTimer
         '
-        Me.Timer3.Enabled = True
-        Me.Timer3.Interval = 20000
-        '
-        'Timer4
-        '
-        Me.Timer4.Interval = 15000
+        Me.RefreshTimer.Enabled = True
+        Me.RefreshTimer.Interval = 10000
         '
         'login
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.White
-        Me.ClientSize = New System.Drawing.Size(334, 636)
+        Me.ClientSize = New System.Drawing.Size(382, 670)
         Me.Controls.Add(Me.PictureBox1)
-        Me.Controls.Add(Me.Button1)
-        Me.Controls.Add(Me.CheckBox1)
-        Me.Controls.Add(Me.TextBox2)
-        Me.Controls.Add(Me.TextBox1)
+        Me.Controls.Add(Me.LoginButton)
+        Me.Controls.Add(Me.RememberMeCheckBox)
+        Me.Controls.Add(Me.PasswordTextBox)
+        Me.Controls.Add(Me.UsernameTextBox)
         Me.Controls.Add(Me.Label1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
-        Me.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Name = "login"
         Me.ShowIcon = False
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
@@ -147,13 +138,12 @@ Partial Class login
     End Sub
 
     Friend WithEvents Label1 As Label
-    Friend WithEvents TextBox1 As TextBox
-    Friend WithEvents TextBox2 As TextBox
-    Friend WithEvents CheckBox1 As CheckBox
-    Friend WithEvents Button1 As Button
+    Friend WithEvents UsernameTextBox As TextBox
+    Friend WithEvents PasswordTextBox As TextBox
+    Friend WithEvents RememberMeCheckBox As CheckBox
+    Friend WithEvents LoginButton As Button
     Friend WithEvents PictureBox1 As PictureBox
-    Friend WithEvents Timer1 As Timer
-    Friend WithEvents Timer2 As Timer
-    Friend WithEvents Timer3 As Timer
-    Friend WithEvents Timer4 As Timer
+    Friend WithEvents CheckTimer As Timer
+    Friend WithEvents StopCheckTimer As Timer
+    Friend WithEvents RefreshTimer As Timer
 End Class

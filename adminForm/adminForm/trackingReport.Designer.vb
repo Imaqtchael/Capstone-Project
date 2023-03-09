@@ -22,82 +22,64 @@ Partial Class trackingReport
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(trackingReport))
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Me.TextBox1 = New System.Windows.Forms.TextBox()
-        Me.Label2 = New System.Windows.Forms.Label()
-        Me.Button1 = New System.Windows.Forms.Button()
-        Me.DataGridView1 = New System.Windows.Forms.DataGridView()
+        Me.GuestSearchTextBox = New System.Windows.Forms.TextBox()
+        Me.DateLabel = New System.Windows.Forms.Label()
+        Me.TrackingDataGridView = New System.Windows.Forms.DataGridView()
         Me.Panel1 = New System.Windows.Forms.Panel()
-        Me.Label5 = New System.Windows.Forms.Label()
+        Me.GuestInLabel = New System.Windows.Forms.Label()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.Panel2 = New System.Windows.Forms.Panel()
-        Me.Label7 = New System.Windows.Forms.Label()
+        Me.GuestOutLabel = New System.Windows.Forms.Label()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.Panel3 = New System.Windows.Forms.Panel()
-        Me.ComboBox1 = New System.Windows.Forms.ComboBox()
+        Me.EventsComboBox = New System.Windows.Forms.ComboBox()
         Me.Panel4 = New System.Windows.Forms.Panel()
         Me.Label11 = New System.Windows.Forms.Label()
         Me.Label10 = New System.Windows.Forms.Label()
         Me.Label9 = New System.Windows.Forms.Label()
         Me.Label8 = New System.Windows.Forms.Label()
-        CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.TrackingDataGridView, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel1.SuspendLayout()
         Me.Panel2.SuspendLayout()
         Me.Panel3.SuspendLayout()
         Me.Panel4.SuspendLayout()
         Me.SuspendLayout()
         '
-        'TextBox1
+        'GuestSearchTextBox
         '
-        Me.TextBox1.BackColor = System.Drawing.Color.LightGray
-        Me.TextBox1.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.TextBox1.Font = New System.Drawing.Font("Poppins", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-        Me.TextBox1.Location = New System.Drawing.Point(11, 213)
-        Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.PlaceholderText = "Search Guest"
-        Me.TextBox1.Size = New System.Drawing.Size(314, 30)
-        Me.TextBox1.TabIndex = 0
+        Me.GuestSearchTextBox.BackColor = System.Drawing.Color.LightGray
+        Me.GuestSearchTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.GuestSearchTextBox.Font = New System.Drawing.Font("Poppins", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
+        Me.GuestSearchTextBox.Location = New System.Drawing.Point(11, 213)
+        Me.GuestSearchTextBox.Name = "GuestSearchTextBox"
+        Me.GuestSearchTextBox.PlaceholderText = "Search Guest"
+        Me.GuestSearchTextBox.Size = New System.Drawing.Size(314, 30)
+        Me.GuestSearchTextBox.TabIndex = 0
         '
-        'Label2
+        'DateLabel
         '
-        Me.Label2.AutoSize = True
-        Me.Label2.Font = New System.Drawing.Font("Poppins", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-        Me.Label2.Location = New System.Drawing.Point(11, 75)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(47, 26)
-        Me.Label2.TabIndex = 1
-        Me.Label2.Text = "Date"
+        Me.DateLabel.AutoSize = True
+        Me.DateLabel.Font = New System.Drawing.Font("Poppins", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
+        Me.DateLabel.Location = New System.Drawing.Point(11, 75)
+        Me.DateLabel.Name = "DateLabel"
+        Me.DateLabel.Size = New System.Drawing.Size(47, 26)
+        Me.DateLabel.TabIndex = 1
+        Me.DateLabel.Text = "Date"
         '
-        'Button1
+        'TrackingDataGridView
         '
-        Me.Button1.BackColor = System.Drawing.Color.LightGray
-        Me.Button1.FlatAppearance.BorderSize = 0
-        Me.Button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Button1.Font = New System.Drawing.Font("Poppins", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-        Me.Button1.ForeColor = System.Drawing.Color.Black
-        Me.Button1.Image = CType(resources.GetObject("Button1.Image"), System.Drawing.Image)
-        Me.Button1.Location = New System.Drawing.Point(322, 213)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Padding = New System.Windows.Forms.Padding(6, 7, 6, 7)
-        Me.Button1.Size = New System.Drawing.Size(46, 30)
-        Me.Button1.TabIndex = 2
-        Me.Button1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
-        Me.Button1.UseVisualStyleBackColor = False
-        '
-        'DataGridView1
-        '
-        Me.DataGridView1.AllowUserToAddRows = False
-        Me.DataGridView1.AllowUserToDeleteRows = False
-        Me.DataGridView1.AllowUserToResizeColumns = False
-        Me.DataGridView1.AllowUserToResizeRows = False
-        Me.DataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
-        Me.DataGridView1.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells
-        Me.DataGridView1.BackgroundColor = System.Drawing.Color.White
-        Me.DataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.DataGridView1.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None
-        Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DataGridView1.ColumnHeadersVisible = False
+        Me.TrackingDataGridView.AllowUserToAddRows = False
+        Me.TrackingDataGridView.AllowUserToDeleteRows = False
+        Me.TrackingDataGridView.AllowUserToResizeColumns = False
+        Me.TrackingDataGridView.AllowUserToResizeRows = False
+        Me.TrackingDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
+        Me.TrackingDataGridView.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells
+        Me.TrackingDataGridView.BackgroundColor = System.Drawing.Color.White
+        Me.TrackingDataGridView.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.TrackingDataGridView.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None
+        Me.TrackingDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.TrackingDataGridView.ColumnHeadersVisible = False
         DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopLeft
         DataGridViewCellStyle1.BackColor = System.Drawing.Color.LightGray
         DataGridViewCellStyle1.Font = New System.Drawing.Font("Poppins", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
@@ -106,39 +88,39 @@ Partial Class trackingReport
         DataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.SkyBlue
         DataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.White
         DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.DataGridView1.DefaultCellStyle = DataGridViewCellStyle1
-        Me.DataGridView1.Location = New System.Drawing.Point(14, 69)
-        Me.DataGridView1.MultiSelect = False
-        Me.DataGridView1.Name = "DataGridView1"
-        Me.DataGridView1.ReadOnly = True
-        Me.DataGridView1.RowHeadersVisible = False
-        Me.DataGridView1.RowHeadersWidth = 51
-        Me.DataGridView1.RowTemplate.DividerHeight = 1
-        Me.DataGridView1.RowTemplate.Height = 29
-        Me.DataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.DataGridView1.Size = New System.Drawing.Size(1344, 409)
-        Me.DataGridView1.TabIndex = 3
+        Me.TrackingDataGridView.DefaultCellStyle = DataGridViewCellStyle1
+        Me.TrackingDataGridView.Location = New System.Drawing.Point(14, 69)
+        Me.TrackingDataGridView.MultiSelect = False
+        Me.TrackingDataGridView.Name = "TrackingDataGridView"
+        Me.TrackingDataGridView.ReadOnly = True
+        Me.TrackingDataGridView.RowHeadersVisible = False
+        Me.TrackingDataGridView.RowHeadersWidth = 51
+        Me.TrackingDataGridView.RowTemplate.DividerHeight = 1
+        Me.TrackingDataGridView.RowTemplate.Height = 29
+        Me.TrackingDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.TrackingDataGridView.Size = New System.Drawing.Size(1344, 409)
+        Me.TrackingDataGridView.TabIndex = 3
         '
         'Panel1
         '
         Me.Panel1.BackColor = System.Drawing.Color.DeepSkyBlue
-        Me.Panel1.Controls.Add(Me.Label5)
+        Me.Panel1.Controls.Add(Me.GuestInLabel)
         Me.Panel1.Controls.Add(Me.Label4)
         Me.Panel1.Location = New System.Drawing.Point(1000, 19)
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(151, 91)
         Me.Panel1.TabIndex = 4
         '
-        'Label5
+        'GuestInLabel
         '
-        Me.Label5.AutoSize = True
-        Me.Label5.Font = New System.Drawing.Font("Poppins", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-        Me.Label5.ForeColor = System.Drawing.Color.White
-        Me.Label5.Location = New System.Drawing.Point(17, 16)
-        Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(76, 36)
-        Me.Label5.TabIndex = 1
-        Me.Label5.Text = "Count"
+        Me.GuestInLabel.AutoSize = True
+        Me.GuestInLabel.Font = New System.Drawing.Font("Poppins", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
+        Me.GuestInLabel.ForeColor = System.Drawing.Color.White
+        Me.GuestInLabel.Location = New System.Drawing.Point(17, 16)
+        Me.GuestInLabel.Name = "GuestInLabel"
+        Me.GuestInLabel.Size = New System.Drawing.Size(76, 36)
+        Me.GuestInLabel.TabIndex = 1
+        Me.GuestInLabel.Text = "Count"
         '
         'Label4
         '
@@ -154,23 +136,23 @@ Partial Class trackingReport
         'Panel2
         '
         Me.Panel2.BackColor = System.Drawing.Color.Orange
-        Me.Panel2.Controls.Add(Me.Label7)
+        Me.Panel2.Controls.Add(Me.GuestOutLabel)
         Me.Panel2.Controls.Add(Me.Label6)
         Me.Panel2.Location = New System.Drawing.Point(1183, 19)
         Me.Panel2.Name = "Panel2"
         Me.Panel2.Size = New System.Drawing.Size(151, 91)
         Me.Panel2.TabIndex = 4
         '
-        'Label7
+        'GuestOutLabel
         '
-        Me.Label7.AutoSize = True
-        Me.Label7.Font = New System.Drawing.Font("Poppins", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-        Me.Label7.ForeColor = System.Drawing.Color.White
-        Me.Label7.Location = New System.Drawing.Point(16, 16)
-        Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(76, 36)
-        Me.Label7.TabIndex = 1
-        Me.Label7.Text = "Count"
+        Me.GuestOutLabel.AutoSize = True
+        Me.GuestOutLabel.Font = New System.Drawing.Font("Poppins", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
+        Me.GuestOutLabel.ForeColor = System.Drawing.Color.White
+        Me.GuestOutLabel.Location = New System.Drawing.Point(16, 16)
+        Me.GuestOutLabel.Name = "GuestOutLabel"
+        Me.GuestOutLabel.Size = New System.Drawing.Size(76, 36)
+        Me.GuestOutLabel.TabIndex = 1
+        Me.GuestOutLabel.Text = "Count"
         '
         'Label6
         '
@@ -187,32 +169,32 @@ Partial Class trackingReport
         'Panel3
         '
         Me.Panel3.BackColor = System.Drawing.Color.White
-        Me.Panel3.Controls.Add(Me.ComboBox1)
+        Me.Panel3.Controls.Add(Me.EventsComboBox)
         Me.Panel3.Controls.Add(Me.Panel1)
         Me.Panel3.Controls.Add(Me.Panel2)
-        Me.Panel3.Controls.Add(Me.Label2)
+        Me.Panel3.Controls.Add(Me.DateLabel)
         Me.Panel3.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel3.Location = New System.Drawing.Point(0, 0)
         Me.Panel3.Name = "Panel3"
         Me.Panel3.Size = New System.Drawing.Size(1371, 203)
         Me.Panel3.TabIndex = 5
         '
-        'ComboBox1
+        'EventsComboBox
         '
-        Me.ComboBox1.BackColor = System.Drawing.Color.Gainsboro
-        Me.ComboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.ComboBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.ComboBox1.Font = New System.Drawing.Font("Poppins", 16.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-        Me.ComboBox1.FormattingEnabled = True
-        Me.ComboBox1.Location = New System.Drawing.Point(11, 12)
-        Me.ComboBox1.Name = "ComboBox1"
-        Me.ComboBox1.Size = New System.Drawing.Size(517, 56)
-        Me.ComboBox1.TabIndex = 5
+        Me.EventsComboBox.BackColor = System.Drawing.Color.Gainsboro
+        Me.EventsComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.EventsComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.EventsComboBox.Font = New System.Drawing.Font("Poppins", 16.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
+        Me.EventsComboBox.FormattingEnabled = True
+        Me.EventsComboBox.Location = New System.Drawing.Point(11, 12)
+        Me.EventsComboBox.Name = "EventsComboBox"
+        Me.EventsComboBox.Size = New System.Drawing.Size(517, 56)
+        Me.EventsComboBox.TabIndex = 5
         '
         'Panel4
         '
         Me.Panel4.BackColor = System.Drawing.Color.White
-        Me.Panel4.Controls.Add(Me.DataGridView1)
+        Me.Panel4.Controls.Add(Me.TrackingDataGridView)
         Me.Panel4.Controls.Add(Me.Label11)
         Me.Panel4.Controls.Add(Me.Label10)
         Me.Panel4.Controls.Add(Me.Label9)
@@ -272,12 +254,11 @@ Partial Class trackingReport
         Me.ClientSize = New System.Drawing.Size(1371, 747)
         Me.Controls.Add(Me.Panel4)
         Me.Controls.Add(Me.Panel3)
-        Me.Controls.Add(Me.TextBox1)
-        Me.Controls.Add(Me.Button1)
+        Me.Controls.Add(Me.GuestSearchTextBox)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.Name = "trackingReport"
         Me.Text = "trackingReport"
-        CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.TrackingDataGridView, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel1.ResumeLayout(False)
         Me.Panel1.PerformLayout()
         Me.Panel2.ResumeLayout(False)
@@ -291,15 +272,14 @@ Partial Class trackingReport
 
     End Sub
 
-    Friend WithEvents TextBox1 As TextBox
-    Friend WithEvents Label2 As Label
-    Friend WithEvents Button1 As Button
-    Friend WithEvents DataGridView1 As DataGridView
+    Friend WithEvents GuestSearchTextBox As TextBox
+    Friend WithEvents DateLabel As Label
+    Friend WithEvents TrackingDataGridView As DataGridView
     Friend WithEvents Panel1 As Panel
     Friend WithEvents Panel2 As Panel
-    Friend WithEvents Label5 As Label
+    Friend WithEvents GuestInLabel As Label
     Friend WithEvents Label4 As Label
-    Friend WithEvents Label7 As Label
+    Friend WithEvents GuestOutLabel As Label
     Friend WithEvents Label6 As Label
     Friend WithEvents Panel3 As Panel
     Friend WithEvents Panel4 As Panel
@@ -307,5 +287,5 @@ Partial Class trackingReport
     Friend WithEvents Label10 As Label
     Friend WithEvents Label9 As Label
     Friend WithEvents Label8 As Label
-    Friend WithEvents ComboBox1 As ComboBox
+    Friend WithEvents EventsComboBox As ComboBox
 End Class

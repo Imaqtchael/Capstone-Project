@@ -24,32 +24,32 @@ Partial Class eventManagementEditORAddEvent
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(eventManagementEditORAddEvent))
         Me.Panel1 = New System.Windows.Forms.Panel()
-        Me.CheckBox2 = New System.Windows.Forms.CheckBox()
-        Me.CheckBox1 = New System.Windows.Forms.CheckBox()
+        Me.NotPaidCheckBox = New System.Windows.Forms.CheckBox()
+        Me.PaidCheckBox = New System.Windows.Forms.CheckBox()
         Me.Panel2 = New System.Windows.Forms.Panel()
         Me.Label11 = New System.Windows.Forms.Label()
-        Me.TextBox6 = New System.Windows.Forms.TextBox()
+        Me.RFIDTextBox = New System.Windows.Forms.TextBox()
         Me.Label10 = New System.Windows.Forms.Label()
-        Me.TextBox5 = New System.Windows.Forms.TextBox()
+        Me.EmailTextBox = New System.Windows.Forms.TextBox()
         Me.Label9 = New System.Windows.Forms.Label()
-        Me.TextBox4 = New System.Windows.Forms.TextBox()
+        Me.BookerContactTextBox = New System.Windows.Forms.TextBox()
         Me.Label8 = New System.Windows.Forms.Label()
-        Me.TextBox2 = New System.Windows.Forms.TextBox()
+        Me.AddressTextBox = New System.Windows.Forms.TextBox()
         Me.Label4 = New System.Windows.Forms.Label()
-        Me.TextBox3 = New System.Windows.Forms.TextBox()
+        Me.BookerNameTextBox = New System.Windows.Forms.TextBox()
         Me.Label5 = New System.Windows.Forms.Label()
-        Me.DateTimePicker1 = New System.Windows.Forms.DateTimePicker()
-        Me.ComboBox1 = New System.Windows.Forms.ComboBox()
-        Me.Button2 = New System.Windows.Forms.Button()
-        Me.Button1 = New System.Windows.Forms.Button()
+        Me.EventDateTimePicker = New System.Windows.Forms.DateTimePicker()
+        Me.TypeComboBox = New System.Windows.Forms.ComboBox()
+        Me.ExitButton = New System.Windows.Forms.Button()
+        Me.SaveButton = New System.Windows.Forms.Button()
         Me.Label6 = New System.Windows.Forms.Label()
-        Me.TextBox7 = New System.Windows.Forms.TextBox()
-        Me.TextBox1 = New System.Windows.Forms.TextBox()
+        Me.TimeTextBox = New System.Windows.Forms.TextBox()
+        Me.EventNameTextBox = New System.Windows.Forms.TextBox()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Label12 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
-        Me.Label1 = New System.Windows.Forms.Label()
+        Me.EditOrAddLabel = New System.Windows.Forms.Label()
         Me.Panel1.SuspendLayout()
         Me.Panel2.SuspendLayout()
         Me.SuspendLayout()
@@ -57,239 +57,250 @@ Partial Class eventManagementEditORAddEvent
         'Panel1
         '
         Me.Panel1.BackColor = System.Drawing.Color.White
-        Me.Panel1.Controls.Add(Me.CheckBox2)
-        Me.Panel1.Controls.Add(Me.CheckBox1)
+        Me.Panel1.Controls.Add(Me.NotPaidCheckBox)
+        Me.Panel1.Controls.Add(Me.PaidCheckBox)
         Me.Panel1.Controls.Add(Me.Panel2)
         Me.Panel1.Controls.Add(Me.Label5)
-        Me.Panel1.Controls.Add(Me.DateTimePicker1)
-        Me.Panel1.Controls.Add(Me.ComboBox1)
-        Me.Panel1.Controls.Add(Me.Button2)
-        Me.Panel1.Controls.Add(Me.Button1)
+        Me.Panel1.Controls.Add(Me.EventDateTimePicker)
+        Me.Panel1.Controls.Add(Me.TypeComboBox)
+        Me.Panel1.Controls.Add(Me.ExitButton)
+        Me.Panel1.Controls.Add(Me.SaveButton)
         Me.Panel1.Controls.Add(Me.Label6)
-        Me.Panel1.Controls.Add(Me.TextBox7)
-        Me.Panel1.Controls.Add(Me.TextBox1)
+        Me.Panel1.Controls.Add(Me.TimeTextBox)
+        Me.Panel1.Controls.Add(Me.EventNameTextBox)
         Me.Panel1.Controls.Add(Me.Label7)
         Me.Panel1.Controls.Add(Me.Label3)
         Me.Panel1.Controls.Add(Me.Label12)
         Me.Panel1.Controls.Add(Me.Label2)
-        Me.Panel1.Location = New System.Drawing.Point(0, 35)
+        Me.Panel1.Location = New System.Drawing.Point(0, 47)
+        Me.Panel1.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(517, 653)
+        Me.Panel1.Size = New System.Drawing.Size(591, 871)
         Me.Panel1.TabIndex = 1
         '
-        'CheckBox2
+        'NotPaidCheckBox
         '
-        Me.CheckBox2.AutoSize = True
-        Me.CheckBox2.Location = New System.Drawing.Point(272, 206)
-        Me.CheckBox2.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.CheckBox2.Name = "CheckBox2"
-        Me.CheckBox2.Size = New System.Drawing.Size(72, 19)
-        Me.CheckBox2.TabIndex = 6
-        Me.CheckBox2.Text = "Not Paid"
-        Me.CheckBox2.UseVisualStyleBackColor = True
+        Me.NotPaidCheckBox.AutoSize = True
+        Me.NotPaidCheckBox.Location = New System.Drawing.Point(311, 275)
+        Me.NotPaidCheckBox.Name = "NotPaidCheckBox"
+        Me.NotPaidCheckBox.Size = New System.Drawing.Size(88, 24)
+        Me.NotPaidCheckBox.TabIndex = 6
+        Me.NotPaidCheckBox.Text = "Not Paid"
+        Me.NotPaidCheckBox.UseVisualStyleBackColor = True
         '
-        'CheckBox1
+        'PaidCheckBox
         '
-        Me.CheckBox1.AutoSize = True
-        Me.CheckBox1.Location = New System.Drawing.Point(20, 206)
-        Me.CheckBox1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.CheckBox1.Name = "CheckBox1"
-        Me.CheckBox1.Size = New System.Drawing.Size(49, 19)
-        Me.CheckBox1.TabIndex = 6
-        Me.CheckBox1.Text = "Paid"
-        Me.CheckBox1.UseVisualStyleBackColor = True
+        Me.PaidCheckBox.AutoSize = True
+        Me.PaidCheckBox.Location = New System.Drawing.Point(23, 275)
+        Me.PaidCheckBox.Name = "PaidCheckBox"
+        Me.PaidCheckBox.Size = New System.Drawing.Size(59, 24)
+        Me.PaidCheckBox.TabIndex = 6
+        Me.PaidCheckBox.Text = "Paid"
+        Me.PaidCheckBox.UseVisualStyleBackColor = True
         '
         'Panel2
         '
         Me.Panel2.BackColor = System.Drawing.Color.WhiteSmoke
         Me.Panel2.Controls.Add(Me.Label11)
-        Me.Panel2.Controls.Add(Me.TextBox6)
+        Me.Panel2.Controls.Add(Me.RFIDTextBox)
         Me.Panel2.Controls.Add(Me.Label10)
-        Me.Panel2.Controls.Add(Me.TextBox5)
+        Me.Panel2.Controls.Add(Me.EmailTextBox)
         Me.Panel2.Controls.Add(Me.Label9)
-        Me.Panel2.Controls.Add(Me.TextBox4)
+        Me.Panel2.Controls.Add(Me.BookerContactTextBox)
         Me.Panel2.Controls.Add(Me.Label8)
-        Me.Panel2.Controls.Add(Me.TextBox2)
+        Me.Panel2.Controls.Add(Me.AddressTextBox)
         Me.Panel2.Controls.Add(Me.Label4)
-        Me.Panel2.Controls.Add(Me.TextBox3)
-        Me.Panel2.Location = New System.Drawing.Point(20, 274)
+        Me.Panel2.Controls.Add(Me.BookerNameTextBox)
+        Me.Panel2.Location = New System.Drawing.Point(23, 365)
+        Me.Panel2.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(475, 329)
+        Me.Panel2.Size = New System.Drawing.Size(543, 439)
         Me.Panel2.TabIndex = 5
         '
         'Label11
         '
         Me.Label11.AutoSize = True
         Me.Label11.Font = New System.Drawing.Font("Poppins", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-        Me.Label11.Location = New System.Drawing.Point(15, 224)
+        Me.Label11.Location = New System.Drawing.Point(17, 299)
         Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(59, 22)
+        Me.Label11.Size = New System.Drawing.Size(76, 26)
         Me.Label11.TabIndex = 0
         Me.Label11.Text = "RFID Tag"
         '
-        'TextBox6
+        'RFIDTextBox
         '
-        Me.TextBox6.Font = New System.Drawing.Font("Poppins", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-        Me.TextBox6.Location = New System.Drawing.Point(15, 249)
-        Me.TextBox6.Name = "TextBox6"
-        Me.TextBox6.Size = New System.Drawing.Size(446, 25)
-        Me.TextBox6.TabIndex = 1
+        Me.RFIDTextBox.Font = New System.Drawing.Font("Poppins", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
+        Me.RFIDTextBox.Location = New System.Drawing.Point(17, 332)
+        Me.RFIDTextBox.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.RFIDTextBox.Name = "RFIDTextBox"
+        Me.RFIDTextBox.Size = New System.Drawing.Size(509, 30)
+        Me.RFIDTextBox.TabIndex = 1
         '
         'Label10
         '
         Me.Label10.AutoSize = True
         Me.Label10.Font = New System.Drawing.Font("Poppins", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-        Me.Label10.Location = New System.Drawing.Point(15, 171)
+        Me.Label10.Location = New System.Drawing.Point(17, 228)
         Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(42, 22)
+        Me.Label10.Size = New System.Drawing.Size(53, 26)
         Me.Label10.TabIndex = 0
         Me.Label10.Text = "Email"
         '
-        'TextBox5
+        'EmailTextBox
         '
-        Me.TextBox5.Font = New System.Drawing.Font("Poppins", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-        Me.TextBox5.Location = New System.Drawing.Point(15, 196)
-        Me.TextBox5.Name = "TextBox5"
-        Me.TextBox5.Size = New System.Drawing.Size(446, 25)
-        Me.TextBox5.TabIndex = 1
+        Me.EmailTextBox.Font = New System.Drawing.Font("Poppins", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
+        Me.EmailTextBox.Location = New System.Drawing.Point(17, 261)
+        Me.EmailTextBox.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.EmailTextBox.Name = "EmailTextBox"
+        Me.EmailTextBox.Size = New System.Drawing.Size(509, 30)
+        Me.EmailTextBox.TabIndex = 1
         '
         'Label9
         '
         Me.Label9.AutoSize = True
         Me.Label9.Font = New System.Drawing.Font("Poppins", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-        Me.Label9.Location = New System.Drawing.Point(15, 118)
+        Me.Label9.Location = New System.Drawing.Point(17, 157)
         Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(108, 22)
+        Me.Label9.Size = New System.Drawing.Size(138, 26)
         Me.Label9.TabIndex = 0
         Me.Label9.Text = "Contact Number"
         '
-        'TextBox4
+        'BookerContactTextBox
         '
-        Me.TextBox4.Font = New System.Drawing.Font("Poppins", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-        Me.TextBox4.Location = New System.Drawing.Point(15, 143)
-        Me.TextBox4.Name = "TextBox4"
-        Me.TextBox4.Size = New System.Drawing.Size(446, 25)
-        Me.TextBox4.TabIndex = 1
+        Me.BookerContactTextBox.Font = New System.Drawing.Font("Poppins", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
+        Me.BookerContactTextBox.Location = New System.Drawing.Point(17, 191)
+        Me.BookerContactTextBox.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.BookerContactTextBox.Name = "BookerContactTextBox"
+        Me.BookerContactTextBox.Size = New System.Drawing.Size(509, 30)
+        Me.BookerContactTextBox.TabIndex = 1
         '
         'Label8
         '
         Me.Label8.AutoSize = True
         Me.Label8.Font = New System.Drawing.Font("Poppins", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-        Me.Label8.Location = New System.Drawing.Point(15, 65)
+        Me.Label8.Location = New System.Drawing.Point(17, 87)
         Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(57, 22)
+        Me.Label8.Size = New System.Drawing.Size(73, 26)
         Me.Label8.TabIndex = 0
         Me.Label8.Text = "Address"
         '
-        'TextBox2
+        'AddressTextBox
         '
-        Me.TextBox2.Font = New System.Drawing.Font("Poppins", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-        Me.TextBox2.Location = New System.Drawing.Point(15, 90)
-        Me.TextBox2.Name = "TextBox2"
-        Me.TextBox2.Size = New System.Drawing.Size(446, 25)
-        Me.TextBox2.TabIndex = 1
+        Me.AddressTextBox.Font = New System.Drawing.Font("Poppins", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
+        Me.AddressTextBox.Location = New System.Drawing.Point(17, 120)
+        Me.AddressTextBox.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.AddressTextBox.Name = "AddressTextBox"
+        Me.AddressTextBox.Size = New System.Drawing.Size(509, 30)
+        Me.AddressTextBox.TabIndex = 1
         '
         'Label4
         '
         Me.Label4.AutoSize = True
         Me.Label4.Font = New System.Drawing.Font("Poppins", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-        Me.Label4.Location = New System.Drawing.Point(15, 12)
+        Me.Label4.Location = New System.Drawing.Point(17, 16)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(50, 22)
+        Me.Label4.Size = New System.Drawing.Size(64, 26)
         Me.Label4.TabIndex = 0
         Me.Label4.Text = "Booker"
         '
-        'TextBox3
+        'BookerNameTextBox
         '
-        Me.TextBox3.Font = New System.Drawing.Font("Poppins", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-        Me.TextBox3.Location = New System.Drawing.Point(15, 37)
-        Me.TextBox3.Name = "TextBox3"
-        Me.TextBox3.Size = New System.Drawing.Size(446, 25)
-        Me.TextBox3.TabIndex = 1
+        Me.BookerNameTextBox.Font = New System.Drawing.Font("Poppins", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
+        Me.BookerNameTextBox.Location = New System.Drawing.Point(17, 49)
+        Me.BookerNameTextBox.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.BookerNameTextBox.Name = "BookerNameTextBox"
+        Me.BookerNameTextBox.Size = New System.Drawing.Size(509, 30)
+        Me.BookerNameTextBox.TabIndex = 1
         '
         'Label5
         '
         Me.Label5.AutoSize = True
         Me.Label5.Font = New System.Drawing.Font("Poppins", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point)
-        Me.Label5.Location = New System.Drawing.Point(20, 248)
+        Me.Label5.Location = New System.Drawing.Point(23, 331)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(168, 23)
+        Me.Label5.Size = New System.Drawing.Size(213, 30)
         Me.Label5.TabIndex = 2
         Me.Label5.Text = "BOOKER INFORMATION"
         '
-        'DateTimePicker1
+        'EventDateTimePicker
         '
-        Me.DateTimePicker1.Location = New System.Drawing.Point(20, 74)
-        Me.DateTimePicker1.Name = "DateTimePicker1"
-        Me.DateTimePicker1.Size = New System.Drawing.Size(475, 23)
-        Me.DateTimePicker1.TabIndex = 4
+        Me.EventDateTimePicker.Location = New System.Drawing.Point(23, 99)
+        Me.EventDateTimePicker.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.EventDateTimePicker.Name = "EventDateTimePicker"
+        Me.EventDateTimePicker.Size = New System.Drawing.Size(542, 27)
+        Me.EventDateTimePicker.TabIndex = 4
         '
-        'ComboBox1
+        'TypeComboBox
         '
-        Me.ComboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.ComboBox1.FormattingEnabled = True
-        Me.ComboBox1.Items.AddRange(New Object() {"BIRTHDAY", "VIP MEETING", "WEDDING"})
-        Me.ComboBox1.Location = New System.Drawing.Point(20, 119)
-        Me.ComboBox1.Name = "ComboBox1"
-        Me.ComboBox1.Size = New System.Drawing.Size(475, 23)
-        Me.ComboBox1.TabIndex = 3
+        Me.TypeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.TypeComboBox.FormattingEnabled = True
+        Me.TypeComboBox.Items.AddRange(New Object() {"BIRTHDAY", "VIP MEETING", "WEDDING"})
+        Me.TypeComboBox.Location = New System.Drawing.Point(23, 159)
+        Me.TypeComboBox.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.TypeComboBox.Name = "TypeComboBox"
+        Me.TypeComboBox.Size = New System.Drawing.Size(542, 28)
+        Me.TypeComboBox.TabIndex = 3
         '
-        'Button2
+        'ExitButton
         '
-        Me.Button2.Font = New System.Drawing.Font("Poppins", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-        Me.Button2.ForeColor = System.Drawing.Color.DodgerBlue
-        Me.Button2.Location = New System.Drawing.Point(272, 609)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(118, 32)
-        Me.Button2.TabIndex = 2
-        Me.Button2.Text = "BACK TO HOME"
-        Me.Button2.UseVisualStyleBackColor = True
+        Me.ExitButton.Font = New System.Drawing.Font("Poppins", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
+        Me.ExitButton.ForeColor = System.Drawing.Color.DodgerBlue
+        Me.ExitButton.Location = New System.Drawing.Point(311, 812)
+        Me.ExitButton.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.ExitButton.Name = "ExitButton"
+        Me.ExitButton.Size = New System.Drawing.Size(135, 43)
+        Me.ExitButton.TabIndex = 2
+        Me.ExitButton.Text = "BACK TO HOME"
+        Me.ExitButton.UseVisualStyleBackColor = True
         '
-        'Button1
+        'SaveButton
         '
-        Me.Button1.BackColor = System.Drawing.Color.DodgerBlue
-        Me.Button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Button1.Font = New System.Drawing.Font("Poppins", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-        Me.Button1.ForeColor = System.Drawing.Color.White
-        Me.Button1.Location = New System.Drawing.Point(143, 609)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(109, 32)
-        Me.Button1.TabIndex = 2
-        Me.Button1.Text = "SAVE"
-        Me.Button1.UseVisualStyleBackColor = False
+        Me.SaveButton.BackColor = System.Drawing.Color.DodgerBlue
+        Me.SaveButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.SaveButton.Font = New System.Drawing.Font("Poppins", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
+        Me.SaveButton.ForeColor = System.Drawing.Color.White
+        Me.SaveButton.Location = New System.Drawing.Point(163, 812)
+        Me.SaveButton.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.SaveButton.Name = "SaveButton"
+        Me.SaveButton.Size = New System.Drawing.Size(125, 43)
+        Me.SaveButton.TabIndex = 2
+        Me.SaveButton.Text = "SAVE"
+        Me.SaveButton.UseVisualStyleBackColor = False
         '
         'Label6
         '
         Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(37, -29)
+        Me.Label6.Location = New System.Drawing.Point(42, -39)
         Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(41, 15)
+        Me.Label6.Size = New System.Drawing.Size(53, 20)
         Me.Label6.TabIndex = 0
         Me.Label6.Text = "Label1"
         '
-        'TextBox7
+        'TimeTextBox
         '
-        Me.TextBox7.Font = New System.Drawing.Font("Poppins", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-        Me.TextBox7.Location = New System.Drawing.Point(20, 169)
-        Me.TextBox7.Name = "TextBox7"
-        Me.TextBox7.Size = New System.Drawing.Size(475, 25)
-        Me.TextBox7.TabIndex = 1
+        Me.TimeTextBox.Font = New System.Drawing.Font("Poppins", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
+        Me.TimeTextBox.Location = New System.Drawing.Point(23, 225)
+        Me.TimeTextBox.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.TimeTextBox.Name = "TimeTextBox"
+        Me.TimeTextBox.Size = New System.Drawing.Size(542, 30)
+        Me.TimeTextBox.TabIndex = 1
         '
-        'TextBox1
+        'EventNameTextBox
         '
-        Me.TextBox1.Font = New System.Drawing.Font("Poppins", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-        Me.TextBox1.Location = New System.Drawing.Point(20, 25)
-        Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.Size = New System.Drawing.Size(475, 25)
-        Me.TextBox1.TabIndex = 1
+        Me.EventNameTextBox.Font = New System.Drawing.Font("Poppins", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
+        Me.EventNameTextBox.Location = New System.Drawing.Point(23, 33)
+        Me.EventNameTextBox.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.EventNameTextBox.Name = "EventNameTextBox"
+        Me.EventNameTextBox.Size = New System.Drawing.Size(542, 30)
+        Me.EventNameTextBox.TabIndex = 1
         '
         'Label7
         '
         Me.Label7.AutoSize = True
         Me.Label7.Font = New System.Drawing.Font("Poppins", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-        Me.Label7.Location = New System.Drawing.Point(20, 98)
+        Me.Label7.Location = New System.Drawing.Point(23, 131)
         Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(38, 22)
+        Me.Label7.Size = New System.Drawing.Size(47, 26)
         Me.Label7.TabIndex = 0
         Me.Label7.Text = "Type"
         '
@@ -297,9 +308,9 @@ Partial Class eventManagementEditORAddEvent
         '
         Me.Label3.AutoSize = True
         Me.Label3.Font = New System.Drawing.Font("Poppins", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-        Me.Label3.Location = New System.Drawing.Point(20, 52)
+        Me.Label3.Location = New System.Drawing.Point(23, 69)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(37, 22)
+        Me.Label3.Size = New System.Drawing.Size(47, 26)
         Me.Label3.TabIndex = 0
         Me.Label3.Text = "Date"
         '
@@ -307,9 +318,9 @@ Partial Class eventManagementEditORAddEvent
         '
         Me.Label12.AutoSize = True
         Me.Label12.Font = New System.Drawing.Font("Poppins", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-        Me.Label12.Location = New System.Drawing.Point(20, 144)
+        Me.Label12.Location = New System.Drawing.Point(23, 192)
         Me.Label12.Name = "Label12"
-        Me.Label12.Size = New System.Drawing.Size(38, 22)
+        Me.Label12.Size = New System.Drawing.Size(48, 26)
         Me.Label12.TabIndex = 0
         Me.Label12.Text = "Time"
         '
@@ -317,33 +328,34 @@ Partial Class eventManagementEditORAddEvent
         '
         Me.Label2.AutoSize = True
         Me.Label2.Font = New System.Drawing.Font("Poppins", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-        Me.Label2.Location = New System.Drawing.Point(20, 4)
+        Me.Label2.Location = New System.Drawing.Point(23, 5)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(45, 22)
+        Me.Label2.Size = New System.Drawing.Size(57, 26)
         Me.Label2.TabIndex = 0
         Me.Label2.Text = "Name"
         '
-        'Label1
+        'EditOrAddLabel
         '
-        Me.Label1.AutoSize = True
-        Me.Label1.Font = New System.Drawing.Font("Poppins", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point)
-        Me.Label1.ForeColor = System.Drawing.Color.Black
-        Me.Label1.Location = New System.Drawing.Point(204, 5)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(105, 28)
-        Me.Label1.TabIndex = 2
-        Me.Label1.Text = "ADD EVENT"
+        Me.EditOrAddLabel.AutoSize = True
+        Me.EditOrAddLabel.Font = New System.Drawing.Font("Poppins", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point)
+        Me.EditOrAddLabel.ForeColor = System.Drawing.Color.White
+        Me.EditOrAddLabel.Location = New System.Drawing.Point(233, 7)
+        Me.EditOrAddLabel.Name = "EditOrAddLabel"
+        Me.EditOrAddLabel.Size = New System.Drawing.Size(129, 36)
+        Me.EditOrAddLabel.TabIndex = 2
+        Me.EditOrAddLabel.Text = "ADD EVENT"
         '
         'eventManagementEditORAddEvent
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.BackColor = System.Drawing.Color.DeepSkyBlue
-        Me.ClientSize = New System.Drawing.Size(517, 688)
+        Me.BackColor = System.Drawing.Color.BlueViolet
+        Me.ClientSize = New System.Drawing.Size(591, 917)
         Me.Controls.Add(Me.Panel1)
-        Me.Controls.Add(Me.Label1)
+        Me.Controls.Add(Me.EditOrAddLabel)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
+        Me.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.Name = "eventManagementEditORAddEvent"
         Me.ShowInTaskbar = False
         Me.Text = "eventManagementAddGuest"
@@ -357,30 +369,30 @@ Partial Class eventManagementEditORAddEvent
     End Sub
 
     Friend WithEvents Panel1 As Panel
-    Friend WithEvents ComboBox1 As ComboBox
-    Friend WithEvents Button2 As Button
-    Friend WithEvents Button1 As Button
+    Friend WithEvents TypeComboBox As ComboBox
+    Friend WithEvents ExitButton As Button
+    Friend WithEvents SaveButton As Button
     Friend WithEvents Label6 As Label
-    Friend WithEvents TextBox3 As TextBox
-    Friend WithEvents TextBox1 As TextBox
+    Friend WithEvents BookerNameTextBox As TextBox
+    Friend WithEvents EventNameTextBox As TextBox
     Friend WithEvents Label7 As Label
     Friend WithEvents Label4 As Label
     Friend WithEvents Label3 As Label
     Friend WithEvents Label2 As Label
-    Friend WithEvents Label1 As Label
-    Friend WithEvents DateTimePicker1 As DateTimePicker
+    Friend WithEvents EditOrAddLabel As Label
+    Friend WithEvents EventDateTimePicker As DateTimePicker
     Friend WithEvents Panel2 As Panel
     Friend WithEvents Label10 As Label
-    Friend WithEvents TextBox5 As TextBox
+    Friend WithEvents EmailTextBox As TextBox
     Friend WithEvents Label9 As Label
-    Friend WithEvents TextBox4 As TextBox
+    Friend WithEvents BookerContactTextBox As TextBox
     Friend WithEvents Label8 As Label
-    Friend WithEvents TextBox2 As TextBox
+    Friend WithEvents AddressTextBox As TextBox
     Friend WithEvents Label5 As Label
     Friend WithEvents Label11 As Label
-    Friend WithEvents TextBox6 As TextBox
-    Friend WithEvents TextBox7 As TextBox
+    Friend WithEvents RFIDTextBox As TextBox
+    Friend WithEvents TimeTextBox As TextBox
     Friend WithEvents Label12 As Label
-    Friend WithEvents CheckBox2 As CheckBox
-    Friend WithEvents CheckBox1 As CheckBox
+    Friend WithEvents NotPaidCheckBox As CheckBox
+    Friend WithEvents PaidCheckBox As CheckBox
 End Class

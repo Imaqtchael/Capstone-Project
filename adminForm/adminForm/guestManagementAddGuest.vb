@@ -1,85 +1,89 @@
 ﻿Imports System.Runtime.InteropServices
-Imports MySql.Data.MySqlClient
 Public Class guestManagementAddGuest
     Dim guestID, eventDate As String
-    Dim loadDone As Boolean = False
 
-    Dim eventTable As DataTable
+    Dim eventCollection As IEnumerable(Of MyEvent)
 
-    Private Sub guestManagementAddGuest_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        home.Enabled = False
-        Me.TopMost = True
+    Public Sub RefreshComboBox()
+        Me.CenterToScreen()
+        SaveButton.Enabled = True
+        eventCollection = login.eventCollection.Where(Function(currentEvent) Convert.ToDateTime(currentEvent.Date) >= Date.Now.Date)
 
-        Button1.Enabled = True
-        eventTable = login.allTabDataSet.Tables(1)
-        If Not loadDone Then
-            For i As Integer = 0 To eventTable.Rows.Count - 1
-                ComboBox1.Items.Add(eventTable.Rows(i)(1))
-            Next
-        End If
+        EventComboBox.Items.Clear()
 
-        loadDone = True
+        For i As Integer = 0 To eventCollection.Count - 1
+            EventComboBox.Items.Add(eventCollection(i).Name)
+        Next
     End Sub
 
-    Private Async Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
-        Button1.Enabled = False
+    Private Sub guestManagementAddGuest_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        RefreshComboBox()
+    End Sub
+
+    Private Async Sub SaveButton_Click(sender As Object, e As EventArgs) Handles SaveButton.Click
+        SaveButton.Enabled = False
 
         Dim emptyTextBoxes =
             From txt In Me.Panel1.Controls.OfType(Of TextBox)()
-            Where txt.Text.Length = 0 And txt.Name <> TextBox7.Name
+            Where txt.Text.Length = 0 And txt.Name <> RFIDTextBox.Name
             Select txt.Name
         If emptyTextBoxes.Any Then
             MessageBox.Show("Please fill up all the fields")
+            SaveButton.Enabled = True
             Return
         End If
 
-        If TextBox7.Text.Length > 0 And TextBox7.Text.Length <> 10 Then
+        If RFIDTextBox.Text.Length > 0 And RFIDTextBox.Text.Length <> 10 Then
             MessageBox.Show("Invalid RFID")
+            SaveButton.Enabled = True
             Return
         End If
 
         Dim confirm As MsgBoxResult = MsgBox("Are you sure about all of the infromations?", MsgBoxStyle.YesNo)
-        Dim completed As Boolean = True
 
         If confirm = MsgBoxResult.Yes Then
-            Dim localQuery = $"INSERT INTO guest(guest_id, rfid, name, address, email, number, type) VALUES({guestID}, '{TextBox7.Text}', '{TextBox1.Text}', '{TextBox2.Text}', '{TextBox4.Text}', '{TextBox3.Text}', 'GUEST')"
-            completed = Await Task.Run(Function() executeNonQuery(localQuery, remoteConnection))
-
+            If Not haveInternetConnection() Then
+                MessageBox.Show("Internet not detected!")
+                Return
+            End If
+            Dim insertQuery = $"INSERT INTO guest(guest_id, rfid, name, address, email, number, type) VALUES({guestID}, '{RFIDTextBox.Text}', '{NameTextBox.Text}', '{AddressTextBox.Text}', '{EmailTextBox.Text}', '{ContactTextBox.Text}', 'GUEST')"
+            Dim insertSuccess = Await Task.Run(Function() executeNonQuery(insertQuery, remoteConnection))
+            If insertSuccess Then
+                NameTextBox.Clear()
+                AddressTextBox.Clear()
+                ContactTextBox.Clear()
+                EmailTextBox.Clear()
+                DateTextBox.Clear()
+                EventComboBox.Text = ""
+                MessageBox.Show("Guest added succesfully!")
+            End If
         Else
+            SaveButton.Enabled = True
             Return
         End If
-        If completed Then
-            TextBox1.Clear()
-            TextBox2.Clear()
-            TextBox3.Clear()
-            TextBox4.Clear()
-            TextBox5.Clear()
-            ComboBox1.Text = ""
-            MessageBox.Show("Guest added succesfully!")
-        End If
 
-        TextBox7.Clear()
-        Button1.Enabled = True
+        RFIDTextBox.Clear()
+        SaveButton.Enabled = True
+
+        login.refreshAllForms()
     End Sub
 
-    Private Sub ComboBox1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ComboBox1.SelectedIndexChanged
-        guestID = eventTable.Rows(ComboBox1.SelectedIndex)(0)
-        eventDate = eventTable.Rows(ComboBox1.SelectedIndex)(2)
+    Private Sub EventComboBox_SelectedIndexChanged(sender As Object, e As EventArgs) Handles EventComboBox.SelectedIndexChanged
+        guestID = eventCollection(EventComboBox.SelectedIndex).GuestsID.ToString()
+        eventDate = eventCollection(EventComboBox.SelectedIndex).Date
 
-        TextBox5.Text = eventDate
+        DateTextBox.Text = eventDate
     End Sub
 
-    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
-        TextBox1.Clear()
-        TextBox2.Clear()
-        TextBox3.Clear()
-        TextBox4.Clear()
-        TextBox5.Clear()
-        TextBox7.Clear()
+    Private Sub ExitButton_Click(sender As Object, e As EventArgs) Handles ExitButton.Click
+        NameTextBox.Clear()
+        AddressTextBox.Clear()
+        ContactTextBox.Clear()
+        EmailTextBox.Clear()
+        DateTextBox.Clear()
+        RFIDTextBox.Clear()
 
-        ComboBox1.Text = ""
-
-        home.Enabled = True
+        EventComboBox.Text = ""
         Me.Close()
     End Sub
 
@@ -99,6 +103,18 @@ Public Class guestManagementAddGuest
     End Sub
     <DllImport("user32.DLL", EntryPoint:="SendMessage")>
     Private Shared Sub SendMessage(ByVal hWnd As System.IntPtr, ByVal wMsg As Integer, ByVal wParam As Integer, ByVal lParam As Integer)
+    End Sub
+
+    Private Sub RFIDTextBox_KeyDown(sender As Object, e As KeyEventArgs) Handles RFIDTextBox.KeyDown
+        If e.KeyCode = Keys.Enter Then
+            Dim rfid As String = RFIDTextBox.Text
+            Dim sameRFIDCount = login.guestCollection.Where(Function(guest) guest.RFID = rfid)
+
+            If sameRFIDCount.Any Then
+                RFIDTextBox.Text = ""
+                MessageBox.Show("RFID is has already been used!")
+            End If
+        End If
     End Sub
 
     Private Sub Form1_MouseDown(sender As Object, e As MouseEventArgs) Handles MyBase.MouseDown, Label1.MouseDown

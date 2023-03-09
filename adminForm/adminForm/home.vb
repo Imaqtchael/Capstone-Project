@@ -6,69 +6,56 @@ Imports System.Threading
 
 Public Class home
     Private Sub home_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        Button1.Enabled = True
-
-        If login.currentUser(1) = "EVENT MANAGER" Then
-            Button2.Enabled = True
-            Button3.Enabled = True
-            Button4.Enabled = True
-        End If
-
-        'Show the trackingreport form and changing the 
-        'trackingreport buttont to white on form load
-        showThis(Button1, Panel1, trackingReport)
-        changeColor(Button1, Button2, Button3, Button4)
+        Me.CenterToScreen()
+        showThis(ControlView, trackingReport)
+        changeColor(TrackingReportButton, GuestManagementButton, EventManagementButton, UserManagementButton, AnalyticsButton)
     End Sub
 
-
-    'Changing the clicked button to white and other button to whitesmoke
-    Private Sub showForm(sender As Object, e As EventArgs) Handles Button1.Click, Button2.Click, Button3.Click, Button4.Click
-        If sender Is Button1 Then
-            showThis(Button1, Panel1, trackingReport)
-            changeColor(Button1, Button2, Button3, Button4)
-        ElseIf sender Is Button2 Then
-            showThis(Button2, Panel1, guestManagement)
-            changeColor(Button2, Button1, Button3, Button4)
-        ElseIf sender Is Button3 Then
-            showThis(Button3, Panel1, eventManagement)
-            changeColor(Button3, Button1, Button2, Button4)
-        ElseIf sender Is Button4 Then
-            showThis(Button4, Panel1, userManagement)
-            changeColor(Button4, Button1, Button2, Button3)
+    Private Sub showForm(sender As Object, e As EventArgs) Handles TrackingReportButton.Click, GuestManagementButton.Click, EventManagementButton.Click, UserManagementButton.Click, AnalyticsButton.Click
+        If sender Is TrackingReportButton Then
+            showThis(ControlView, trackingReport)
+            changeColor(TrackingReportButton, GuestManagementButton, EventManagementButton, UserManagementButton, AnalyticsButton)
+        ElseIf sender Is GuestManagementButton Then
+            showThis(ControlView, guestManagement)
+            changeColor(GuestManagementButton, TrackingReportButton, EventManagementButton, UserManagementButton, AnalyticsButton)
+        ElseIf sender Is EventManagementButton Then
+            showThis(ControlView, eventManagement)
+            changeColor(EventManagementButton, TrackingReportButton, GuestManagementButton, UserManagementButton, AnalyticsButton)
+        ElseIf sender Is UserManagementButton Then
+            showThis(ControlView, userManagement)
+            changeColor(UserManagementButton, TrackingReportButton, GuestManagementButton, EventManagementButton, AnalyticsButton)
+        ElseIf sender Is AnalyticsButton Then
+            showThis(ControlView, analyticsReport)
+            changeColor(AnalyticsButton, TrackingReportButton, GuestManagementButton, EventManagementButton, UserManagementButton)
         End If
 
         If Not trackingReport Is Nothing Then
-            trackingReport.TextBox1.Clear()
+            trackingReport.GuestSearchTextBox.Clear()
         End If
 
         If Not guestManagement Is Nothing Then
-            guestManagement.TextBox1.Clear()
+            guestManagement.GuestSearchTextBox.Clear()
         End If
 
         If Not eventManagement Is Nothing Then
-            eventManagement.TextBox1.Clear()
+            eventManagement.SearchTextBox.Clear()
         End If
 
     End Sub
 
     'Loggin out the admin user and removing him in the REMEBERED.txt
-    Private Sub Button6_Click(sender As Object, e As EventArgs) Handles Button6.Click
+    Private Sub LogoutButton_Click(sender As Object, e As EventArgs) Handles LogoutButton.Click
         My.Computer.FileSystem.WriteAllText(
-            "..\..\..\REMEMBERED.txt", "", False)
+            $"{defaultDirectory}\REMEMBERED.txt", "", False)
         Me.Hide()
 
-        'If the login form is previously used we will just show it
-        'or create it as an object and show it
-        If login Is Nothing Then
-            login.ShowDialog()
-        Else
-            login.Show()
-        End If
-        showThis(sender, Panel1, trackingReport)
-        changeColor(Button1, Button2, Button3, Button4)
+        login.Show()
+
+        showThis(ControlView, trackingReport)
+        changeColor(TrackingReportButton, GuestManagementButton, EventManagementButton, UserManagementButton, AnalyticsButton)
     End Sub
 
-    Private Sub Button5_Click(sender As Object, e As EventArgs) Handles Button5.Click
+    Private Sub ExitButton_Click(sender As Object, e As EventArgs) Handles ExitButton.Click
         login.Close()
         Me.Close()
     End Sub
